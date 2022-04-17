@@ -20,6 +20,12 @@ section {
   height: fit-content;
   font-size: clamp(2.5em, 2vh, 20px);
 }
+.correct {
+  color: green;
+}
+.wrong {
+  color: red;
+}
 .player_input {
   opacity: 0;
 }

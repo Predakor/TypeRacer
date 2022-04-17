@@ -2,6 +2,7 @@ import commons from "../../../words/common.json";
 import Word from "./Word";
 import classes from "./Play.module.css";
 import * as controller from "./controller.js";
+import { useEffect } from "react";
 
 let generatedWords = [];
 
@@ -12,7 +13,6 @@ function generateWords(amount) {
     let random = Math.floor(Math.random() * words.length);
     generatedWords.push(words[random]);
   }
-  controller.pushWords(generatedWords);
 }
 
 const readKey = (e) => {
@@ -22,6 +22,9 @@ const readKey = (e) => {
 function Play() {
   if (generatedWords.length === 0) generateWords(120);
 
+  useEffect(() => {
+    controller.pushWords(generatedWords);
+  });
   return (
     <section className={classes.section}>
       <input className={classes.player_input} onKeyUp={(e) => readKey(e)} autoFocus />
