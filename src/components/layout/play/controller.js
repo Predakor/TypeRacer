@@ -9,7 +9,6 @@ function currentWord() {
 
 function compare(letter) {
   if (letter === "Backspace") {
-    console.log(" you hit backspace");
     letterIndex--;
   }
   if (true) {
