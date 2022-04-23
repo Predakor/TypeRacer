@@ -11,12 +11,13 @@ function currentWord() {
 }
 
 function compare(letter) {
+  console.log(letter);
   if (letter === "Backspace") {
     if (letterIndex > 0) {
       userWord = userWord.slice(0, -1);
       letterIndex--;
     }
-  } else if (letter === "Enter") {
+  } else if (letter === "Enter" || letter === " ") {
     nextWord();
   } else {
     userWord += letter;
@@ -48,6 +49,9 @@ function pushWords(generatedWords) {
   wordIndex = 0;
   letterIndex = 0;
   divs = document.getElementsByClassName(styles.word);
+}
+function addLetter() {
+  divs[wordIndex].classList.add(styles.correct);
 }
 
 export { compare, pushWords };
