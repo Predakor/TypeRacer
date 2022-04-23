@@ -27,5 +27,10 @@ section {
   color: red;
 }
 .player_input {
+  display: block;
+  z-index: -1;
   opacity: 0;
+  cursor: default;
+  border: none;
+  position: fixed;
 }

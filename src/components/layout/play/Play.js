@@ -30,7 +30,8 @@ function Play() {
       <input className={classes.player_input} onKeyUp={(e) => readKey(e)} autoFocus />
       <div className={classes.board}>
         {generatedWords.map((word, i) => {
-          return <Word key={i} text={word} />;
+          let letters = Array.from(word);
+          return <Word key={i} letters={letters} />;
         })}
       </div>
     </section>
