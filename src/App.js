@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Settings from "./pages/Settings";
 import Main from "./pages/Main";
-import Play from "./components/layout/play/Play";
+import Play from "./pages/Play";
 
 function App() {
   return (

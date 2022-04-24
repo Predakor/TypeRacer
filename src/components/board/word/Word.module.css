@@ -1,0 +1,22 @@
+.word {
+  color: gray;
+  height: fit-content;
+  font-size: clamp(2.5em, 2vh, 20px);
+}
+.active {
+  color: lightgray;
+}
+
+.letter {
+  color: gray;
+  display: inline-block;
+}
+.correct {
+  color: green;
+}
+.wrong {
+  color: red;
+}
+.extra_letter {
+  color: red;
+}
