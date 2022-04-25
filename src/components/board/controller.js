@@ -17,6 +17,7 @@ function compare(letter) {
     removeLetter();
   } else if (letter === "Enter" || letter === " ") {
     nextWord();
+  } else if (letter === "Shift") {
   } else {
     addLetter(letter);
   }
@@ -25,26 +26,28 @@ function compare(letter) {
     if (letterIndex > 0) {
       userWord = userWord.slice(0, -1);
       letterIndex--;
-      currentDivLetter().classList.remove(styles.correct, styles.wrong);
+      if (letterIndex < currentWord().length) {
+        currentDivLetter().classList.remove(styles.correct, styles.wrong);
+      }
     }
   }
   function addLetter(letter) {
     userWord += letter;
     checkLetter(letter);
-    if (letter === currentWord().charAt(letterIndex)) {
-      checkWord();
-    }
     letterIndex++;
   }
 }
 
 function checkLetter(letter) {
-  let result = letter === currentWord().charAt(letterIndex) ? styles.correct : styles.wrong;
-  currentDivLetter().classList.add(result);
+  if (letterIndex < currentWord().length) {
+    let result = letter === currentWord().charAt(letterIndex) ? styles.correct : styles.wrong;
+    currentDivLetter().classList.add(result);
+  }
 }
 const checkWord = () => (userWord === currentWord() ? true : false);
 
 function nextWord() {
+  console.log(`${currentWord()} ${userWord}`);
   if (checkWord()) {
     userWord = "";
     letterIndex = 0;
@@ -57,6 +60,9 @@ function pushWords(generatedWords) {
   wordIndex = 0;
   letterIndex = 0;
   divs = document.getElementsByClassName(styles.word);
+  for (let word of divs) {
+    console.log(getComputedStyle(word).top);
+  }
 }
 function addLetter() {
   divs[wordIndex].classList.add(styles.correct);
