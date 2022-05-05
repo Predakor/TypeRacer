@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import commons from "../../words/common.json";
 import classes from "./Board.module.css";
 import { pushWords } from "./controller";
-import Word from "./word/Word";
+import WordList from "./WordList";
 
 let generatedWords = [];
 
@@ -24,9 +24,7 @@ function Board(props) {
 
   return (
     <div className={classes.board}>
-      {generatedWords.map((word, i) => {
-        return <Word key={i} word={word} />;
-      })}
+      <WordList class={classes.Board} words={generatedWords} />;
     </div>
   );
 }
