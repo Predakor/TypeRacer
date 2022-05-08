@@ -1,28 +1,28 @@
-import { compare } from "./controller";
+import { useRef } from "react";
 import classes from "./Board.module.css";
 
-let activeKeys = [];
-const addKey = (e) => {
-  let letter = e.key;
-  if (!activeKeys.includes(letter)) {
-    activeKeys.push(letter);
+function Input(props) {
+  const inputRef = useRef();
+
+  function changeHandler(e) {
+    props.onInput(e.target.value);
+    if (e.target.value.slice(-1) === " ") {
+      inputRef.current.value = "";
+    }
   }
-  compare(activeKeys);
-};
 
-const removeKey = (e) => {
-  let index = activeKeys.indexOf(e.key);
-  if (index > -1) activeKeys = activeKeys.slice(index, -1);
-};
+  const focusLostHandler = () => {
+    // prompt("you lost focus");
+  };
 
-function Input() {
   return (
     <input
       className={classes.input}
-      onKeyUp={(e) => removeKey(e)}
-      onKeyDown={(e) => addKey(e)}
+      onChange={changeHandler}
+      onBlur={focusLostHandler}
       tabIndex={0}
       autoFocus
+      ref={inputRef}
     />
   );
 }
