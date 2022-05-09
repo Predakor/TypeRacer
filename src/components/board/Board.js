@@ -5,6 +5,11 @@ import WordList from "./WordList";
 import Input from "./Input";
 import Clock from "../Clock";
 
+let keyCount = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let clockDuration = 30;
+
 function generateWords(amount, func) {
   let words = commons["common500"];
   let generatedWords = [];
@@ -16,22 +21,33 @@ function generateWords(amount, func) {
   }
   func(generatedWords);
 }
+function endGame() {
+  let wpm = keyCount / 4.7;
+  if (clockDuration < 60) {
+    wpm *= 60 / clockDuration;
+  } else if (clockDuration > 60) {
+    wpm /= clockDuration / 60;
+  }
+  console.log(wpm);
+}
 
 function Board() {
   const [activeWords, setActiveWords] = useState([]);
   const [index, setIndex] = useState(0);
-  activeWords.length === 0 && generateWords(5, setActiveWords);
+  activeWords.length === 0 && generateWords(40, setActiveWords);
 
   function inputHandler(text) {
-    let lastChar = text.charAt(text.length - 1);
+    let lastChar = text.slice(-1);
+    let word = activeWords[index]["word"];
     if (lastChar === " ") {
-      if (text.trim() === activeWords[index]["word"]) {
+      if (text.trim() === word) {
         setIndex((prevState) => prevState + 1);
-        if (index > activeWords.length) {
-          console.log("You won");
-        }
+        if (index === activeWords.length - 1) endGame();
       }
     } else {
+      keyCount++;
+      lastChar === word.charAt(text.length - 1) ? correctCount++ : wrongCount++;
+
       setActiveWords((prevState) => {
         prevState[index]["userWord"] = text;
         return [...prevState];
@@ -41,7 +57,7 @@ function Board() {
 
   return (
     <>
-      <Clock time={5} onTimerEnd={() => console.log("timerEnded")}></Clock>
+      <Clock time={clockDuration} onTimerEnd={endGame}></Clock>
       <Input onInput={inputHandler}></Input>
       <div className={classes.board}>
         <WordList class={classes.Board} words={activeWords} />

@@ -1,20 +1,22 @@
-import { useState } from "react";
 import classes from "./Word.module.css";
 
 function Word(props) {
   let letters = Array.from(props.word);
   let userLetters = Array.from(props.userWord);
+  let longerArray = userLetters.length > letters.length ? userLetters : letters;
+
   return (
     <div className={classes.word}>
-      {letters.map((letter, i) => {
+      {longerArray.map((letter, i) => {
+        let correct;
         if (userLetters.length === 0) {
-          return <Letter letter={letter} key={i}></Letter>;
+          correct = "";
+        } else if (i > letters.length) {
+          correct = classes.wrong;
+        } else if (i <= userLetters.length) {
+          correct = letters[i] === userLetters[i] ? classes.correct : classes.wrong;
         }
-        if (i <= userLetters.length) {
-          let correct = letter === userLetters[i] ? classes.correct : classes.wrong;
-          return <Letter letter={letter} key={i} style={correct}></Letter>;
-        }
-        return <Letter letter={letter} key={i}></Letter>;
+        return <Letter letter={letter} key={i} style={correct}></Letter>;
       })}
     </div>
   );

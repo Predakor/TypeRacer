@@ -9,14 +9,13 @@ function Clock(props) {
         if (prevState - 1 === 0) {
           clearInterval(intervalId);
           props.onTimerEnd();
+          return 0;
         } else return prevState - 1;
       });
     }, 1000);
 
     return () => clearInterval(intervalId);
   }, []);
-
-  function updateTimer() {}
 
   return (
     <div className="clock">
