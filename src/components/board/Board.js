@@ -4,11 +4,12 @@ import classes from "./Board.module.css";
 import WordList from "./WordList";
 import Input from "./Input";
 import Clock from "../Clock";
+import GameStats from "../GameStats";
 
 let keyCount = 0;
 let correctCount = 0;
 let wrongCount = 0;
-let clockDuration = 30;
+let clockDuration = 5;
 
 function generateWords(amount, func) {
   let words = commons["common500"];
@@ -22,13 +23,7 @@ function generateWords(amount, func) {
   func(generatedWords);
 }
 function endGame() {
-  let wpm = keyCount / 4.7;
-  if (clockDuration < 60) {
-    wpm *= 60 / clockDuration;
-  } else if (clockDuration > 60) {
-    wpm /= clockDuration / 60;
-  }
-  console.log(wpm);
+  return <GameStats keyCount={keyCount} wrongCount={wrongCount} time={clockDuration}></GameStats>;
 }
 
 function Board() {
