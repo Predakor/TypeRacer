@@ -25,3 +25,18 @@ main {
   width: 100vw;
   height: 100vh;
 }
+.modal {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+}
+.modal-content {
+  width: 85%;
+  height: 70%;
+  margin: auto;
+  background-color: white;
+}

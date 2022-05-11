@@ -1,12 +1,31 @@
+import { useState, useEffect } from "react";
 import Word from "./word/Word";
+import classes from "./Board.module.css";
 
 function WordList(props) {
+  let index = props.currentIndex;
+  let userInput = props.userInput;
+
+  const [words, setwords] = useState(props.words);
+
+  useEffect(() => {
+    setwords((prevWords) =>
+      prevWords.map((word, i) => {
+        if (index === i) return { ...word, entered: userInput };
+        return word;
+      })
+    );
+  }, [props.userInput]);
+
+  // keyCount++;
+  // lastChar === word.charAt(userInput.length - 1) ? correctCount++ : wrongCount++;
+
   return (
-    <>
-      {props.words.map((word, i) => (
-        <Word word={word["word"]} userWord={word["userWord"]} key={i}></Word>
-      ))}
-    </>
+    <div className={classes.words}>
+      {words.map((word, i) => {
+        return <Word word={word.generated} userWord={word.entered} key={i}></Word>;
+      })}
+    </div>
   );
 }
 

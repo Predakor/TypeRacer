@@ -1,14 +1,12 @@
-import { useRef } from "react";
+import { forwardRef } from "react";
 import classes from "./Board.module.css";
 
-function Input(props) {
-  const inputRef = useRef();
+const Input = forwardRef((props, ref) => {
+  const changeHandler = (e) => props.onInput(e.target.value);
 
-  function changeHandler(e) {
-    props.onInput(e.target.value);
-    if (e.target.value.slice(-1) === " ") {
-      inputRef.current.value = "";
-    }
+  function clickHandler(e) {
+    if (e.key === " ") return props.onSpaceBar();
+    if (e.key === "Backspace") return props.onBackSpace();
   }
 
   const focusLostHandler = () => {
@@ -19,12 +17,13 @@ function Input(props) {
     <input
       className={classes.input}
       onChange={changeHandler}
+      onKeyDown={clickHandler}
       onBlur={focusLostHandler}
       tabIndex={0}
       autoFocus
-      ref={inputRef}
+      ref={ref}
     />
   );
-}
+});
 
 export default Input;

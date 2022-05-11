@@ -1,15 +1,15 @@
-import { useState } from "react";
-import commons from "../../words/common.json";
-import classes from "./Board.module.css";
+import { useRef, useState } from "react";
 import WordList from "./WordList";
 import Input from "./Input";
 import Clock from "../Clock";
 import GameStats from "../GameStats";
-
-let keyCount = 0;
-let correctCount = 0;
-let wrongCount = 0;
-let clockDuration = 5;
+import commons from "../../words/common.json";
+import classes from "./Board.module.css";
+let statsData = {
+  keyCount: 0,
+  wrongCount: 0,
+  clockDuration: 5,
+};
 
 function generateWords(amount, func) {
   let words = commons["common500"];
@@ -17,47 +17,55 @@ function generateWords(amount, func) {
 
   for (let i = 0; i < amount; i++) {
     let random = Math.floor(Math.random() * words.length);
-    let word = { word: words[random], userWord: "" };
+    let word = { generated: words[random], entered: "" };
     generatedWords.push(word);
   }
   func(generatedWords);
 }
-function endGame() {
-  return <GameStats keyCount={keyCount} wrongCount={wrongCount} time={clockDuration}></GameStats>;
-}
+
+const endGame = () => <GameStats stats={statsData}></GameStats>;
 
 function Board() {
-  const [activeWords, setActiveWords] = useState([]);
+  const inputRef = useRef();
+  const [userInput, setUserInput] = useState("");
   const [index, setIndex] = useState(0);
+  const [activeWords, setActiveWords] = useState([]);
   activeWords.length === 0 && generateWords(40, setActiveWords);
 
-  function inputHandler(text) {
-    let lastChar = text.slice(-1);
-    let word = activeWords[index]["word"];
-    if (lastChar === " ") {
-      if (text.trim() === word) {
-        setIndex((prevState) => prevState + 1);
-        if (index === activeWords.length - 1) endGame();
-      }
-    } else {
-      keyCount++;
-      lastChar === word.charAt(text.length - 1) ? correctCount++ : wrongCount++;
+  const inputHandler = (text) => {
+    setUserInput((prevText) => {
+      if (text.slice(-1) === " ") return text;
+      else return text.trim();
+    });
+  };
 
-      setActiveWords((prevState) => {
-        prevState[index]["userWord"] = text;
-        return [...prevState];
-      });
-    }
+  function spaceBarHandler() {
+    setIndex((prevIndex) => {
+      inputRef.current.value = "";
+      return prevIndex + 1;
+    });
+  }
+  function backSpaceHandler() {
+    setIndex((prevIndex) => {
+      if (userInput === "" && index > 0) {
+        inputRef.current.value = activeWords[prevIndex - 1].generated;
+        return prevIndex - 1;
+      }
+      return prevIndex;
+    });
   }
 
   return (
-    <>
-      <Clock time={clockDuration} onTimerEnd={endGame}></Clock>
-      <Input onInput={inputHandler}></Input>
-      <div className={classes.board}>
-        <WordList class={classes.Board} words={activeWords} />
-      </div>
-    </>
+    <div className={classes.board}>
+      <Clock time={statsData.clockDuration} onTimerEnd={endGame}></Clock>
+      <Input
+        onInput={inputHandler}
+        onSpaceBar={spaceBarHandler}
+        onBackSpace={backSpaceHandler}
+        ref={inputRef}
+      />
+      <WordList words={activeWords} currentIndex={index} userInput={userInput} />
+    </div>
   );
 }
 export default Board;

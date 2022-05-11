@@ -1,3 +1,4 @@
+import { memo } from "react";
 import classes from "./Word.module.css";
 
 function Word(props) {
@@ -9,6 +10,7 @@ function Word(props) {
     <div className={classes.word}>
       {longerArray.map((letter, i) => {
         let correct;
+        if (letter === "") letter = "_";
         if (userLetters.length === 0) {
           correct = "";
         } else if (i > letters.length) {
@@ -23,4 +25,4 @@ function Word(props) {
 }
 const Letter = (props) => <div className={`${classes.letter} ${props.style}`}>{props.letter}</div>;
 
-export default Word;
+export default memo(Word);
