@@ -11,7 +11,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #121212;
+  background-color: #222222;
   color: orange;
   overflow-x: hidden;
 }
@@ -29,14 +29,23 @@ main {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background: black;
-  opacity: 0.7;
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
+  justify-content: center;
   align-items: center;
+  z-index: 0;
 }
-.modal-content {
+.card {
   width: 85%;
   height: 70%;
   margin: auto;
+  padding: 5%;
   background-color: white;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+.card > p {
+  width: 60%;
+  font-size: clamp(32px, 1em, 5vh);
 }

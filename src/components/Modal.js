@@ -5,12 +5,8 @@ function Modal(props) {
   if (!active) return;
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        {props.children}
-        <button onClick={() => setActive(false)}>X</button>
-      </div>
-      ;
+    <div className="modal" onClick={setActive(false)}>
+      {props.children}
     </div>
   );
 }

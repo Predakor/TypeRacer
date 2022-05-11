@@ -26,6 +26,7 @@
   position: fixed;
   display: block;
   background-color: red;
+  z-index: -1;
   animation: start 0.3s;
 }
 .extra_letter {

@@ -5,9 +5,10 @@ import Clock from "../Clock";
 import GameStats from "../GameStats";
 import commons from "../../words/common.json";
 import classes from "./Board.module.css";
+
 let statsData = {
   keyCount: 0,
-  wrongCount: 0,
+  errorCount: 0,
   clockDuration: 5,
 };
 
@@ -23,20 +24,27 @@ function generateWords(amount, func) {
   func(generatedWords);
 }
 
-const endGame = () => <GameStats stats={statsData}></GameStats>;
-
 function Board() {
   const inputRef = useRef();
-  const [userInput, setUserInput] = useState("");
   const [index, setIndex] = useState(0);
+  const [userInput, setUserInput] = useState("");
   const [activeWords, setActiveWords] = useState([]);
+  const [gameEnded, setGameEnded] = useState(false);
+
   activeWords.length === 0 && generateWords(40, setActiveWords);
 
+  const endGame = () => setGameEnded(true);
+
   const inputHandler = (text) => {
-    setUserInput((prevText) => {
-      if (text.slice(-1) === " ") return text;
-      else return text.trim();
-    });
+    let lastChar = text.slice(-1);
+    setUserInput((prevText) => text.trim());
+    statsData.keyCount++;
+    let lastWordChar = activeWords[index].generated.charAt(text.length - 1);
+    console.log(lastWordChar, lastChar);
+    console.log(`|${text}|${activeWords[index].generated}|`);
+    if (lastChar !== lastWordChar) {
+      statsData.errorCount++;
+    }
   };
 
   function spaceBarHandler() {
@@ -44,7 +52,11 @@ function Board() {
       inputRef.current.value = "";
       return prevIndex + 1;
     });
+    if (index >= activeWords.length - 1) {
+      endGame();
+    }
   }
+
   function backSpaceHandler() {
     setIndex((prevIndex) => {
       if (userInput === "" && index > 0) {
@@ -57,7 +69,8 @@ function Board() {
 
   return (
     <div className={classes.board}>
-      <Clock time={statsData.clockDuration} onTimerEnd={endGame}></Clock>
+      {gameEnded && <GameStats close={setGameEnded} stats={statsData}></GameStats>}
+      {/* <Clock time={statsData.clockDuration} onTimerEnd={endGame}></Clock> */}
       <Input
         onInput={inputHandler}
         onSpaceBar={spaceBarHandler}
