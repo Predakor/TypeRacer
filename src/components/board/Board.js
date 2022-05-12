@@ -36,15 +36,13 @@ function Board() {
   const endGame = () => setGameEnded(true);
 
   const inputHandler = (text) => {
+    text = text.trim();
     let lastChar = text.slice(-1);
-    setUserInput((prevText) => text.trim());
-    statsData.keyCount++;
     let lastWordChar = activeWords[index].generated.charAt(text.length - 1);
-    console.log(lastWordChar, lastChar);
-    console.log(`|${text}|${activeWords[index].generated}|`);
-    if (lastChar !== lastWordChar) {
-      statsData.errorCount++;
-    }
+
+    setUserInput((prevText) => text);
+    lastChar !== lastWordChar && statsData.errorCount++;
+    statsData.keyCount++;
   };
 
   function spaceBarHandler() {
@@ -60,7 +58,7 @@ function Board() {
   function backSpaceHandler() {
     setIndex((prevIndex) => {
       if (userInput === "" && index > 0) {
-        inputRef.current.value = activeWords[prevIndex - 1].generated;
+        inputRef.current.value = activeWords[prevIndex - 1].entered;
         return prevIndex - 1;
       }
       return prevIndex;

@@ -13,6 +13,7 @@ function GameStats(props) {
   } else if (time > 60) {
     wpm /= time / 60;
   }
+  wpm = Math.round(wpm);
 
   const closeModal = (e) => {
     if (e.target.classList.contains("modal")) props.close(false);

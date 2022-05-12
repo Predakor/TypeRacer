@@ -4,10 +4,10 @@ import classes from "./Board.module.css";
 const Input = forwardRef((props, ref) => {
   const changeHandler = (e) => props.onInput(e.target.value);
 
-  function clickHandler(e) {
+  const clickHandler = (e) => {
     if (e.key === " ") return props.onSpaceBar();
     if (e.key === "Backspace") return props.onBackSpace();
-  }
+  };
 
   const focusLostHandler = () => {
     // prompt("you lost focus");
