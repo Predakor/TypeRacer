@@ -11,9 +11,12 @@
   color: gray;
   display: inline-block;
   transition: all 0.3s;
+  color: rgb(152, 152, 152);
+  font-size: clamp(24px, 2em, 4vh);
+  text-shadow: 1px 1px black;
 }
 .correct {
-  color: green;
+  color: rgb(243, 243, 243);
 }
 .wrong {
   color: red;
