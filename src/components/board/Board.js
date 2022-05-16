@@ -1,16 +1,17 @@
 import { useRef, useState } from "react";
 import WordList from "./WordList";
 import Input from "./Input";
-import Timer from "../Utils/Timer";
 import Clock from "../Utils/Clock";
 import GameStats from "../GameStats";
 import commons from "../../words/common.json";
 import classes from "./Board.module.css";
+import { getCurrentTime } from "../Utils/time";
 
 let statsData = {
   keyCount: 0,
   errorCount: 0,
   clockDuration: 60,
+  timePassed: 0,
 };
 
 function generateWords(amount, func) {
@@ -32,9 +33,12 @@ function Board() {
   const [activeWords, setActiveWords] = useState([]);
   const [gameEnded, setGameEnded] = useState(false);
 
-  activeWords.length === 0 && generateWords(40, setActiveWords);
+  activeWords.length === 0 && generateWords(30, setActiveWords);
 
-  const endGame = () => setGameEnded(true);
+  const endGame = () => {
+    setGameEnded(true);
+    statsData.timePassed = getCurrentTime();
+  };
 
   const inputHandler = (text) => {
     text = text.trim();
@@ -69,7 +73,7 @@ function Board() {
   return (
     <div className={classes.board}>
       {gameEnded && <GameStats close={setGameEnded} stats={statsData}></GameStats>}
-      <Timer time={statsData.clockDuration} onTimerEnd={endGame}></Timer>
+      <Clock time={statsData.clockDuration} onTimerEnd={endGame}></Clock>
       <Input
         onInput={inputHandler}
         onSpaceBar={spaceBarHandler}

@@ -5,14 +5,12 @@ function GameStats(props) {
   let stats = props.stats;
   let keyCount = stats.keyCount;
   let errors = stats.errorCount;
-  let time = stats.time;
+  let time = 60 - stats.timePassed;
 
   let wpm = keyCount / 4.7;
-  if (time < 60) {
-    wpm *= 60 / time;
-  } else if (time > 60) {
-    wpm /= time / 60;
-  }
+  if (time < 60) wpm *= 60 / time;
+  if (time > 60) wpm /= time / 60;
+
   wpm = Math.round(wpm);
 
   const closeModal = (e) => {
@@ -27,6 +25,7 @@ function GameStats(props) {
             <p className={classes.stat}>accuracy: {keyCount - errors}</p>
             <p className={classes.stat}>keyStrokes: {keyCount}</p>
             <p className={classes.stat}>errors: {errors}</p>
+            <p className={classes.stat}>time passed: {time} </p>
           </div>
         </div>,
         document.getElementById("modal")
