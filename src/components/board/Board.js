@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import WordList from "./WordList";
 import Input from "./Input";
-import Clock from "../Clock";
+import Timer from "../Utils/Timer";
+import Clock from "../Utils/Clock";
 import GameStats from "../GameStats";
 import commons from "../../words/common.json";
 import classes from "./Board.module.css";
@@ -40,7 +41,7 @@ function Board() {
     let lastChar = text.slice(-1);
     let lastWordChar = activeWords[index].generated.charAt(text.length - 1);
 
-    setUserInput((prevText) => text);
+    setUserInput(text);
     lastChar !== lastWordChar && statsData.errorCount++;
     statsData.keyCount++;
   };
@@ -68,7 +69,7 @@ function Board() {
   return (
     <div className={classes.board}>
       {gameEnded && <GameStats close={setGameEnded} stats={statsData}></GameStats>}
-      <Clock time={statsData.clockDuration} onTimerEnd={endGame}></Clock>
+      <Timer time={statsData.clockDuration} onTimerEnd={endGame}></Timer>
       <Input
         onInput={inputHandler}
         onSpaceBar={spaceBarHandler}
