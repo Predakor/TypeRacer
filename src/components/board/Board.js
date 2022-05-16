@@ -9,7 +9,7 @@ import classes from "./Board.module.css";
 let statsData = {
   keyCount: 0,
   errorCount: 0,
-  clockDuration: 5,
+  clockDuration: 60,
 };
 
 function generateWords(amount, func) {
@@ -68,7 +68,7 @@ function Board() {
   return (
     <div className={classes.board}>
       {gameEnded && <GameStats close={setGameEnded} stats={statsData}></GameStats>}
-      {/* <Clock time={statsData.clockDuration} onTimerEnd={endGame}></Clock> */}
+      <Clock time={statsData.clockDuration} onTimerEnd={endGame}></Clock>
       <Input
         onInput={inputHandler}
         onSpaceBar={spaceBarHandler}

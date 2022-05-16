@@ -5,7 +5,7 @@ function Layout(props) {
     <>
       <Navigation />
       <main>{props.children}</main>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }
