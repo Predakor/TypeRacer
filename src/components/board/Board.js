@@ -3,9 +3,9 @@ import Input from "./Input";
 import Clock from "../Utils/Clock";
 import WordList from "./WordList";
 import GameStats from "../GameStats";
-import commons from "../../words/common.json";
-import classes from "./Board.module.css";
+import { generateWords } from "../Utils/wordGenerator";
 import { getCurrentTime } from "../Utils/time";
+import classes from "./Board.module.css";
 
 let statsData = {
   keyCount: 0,
@@ -14,18 +14,6 @@ let statsData = {
   timePassed: 0,
 };
 
-function generateWords(amount, func) {
-  let words = commons["common500"];
-  let generatedWords = [];
-
-  for (let i = 0; i < amount; i++) {
-    let random = Math.floor(Math.random() * words.length);
-    let word = { generated: words[random], entered: "" };
-    generatedWords.push(word);
-  }
-  func(generatedWords);
-}
-
 function Board() {
   const inputRef = useRef();
   const [index, setIndex] = useState(0);
@@ -33,7 +21,8 @@ function Board() {
   const [activeWords, setActiveWords] = useState([]);
   const [gameEnded, setGameEnded] = useState(false);
 
-  activeWords.length === 0 && generateWords(30, setActiveWords);
+  console.log(generateWords);
+  activeWords.length === 0 && setActiveWords(generateWords(50));
 
   const endGame = () => {
     setGameEnded(true);
