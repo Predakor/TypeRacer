@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import WordList from "./WordList";
 import Input from "./Input";
 import Clock from "../Utils/Clock";
+import WordList from "./WordList";
 import GameStats from "../GameStats";
 import commons from "../../words/common.json";
 import classes from "./Board.module.css";
@@ -40,7 +40,7 @@ function Board() {
     statsData.timePassed = getCurrentTime();
   };
 
-  const inputHandler = (text) => {
+  function inputHandler(text) {
     text = text.trim();
     let lastChar = text.slice(-1);
     let lastWordChar = activeWords[index].generated.charAt(text.length - 1);
@@ -48,7 +48,7 @@ function Board() {
     setUserInput(text);
     lastChar !== lastWordChar && statsData.errorCount++;
     statsData.keyCount++;
-  };
+  }
 
   function spaceBarHandler() {
     setIndex((prevIndex) => {

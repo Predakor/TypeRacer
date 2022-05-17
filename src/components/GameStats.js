@@ -1,17 +1,21 @@
+import Card from "./Utils/Card";
 import { createPortal } from "react-dom";
+import { IoArrowForward, IoSyncOutline, IoPersonOutline } from "react-icons/io5";
 import classes from "./GameStats.module.css";
 
 function GameStats(props) {
   let stats = props.stats;
+
   let keyCount = stats.keyCount;
   let errors = stats.errorCount;
   let time = 60 - stats.timePassed;
 
-  let wpm = keyCount / 4.7;
+  let wpm = (keyCount - errors) / 4.7;
   if (time < 60) wpm *= 60 / time;
   if (time > 60) wpm /= time / 60;
-
   wpm = Math.round(wpm);
+
+  let accuracy = Math.round(((keyCount - errors) / keyCount) * 100);
 
   const closeModal = (e) => {
     if (e.target.classList.contains("modal")) props.close(false);
@@ -20,17 +24,30 @@ function GameStats(props) {
     <>
       {createPortal(
         <div className="modal" onClick={closeModal}>
-          <div className="card" onClick={() => console.log(1)}>
-            <p className={classes.stat}>wpm: {wpm}</p>
-            <p className={classes.stat}>accuracy: {keyCount - errors}</p>
-            <p className={classes.stat}>keyStrokes: {keyCount}</p>
-            <p className={classes.stat}>errors: {errors}</p>
-            <p className={classes.stat}>time passed: {time} </p>
-          </div>
+          <Card>
+            <StatList>
+              <Stat>wpm: {wpm}</Stat>
+              <Stat>time: {time}s </Stat>
+              <Stat>errors: {errors}</Stat>
+              <Stat>accuracy: {accuracy}%</Stat>
+              <Stat>keyStrokes: {keyCount}</Stat>
+            </StatList>
+
+            <Buttons>
+              <IoArrowForward className={classes.btn} onClick={() => console.log("replay")} />
+              <IoSyncOutline className={classes.btn} onClick={() => console.log("next test")} />
+              <IoPersonOutline className={classes.btn} onClick={() => console.log("something")} />
+            </Buttons>
+          </Card>
         </div>,
         document.getElementById("modal")
       )}
     </>
   );
 }
+
+const Stat = (props) => <p className={classes.stat}>{props.children}</p>;
+const StatList = (props) => <div className={classes.statContainer}>{props.children}</div>;
+const Buttons = (props) => <div className={classes.buttonContainer}>{props.children}</div>;
+
 export default GameStats;

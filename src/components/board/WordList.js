@@ -17,9 +17,6 @@ function WordList(props) {
     );
   }, [props.userInput]);
 
-  // keyCount++;
-  // lastChar === word.charAt(userInput.length - 1) ? correctCount++ : wrongCount++;
-
   return (
     <div className={classes.words}>
       {words.map((word, i) => {

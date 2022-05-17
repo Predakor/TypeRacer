@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
 :root {
-  /*variables*/
+  --main-color: #2e0249;
+  --secondary-color: #570a57;
+  --tertiary-color: #fa7d09;
+  --background-color: #222222;
 }
 
 * {
@@ -9,10 +12,15 @@
   box-sizing: border-box;
 }
 
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #222222;
-  color: orange;
+  background-color: var(--background-color);
+  color: var(--tertiary-color);
   overflow-x: hidden;
 }
 
@@ -21,10 +29,7 @@ main {
   height: 80vh;
   padding: 5% 2%;
 }
-#root {
-  width: 100vw;
-  height: 100vh;
-}
+
 .modal {
   position: absolute;
   width: 100vw;
@@ -33,21 +38,15 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 0;
+  flex-direction: column;
+  z-index: 1;
+  transition: all 0.3s;
 }
+
 .card {
-  width: 85%;
-  height: 70%;
-  margin: auto;
-  padding: 5%;
-  background-color: #303030;
+  max-width: 90vw;
+  padding: 1%;
+  background-color: var(--background-color);
   box-shadow: 1px 1px 5px 1px black;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-}
-.card > p {
-  color: rgb(207, 206, 206);
-  width: 60%;
-  font-size: clamp(32px, 1em, 5vh);
+  border-radius: 0.5em;
 }
