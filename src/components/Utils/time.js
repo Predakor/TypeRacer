@@ -1,23 +1,26 @@
 let intervalID;
+let lastSettings;
 let currentTime = 0;
 
-const getCurrentTime = () => currentTime;
+function startTimer(time, updateCallback, onEnd) {
+  lastSettings = [time, updateCallback, onEnd];
+  if (intervalID) stopTimer();
+  if (time > 0) {
+    currentTime = time;
+    intervalID = setInterval(() => {
+      if (currentTime > 0) return updateTimer(currentTime - 1, updateCallback);
 
-function startClock(updateCallback) {
-  intervalID = setInterval(() => {
-    currentTime += 1;
-    updateTimer(currentTime, updateCallback);
-  }, 1000);
-}
-
-function startCountdown(time, updateCallback, onEnd) {
-  currentTime = time;
-  intervalID = setInterval(() => {
-    if (currentTime > 0) return updateTimer(currentTime - 1, updateCallback);
-
-    updateTimer(currentTime, updateCallback);
-    stopTimer(onEnd);
-  }, 1000);
+      updateTimer(currentTime, updateCallback);
+      stopTimer();
+      onEnd();
+    }, 1000);
+  } else {
+    currentTime = time;
+    intervalID = setInterval(() => {
+      currentTime += 1;
+      updateTimer(currentTime, updateCallback);
+    }, 1000);
+  }
 }
 
 function updateTimer(newTime, updateCallback) {
@@ -25,10 +28,16 @@ function updateTimer(newTime, updateCallback) {
   updateCallback(currentTime);
 }
 
-function stopTimer(onEnd) {
+const stopTimer = () => {
   clearInterval(intervalID);
-  onEnd(currentTime);
-  return currentTime;
-}
+  intervalID = null;
+};
 
-export { startClock, startCountdown, stopTimer, getCurrentTime };
+const getCurrentTime = () => currentTime;
+const resumeTimer = () => startTimer(...lastSettings);
+const restartTimer = (newTime) => {
+  lastSettings[0] = newTime;
+  startTimer(...lastSettings);
+};
+
+export { startTimer, stopTimer, getCurrentTime, restartTimer, resumeTimer };

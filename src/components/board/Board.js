@@ -4,14 +4,23 @@ import Clock from "../Utils/Clock";
 import WordList from "./WordList";
 import GameStats from "../GameStats";
 import { generateWords } from "../Utils/wordGenerator";
-import { getCurrentTime } from "../Utils/time";
+import { getCurrentTime, restartTimer, stopTimer } from "../Utils/time";
 import classes from "./Board.module.css";
 
 let statsData = {
   keyCount: 0,
   errorCount: 0,
-  clockDuration: 60,
   timePassed: 0,
+  clear() {
+    statsData.keyCount = 0;
+    statsData.errorCount = 0;
+    statsData.timePassed = 0;
+  },
+};
+let gameSettings = {
+  mode: "words",
+  time: 60,
+  wordCount: 50,
 };
 
 function Board() {
@@ -21,12 +30,38 @@ function Board() {
   const [activeWords, setActiveWords] = useState([]);
   const [gameEnded, setGameEnded] = useState(false);
 
-  console.log(generateWords);
-  activeWords.length === 0 && setActiveWords(generateWords(50));
+  activeWords.length === 0 && setActiveWords(generateWords(gameSettings.wordCount));
 
-  const endGame = () => {
-    setGameEnded(true);
-    statsData.timePassed = getCurrentTime();
+  const gameControls = {
+    repeatGame() {
+      setActiveWords((prevWords) =>
+        prevWords.map((word) => {
+          return { ...word, entered: "" };
+        })
+      );
+      gameControls.clearBoard();
+    },
+    restartGame() {
+      setActiveWords([]);
+      gameControls.clearBoard();
+    },
+    stopGame() {
+      console.log("stop game now");
+    },
+    endGame() {
+      setGameEnded(true);
+      stopTimer();
+      statsData.timePassed = getCurrentTime();
+    },
+    clearBoard() {
+      setIndex(0);
+      setUserInput("");
+      statsData.clear();
+      setGameEnded(false);
+      inputRef.current.focus();
+      inputRef.current.value = "";
+      restartTimer(gameSettings.time);
+    },
   };
 
   function inputHandler(text) {
@@ -45,7 +80,7 @@ function Board() {
       return prevIndex + 1;
     });
     if (index >= activeWords.length - 1) {
-      endGame();
+      gameControls.endGame();
     }
   }
 
@@ -61,8 +96,16 @@ function Board() {
 
   return (
     <div className={classes.board}>
-      {gameEnded && <GameStats close={setGameEnded} stats={statsData}></GameStats>}
-      <Clock time={statsData.clockDuration} onTimerEnd={endGame}></Clock>
+      {gameEnded && (
+        <GameStats
+          close={setGameEnded}
+          stats={statsData}
+          gameSettings={gameSettings}
+          controls={gameControls}
+        />
+      )}
+      <Clock time={gameSettings.time} onTimerEnd={gameControls.endGame}></Clock>
+      <button onClick={gameControls.endGame}> debug button</button>
       <Input
         onInput={inputHandler}
         onSpaceBar={spaceBarHandler}

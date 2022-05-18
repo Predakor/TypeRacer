@@ -5,10 +5,12 @@ import classes from "./GameStats.module.css";
 
 function GameStats(props) {
   let stats = props.stats;
+  let settings = props.gameSettings;
 
   let keyCount = stats.keyCount;
   let errors = stats.errorCount;
-  let time = 60 - stats.timePassed;
+  let time = settings.time > 0 ? settings.time - stats.timePassed : stats.timePassed;
+  console.log(time);
 
   let wpm = (keyCount - errors) / 4.7;
   if (time < 60) wpm *= 60 / time;
@@ -34,8 +36,8 @@ function GameStats(props) {
             </StatList>
 
             <Buttons>
-              <IoArrowForward className={classes.btn} onClick={() => console.log("replay")} />
-              <IoSyncOutline className={classes.btn} onClick={() => console.log("next test")} />
+              <IoArrowForward className={classes.btn} onClick={props.controls.restartGame} />
+              <IoSyncOutline className={classes.btn} onClick={props.controls.repeatGame} />
               <IoPersonOutline className={classes.btn} onClick={() => console.log("something")} />
             </Buttons>
           </Card>

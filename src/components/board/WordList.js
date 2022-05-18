@@ -8,6 +8,8 @@ function WordList(props) {
 
   const [words, setwords] = useState(props.words);
 
+  useEffect(() => setwords(props.words), [props.words]);
+
   useEffect(() => {
     setwords((prevWords) =>
       prevWords.map((word, i) => {

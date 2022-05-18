@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import { startClock, startCountdown } from "./time";
+import { startTimer } from "./time";
 function Clock(props) {
   const [time, setTime] = useState(props.time);
-  useEffect(() => {
-    if (props.time > 0) {
-      startCountdown(props.time, setTime, props.onTimerEnd);
-    } else startClock(setTime);
-  }, []);
+
+  useEffect(() => startTimer(props.time, setTime, props.onTimerEnd), []);
 
   return (
     <div className="clock">
