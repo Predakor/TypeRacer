@@ -4,7 +4,7 @@ import Clock from "../Utils/Clock";
 import WordList from "./WordList";
 import GameStats from "../GameStats";
 import { generateWords } from "../Utils/wordGenerator";
-import { getCurrentTime, restartTimer, stopTimer } from "../Utils/time";
+import { getCurrentTime, restartTimer, resumeTimer, stopTimer } from "../Utils/time";
 import classes from "./Board.module.css";
 
 let statsData = {
@@ -29,6 +29,7 @@ function Board() {
   const [userInput, setUserInput] = useState("");
   const [activeWords, setActiveWords] = useState([]);
   const [gameEnded, setGameEnded] = useState(false);
+  const [isPaused, setIsPaused] = useState(true);
 
   activeWords.length === 0 && setActiveWords(generateWords(gameSettings.wordCount));
 
@@ -45,8 +46,11 @@ function Board() {
       setActiveWords([]);
       gameControls.clearBoard();
     },
-    stopGame() {
-      console.log("stop game now");
+    pauseGame() {
+      stopTimer();
+    },
+    resumeGame() {
+      resumeTimer();
     },
     endGame() {
       setGameEnded(true);
@@ -110,6 +114,7 @@ function Board() {
         onInput={inputHandler}
         onSpaceBar={spaceBarHandler}
         onBackSpace={backSpaceHandler}
+        onLostFocus={gameControls.pauseGame}
         ref={inputRef}
       />
       <WordList words={activeWords} currentIndex={index} userInput={userInput} />
