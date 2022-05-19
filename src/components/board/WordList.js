@@ -21,6 +21,7 @@ function WordList(props) {
 
   return (
     <div className={classes.words}>
+      {props.children}
       {words.map((word, i) => {
         return <Word word={word.generated} userWord={word.entered} key={i}></Word>;
       })}

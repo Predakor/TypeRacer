@@ -50,3 +50,12 @@ main {
   box-shadow: 1px 1px 5px 1px black;
   border-radius: 0.5em;
 }
+.pauseScreen {
+  width: inherit;
+  height: inherit;
+  padding: 15%;
+  background-color: black;
+  opacity: 0.9;
+  text-align: center;
+  position: fixed;
+}

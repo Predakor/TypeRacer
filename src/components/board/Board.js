@@ -6,6 +6,7 @@ import GameStats from "../GameStats";
 import { generateWords } from "../Utils/wordGenerator";
 import { getCurrentTime, restartTimer, resumeTimer, stopTimer } from "../Utils/time";
 import classes from "./Board.module.css";
+import PauseScreen from "../PauseScreen";
 
 let statsData = {
   keyCount: 0,
@@ -29,7 +30,7 @@ function Board() {
   const [userInput, setUserInput] = useState("");
   const [activeWords, setActiveWords] = useState([]);
   const [gameEnded, setGameEnded] = useState(false);
-  const [isPaused, setIsPaused] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
 
   activeWords.length === 0 && setActiveWords(generateWords(gameSettings.wordCount));
 
@@ -48,9 +49,12 @@ function Board() {
     },
     pauseGame() {
       stopTimer();
+      setIsPaused(true);
     },
     resumeGame() {
       resumeTimer();
+      setIsPaused(false);
+      inputRef.current.focus();
     },
     endGame() {
       setGameEnded(true);
@@ -117,7 +121,9 @@ function Board() {
         onLostFocus={gameControls.pauseGame}
         ref={inputRef}
       />
-      <WordList words={activeWords} currentIndex={index} userInput={userInput} />
+      <WordList words={activeWords} currentIndex={index} userInput={userInput}>
+        {isPaused && <PauseScreen onResume={gameControls.resumeGame} />}
+      </WordList>
     </div>
   );
 }
