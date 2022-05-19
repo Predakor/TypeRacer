@@ -10,7 +10,7 @@ const Input = forwardRef((props, ref) => {
   };
 
   const focusLostHandler = () => {
-    // prompt("you lost focus");
+    props.onLostFocus();
   };
 
   return (
