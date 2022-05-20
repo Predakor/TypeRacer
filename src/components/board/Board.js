@@ -124,6 +124,13 @@ function Board() {
       <WordList words={activeWords} currentIndex={index} userInput={userInput}>
         {isPaused && <PauseScreen onResume={gameControls.resumeGame} />}
       </WordList>
+
+      <div className="nav_buttons">
+        <button>Replay current worsd </button>
+        <button>Next game</button>
+        <button>option 2</button>
+        <button>option 3</button>
+      </div>
     </div>
   );
 }

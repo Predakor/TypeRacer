@@ -1,6 +1,7 @@
+import classes from "./board/Board.module.css";
 function PauseScreen(props) {
   return (
-    <div className="pauseScreen" onClick={props.onResume}>
+    <div className={classes.pause_screen} onClick={props.onResume}>
       Click me to resume
     </div>
   );
