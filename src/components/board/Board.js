@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import Input from "./Input";
-import Clock from "../Utils/Clock";
+import Clock from "../Clock";
 import WordList from "./WordList";
 import GameStats from "../GameStats";
 import { generateWords } from "../Utils/wordGenerator";

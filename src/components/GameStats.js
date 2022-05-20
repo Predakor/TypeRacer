@@ -1,5 +1,5 @@
 import Card from "./Utils/Card";
-import { createPortal } from "react-dom";
+import Modal from "./Utils/Modal";
 import { IoArrowForward, IoSyncOutline, IoPersonOutline } from "react-icons/io5";
 import classes from "./GameStats.module.css";
 
@@ -10,7 +10,6 @@ function GameStats(props) {
   let keyCount = stats.keyCount;
   let errors = stats.errorCount;
   let time = settings.time > 0 ? settings.time - stats.timePassed : stats.timePassed;
-  console.log(time);
 
   let wpm = (keyCount - errors) / 4.7;
   if (time < 60) wpm *= 60 / time;
@@ -20,31 +19,27 @@ function GameStats(props) {
   let accuracy = Math.round(((keyCount - errors) / keyCount) * 100);
 
   const closeModal = (e) => {
+    console.log(e);
     if (e.target.classList.contains("modal")) props.close(false);
   };
   return (
-    <>
-      {createPortal(
-        <div className="modal" onClick={closeModal}>
-          <Card>
-            <StatList>
-              <Stat>wpm: {wpm}</Stat>
-              <Stat>time: {time}s </Stat>
-              <Stat>errors: {errors}</Stat>
-              <Stat>accuracy: {accuracy}%</Stat>
-              <Stat>keyStrokes: {keyCount}</Stat>
-            </StatList>
+    <Modal onClose={closeModal}>
+      <Card>
+        <StatList>
+          <Stat>wpm: {wpm}</Stat>
+          <Stat>time: {time}s </Stat>
+          <Stat>errors: {errors}</Stat>
+          <Stat>accuracy: {accuracy}%</Stat>
+          <Stat>keyStrokes: {keyCount}</Stat>
+        </StatList>
 
-            <Buttons>
-              <IoArrowForward className={classes.btn} onClick={props.controls.restartGame} />
-              <IoSyncOutline className={classes.btn} onClick={props.controls.repeatGame} />
-              <IoPersonOutline className={classes.btn} onClick={() => console.log("something")} />
-            </Buttons>
-          </Card>
-        </div>,
-        document.getElementById("modal")
-      )}
-    </>
+        <Buttons>
+          <IoArrowForward className={classes.btn} onClick={props.controls.restartGame} />
+          <IoSyncOutline className={classes.btn} onClick={props.controls.repeatGame} />
+          <IoPersonOutline className={classes.btn} onClick={() => console.log("something")} />
+        </Buttons>
+      </Card>
+    </Modal>
   );
 }
 

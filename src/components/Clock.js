@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { startTimer } from "./time";
+import { startTimer } from "./Utils/time";
 function Clock(props) {
   const [time, setTime] = useState(props.time);
 

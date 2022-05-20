@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { createPortal } from "react-dom";
 
 function Modal(props) {
-  const [active, setActive] = useState(false);
-  if (!active) return;
-
   return (
-    <div className="modal" onClick={setActive(false)}>
-      {props.children}
-    </div>
+    <>
+      {createPortal(
+        <div className="modal" onClick={props.onClose}>
+          {props.children}
+        </div>,
+        document.getElementById("modal")
+      )}
+    </>
   );
 }
 
