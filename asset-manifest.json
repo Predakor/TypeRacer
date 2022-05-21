@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/TypeRacer/static/css/main.d1bca96b.css",
-    "main.js": "/TypeRacer/static/js/main.2521a30f.js",
+    "main.css": "/TypeRacer/static/css/main.06e2a09c.css",
+    "main.js": "/TypeRacer/static/js/main.bc74a957.js",
     "index.html": "/TypeRacer/index.html",
-    "main.d1bca96b.css.map": "/TypeRacer/static/css/main.d1bca96b.css.map",
-    "main.2521a30f.js.map": "/TypeRacer/static/js/main.2521a30f.js.map"
+    "main.06e2a09c.css.map": "/TypeRacer/static/css/main.06e2a09c.css.map",
+    "main.bc74a957.js.map": "/TypeRacer/static/js/main.bc74a957.js.map"
   },
   "entrypoints": [
-    "static/css/main.d1bca96b.css",
-    "static/js/main.2521a30f.js"
+    "static/css/main.06e2a09c.css",
+    "static/js/main.bc74a957.js"
   ]
 }
