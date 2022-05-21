@@ -1,6 +1,6 @@
 import Card from "./Utils/Card";
 import Modal from "./Utils/Modal";
-import { IoArrowForward, IoSyncOutline, IoPersonOutline } from "react-icons/io5";
+import ControlButtons from "./controlButtons/ControlButtons";
 import classes from "./GameStats.module.css";
 
 function GameStats(props) {
@@ -18,10 +18,8 @@ function GameStats(props) {
 
   let accuracy = Math.round(((keyCount - errors) / keyCount) * 100);
 
-  const closeModal = (e) => {
-    console.log(e);
-    if (e.target.classList.contains("modal")) props.close(false);
-  };
+  const closeModal = (e) => e.target.classList.contains("modal") && props.close(false);
+
   return (
     <Modal onClose={closeModal}>
       <Card>
@@ -32,12 +30,7 @@ function GameStats(props) {
           <Stat>accuracy: {accuracy}%</Stat>
           <Stat>keyStrokes: {keyCount}</Stat>
         </StatList>
-
-        <Buttons>
-          <IoArrowForward className={classes.btn} onClick={props.controls.restartGame} />
-          <IoSyncOutline className={classes.btn} onClick={props.controls.repeatGame} />
-          <IoPersonOutline className={classes.btn} onClick={() => console.log("something")} />
-        </Buttons>
+        <ControlButtons controls={props.controls} />
       </Card>
     </Modal>
   );

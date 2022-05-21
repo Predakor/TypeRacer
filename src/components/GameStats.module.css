@@ -12,21 +12,3 @@
   font-size: clamp(12px, 2em, 3vh);
   text-shadow: 1px 1px black;
 }
-
-.buttonContainer {
-  display: flex;
-  justify-content: space-evenly;
-  padding: 1%;
-  width: 100%;
-}
-.btn {
-  width: 2.5em;
-  height: 2.5em;
-  transition: 0.3s ease-in;
-  text-shadow: 1px 1px white;
-}
-.btn:hover {
-  opacity: 0.5;
-  color: var(--secondary-color);
-  transition: 0.3s ease-in;
-}

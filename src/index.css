@@ -34,7 +34,8 @@ main {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background: rgb(34, 34, 34);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(0.1rem);
   display: flex;
   justify-content: center;
   align-items: center;

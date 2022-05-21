@@ -3,10 +3,11 @@ import Input from "./Input";
 import Clock from "../Clock";
 import WordList from "./WordList";
 import GameStats from "../GameStats";
+import PauseScreen from "../PauseScreen";
+import ControlButtons from "../controlButtons/ControlButtons";
 import { generateWords } from "../Utils/wordGenerator";
 import { getCurrentTime, restartTimer, resumeTimer, stopTimer } from "../Utils/time";
 import classes from "./Board.module.css";
-import PauseScreen from "../PauseScreen";
 
 let statsData = {
   keyCount: 0,
@@ -95,7 +96,9 @@ function Board() {
   function backSpaceHandler() {
     setIndex((prevIndex) => {
       if (userInput === "" && index > 0) {
-        inputRef.current.value = activeWords[prevIndex - 1].entered;
+        let prevWord = activeWords[prevIndex - 1].entered;
+        inputRef.current.value = prevWord;
+        setUserInput(prevWord);
         return prevIndex - 1;
       }
       return prevIndex;
@@ -125,12 +128,7 @@ function Board() {
         {isPaused && <PauseScreen onResume={gameControls.resumeGame} />}
       </WordList>
 
-      <div className="nav_buttons">
-        <button>Replay current worsd </button>
-        <button>Next game</button>
-        <button>option 2</button>
-        <button>option 3</button>
-      </div>
+      <ControlButtons controls={gameControls}></ControlButtons>
     </div>
   );
 }

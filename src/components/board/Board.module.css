@@ -28,8 +28,7 @@
   position: absolute;
   padding: 20%;
   background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(0.7px);
-  -webkit-backdrop-filter: blur(0.5px);
+  backdrop-filter: blur(0.1rem);
   text-align: center;
 }
 .input {
