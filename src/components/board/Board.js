@@ -6,7 +6,7 @@ import GameStats from "../GameStats";
 import PauseScreen from "../PauseScreen";
 import ControlButtons from "../controlButtons/ControlButtons";
 import { generateWords } from "../Utils/wordGenerator";
-import { getCurrentTime, restartTimer, resumeTimer, stopTimer } from "../Utils/time";
+import { stopTimer, resumeTimer, getCurrentTime, restartTimer } from "../Clock";
 import classes from "./Board.module.css";
 
 let statsData = {
@@ -20,7 +20,7 @@ let statsData = {
   },
 };
 let gameSettings = {
-  mode: "words",
+  mode: "time",
   time: 60,
   wordCount: 50,
 };
@@ -43,10 +43,12 @@ function Board() {
         })
       );
       gameControls.clearBoard();
+      restartTimer();
     },
     restartGame() {
       setActiveWords([]);
       gameControls.clearBoard();
+      restartTimer();
     },
     pauseGame() {
       stopTimer();
@@ -58,18 +60,19 @@ function Board() {
       inputRef.current.focus();
     },
     endGame() {
-      setGameEnded(true);
       stopTimer();
+      setGameEnded(true);
       statsData.timePassed = getCurrentTime();
     },
     clearBoard() {
       setIndex(0);
       setUserInput("");
-      statsData.clear();
       setGameEnded(false);
+
+      restartTimer();
+      statsData.clear();
       inputRef.current.focus();
       inputRef.current.value = "";
-      restartTimer(gameSettings.time);
     },
   };
 
@@ -115,7 +118,7 @@ function Board() {
           controls={gameControls}
         />
       )}
-      <Clock time={gameSettings.time} onTimerEnd={gameControls.endGame}></Clock>
+      <Clock settings={gameSettings} onTimerEnd={gameControls.endGame}></Clock>
       <button onClick={gameControls.endGame}> debug button</button>
       <Input
         onInput={inputHandler}
