@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useReducer, useRef, useState } from "react";
 import Input from "./Input";
 import Clock from "../Clock";
 import WordList from "./WordList";
@@ -25,13 +25,30 @@ let gameSettings = {
   wordCount: 50,
 };
 
+function gameReducer(prevState, action) {
+  switch (action) {
+    case "active":
+      return { isPaused: false, isRunning: true, ended: false };
+    case "paused":
+      return { isPaused: true, isRunning: true, ended: false };
+    case "ended":
+      return { isPaused: false, isRunning: false, ended: true };
+    default:
+      return { isPaused: false, isRunning: false, ended: false };
+  }
+}
+
 function Board() {
   const inputRef = useRef();
   const [index, setIndex] = useState(0);
   const [userInput, setUserInput] = useState("");
   const [activeWords, setActiveWords] = useState([]);
-  const [gameEnded, setGameEnded] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
+
+  const [game, dispatchGame] = useReducer(gameReducer, {
+    isPaused: false,
+    isRunning: false,
+    ended: false,
+  });
 
   activeWords.length === 0 && setActiveWords(generateWords(gameSettings.wordCount));
 
@@ -43,32 +60,33 @@ function Board() {
         })
       );
       gameControls.clearBoard();
-      restartTimer();
     },
     restartGame() {
-      setActiveWords([]);
+      setActiveWords(generateWords(gameSettings.wordCount));
       gameControls.clearBoard();
-      restartTimer();
-    },
-    pauseGame() {
-      stopTimer();
-      setIsPaused(true);
     },
     resumeGame() {
       resumeTimer();
-      setIsPaused(false);
+      dispatchGame("active");
       inputRef.current.focus();
+    },
+    pauseGame() {
+      stopTimer();
+      dispatchGame("paused");
+    },
+    startGame() {
+      restartTimer();
+      dispatchGame("active");
     },
     endGame() {
       stopTimer();
-      setGameEnded(true);
+      dispatchGame("ended");
       statsData.timePassed = getCurrentTime();
     },
     clearBoard() {
       setIndex(0);
       setUserInput("");
-      setGameEnded(false);
-
+      dispatchGame();
       restartTimer();
       statsData.clear();
       inputRef.current.focus();
@@ -76,62 +94,51 @@ function Board() {
     },
   };
 
-  function inputHandler(text) {
-    text = text.trim();
-    let lastChar = text.slice(-1);
-    let lastWordChar = activeWords[index].generated.charAt(text.length - 1);
+  const inputHandler = {
+    textHandler(text) {
+      text = text.trim();
+      let lastChar = text.slice(-1);
+      let lastWordChar = activeWords[index].generated.charAt(text.length - 1);
 
-    setUserInput(text);
-    lastChar !== lastWordChar && statsData.errorCount++;
-    statsData.keyCount++;
-  }
+      setUserInput(text);
+      lastChar !== lastWordChar && statsData.errorCount++;
+      statsData.keyCount++;
+    },
+    spaceBarHandler() {
+      if (index >= activeWords.length - 1) return gameControls.endGame();
 
-  function spaceBarHandler() {
-    setIndex((prevIndex) => {
-      inputRef.current.value = "";
-      return prevIndex + 1;
-    });
-    if (index >= activeWords.length - 1) {
-      gameControls.endGame();
-    }
-  }
-
-  function backSpaceHandler() {
-    setIndex((prevIndex) => {
-      if (userInput === "" && index > 0) {
-        let prevWord = activeWords[prevIndex - 1].entered;
-        inputRef.current.value = prevWord;
-        setUserInput(prevWord);
-        return prevIndex - 1;
-      }
-      return prevIndex;
-    });
-  }
+      setIndex((prevIndex) => {
+        inputRef.current.value = "";
+        return prevIndex + 1;
+      });
+    },
+    backSpaceHandler() {
+      setIndex((prevIndex) => {
+        if (userInput === "" && index > 0) {
+          let prevWord = activeWords[prevIndex - 1].entered;
+          inputRef.current.value = prevWord;
+          setUserInput(prevWord);
+          return prevIndex - 1;
+        }
+        return prevIndex;
+      });
+    },
+  };
 
   return (
     <div className={classes.board}>
-      {gameEnded && (
-        <GameStats
-          close={setGameEnded}
-          stats={statsData}
-          gameSettings={gameSettings}
-          controls={gameControls}
-        />
+      {game.ended && (
+        <GameStats gameStats={statsData} gameSettings={gameSettings} controls={gameControls} />
       )}
-      <Clock settings={gameSettings} onTimerEnd={gameControls.endGame}></Clock>
-      <button onClick={gameControls.endGame}> debug button</button>
-      <Input
-        onInput={inputHandler}
-        onSpaceBar={spaceBarHandler}
-        onBackSpace={backSpaceHandler}
-        onLostFocus={gameControls.pauseGame}
-        ref={inputRef}
-      />
-      <WordList words={activeWords} currentIndex={index} userInput={userInput}>
-        {isPaused && <PauseScreen onResume={gameControls.resumeGame} />}
-      </WordList>
+      <Clock settings={gameSettings} onTimerEnd={gameControls.endGame} />
+      <button onClick={gameControls.endGame}>debug button</button>
 
-      <ControlButtons controls={gameControls}></ControlButtons>
+      <Input handlers={inputHandler} controls={gameControls} gameState={game} ref={inputRef} />
+
+      <WordList words={activeWords} currentIndex={index} userInput={userInput}>
+        {game.isPaused && <PauseScreen onResume={gameControls.resumeGame} />}
+      </WordList>
+      {game.isRunning || <ControlButtons controls={gameControls} />}
     </div>
   );
 }
