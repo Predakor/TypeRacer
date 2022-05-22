@@ -4,31 +4,30 @@ import ControlButtons from "./controlButtons/ControlButtons";
 import classes from "./GameStats.module.css";
 
 function GameStats(props) {
-  let stats = props.stats;
-  let settings = props.gameSettings;
+  let { keyCount, errorCount, timePassed } = props.gameStats;
+  let { time: startTime, mode } = props.gameSettings;
 
-  let keyCount = stats.keyCount;
-  let errors = stats.errorCount;
-  let time = settings.time > 0 ? settings.time - stats.timePassed : stats.timePassed;
+  let duration = mode === "time" ? startTime - timePassed : timePassed;
 
-  let wpm = (keyCount - errors) / 4.7;
-  if (time < 60) wpm *= 60 / time;
-  if (time > 60) wpm /= time / 60;
+  let wpm = (keyCount - errorCount) / 5;
+  if (duration != 60) wpm *= 60 / duration;
   wpm = Math.round(wpm);
 
-  let accuracy = Math.round(((keyCount - errors) / keyCount) * 100);
+  let accuracy = Math.round(((keyCount - errorCount) / keyCount) * 100);
 
-  const closeModal = (e) => e.target.classList.contains("modal") && props.close(false);
+  const closeModal = (e) => e.target.classList.contains("modal") && props.controls.clearBoard;
 
   return (
     <Modal onClose={closeModal}>
       <Card>
         <StatList>
           <Stat>wpm: {wpm}</Stat>
-          <Stat>time: {time}s </Stat>
-          <Stat>errors: {errors}</Stat>
+          <Stat>duration: {duration}</Stat>
+          <Stat>errors: {errorCount}</Stat>
           <Stat>accuracy: {accuracy}%</Stat>
           <Stat>keyStrokes: {keyCount}</Stat>
+          <Stat>mode: {mode}</Stat>
+          <Stat>time: {startTime}s </Stat>
         </StatList>
         <ControlButtons controls={props.controls} />
       </Card>
