@@ -94,7 +94,7 @@ function Board() {
     },
   };
 
-  const inputHandler = {
+  const inputHandlers = {
     textHandler(text) {
       text = text.trim();
       let lastChar = text.slice(-1);
@@ -105,8 +105,7 @@ function Board() {
       statsData.keyCount++;
     },
     spaceBarHandler() {
-      if (index >= activeWords.length - 1) return gameControls.endGame();
-
+      if (index + 1 >= activeWords.length) return gameControls.endGame();
       setIndex((prevIndex) => {
         inputRef.current.value = "";
         return prevIndex + 1;
@@ -116,6 +115,7 @@ function Board() {
       setIndex((prevIndex) => {
         if (userInput === "" && index > 0) {
           let prevWord = activeWords[prevIndex - 1].entered;
+
           inputRef.current.value = prevWord;
           setUserInput(prevWord);
           return prevIndex - 1;
@@ -133,12 +133,12 @@ function Board() {
       <Clock settings={gameSettings} onTimerEnd={gameControls.endGame} />
       <button onClick={gameControls.endGame}>debug button</button>
 
-      <Input handlers={inputHandler} controls={gameControls} gameState={game} ref={inputRef} />
+      <Input handlers={inputHandlers} controls={gameControls} gameState={game} ref={inputRef} />
 
       <WordList words={activeWords} currentIndex={index} userInput={userInput}>
         {game.isPaused && <PauseScreen onResume={gameControls.resumeGame} />}
       </WordList>
-      {game.isRunning || <ControlButtons controls={gameControls} />}
+      {(game.isPaused || !game.isRunning) && <ControlButtons controls={gameControls} />}
     </div>
   );
 }
