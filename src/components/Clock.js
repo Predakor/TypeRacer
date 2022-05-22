@@ -12,21 +12,23 @@ function startTimer(startTime) {
   updateTimer(startTime);
   if (gameMode === "time") {
     clockData.intervalID = setInterval(() => {
-      if (startTime > 0) return updateTimer(startTime--);
+      if (startTime > 0) return updateTimer(--startTime);
       updateTimer(startTime);
       stopTimer();
       timeEnd();
     }, 1000);
   } else {
     clockData.intervalID = setInterval(() => {
-      updateTimer(startTime++);
+      updateTimer(++startTime);
     }, 1000);
   }
 }
 
 function updateTimer(newTime) {
-  clockData.currentTime = newTime;
-  timeUpdate(newTime);
+  if (newTime) {
+    clockData.currentTime = newTime;
+    timeUpdate(newTime);
+  } else timeUpdate(clockData.startTime);
 }
 
 function stopTimer() {
@@ -53,4 +55,4 @@ function Clock(props) {
   );
 }
 export default Clock;
-export { startTimer, stopTimer, getCurrentTime, restartTimer, resumeTimer };
+export { startTimer, stopTimer, getCurrentTime, restartTimer, resumeTimer, updateTimer };

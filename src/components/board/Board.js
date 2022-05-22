@@ -6,7 +6,7 @@ import GameStats from "../GameStats";
 import PauseScreen from "../PauseScreen";
 import ControlButtons from "../controlButtons/ControlButtons";
 import { generateWords } from "../Utils/wordGenerator";
-import { stopTimer, resumeTimer, getCurrentTime, restartTimer } from "../Clock";
+import { stopTimer, resumeTimer, getCurrentTime, restartTimer, updateTimer } from "../Clock";
 import classes from "./Board.module.css";
 
 let statsData = {
@@ -68,7 +68,6 @@ function Board() {
     resumeGame() {
       resumeTimer();
       dispatchGame("active");
-      inputRef.current.focus();
     },
     pauseGame() {
       stopTimer();
@@ -85,9 +84,10 @@ function Board() {
     },
     clearBoard() {
       setIndex(0);
-      setUserInput("");
       dispatchGame();
-      restartTimer();
+      setUserInput("");
+
+      updateTimer();
       statsData.clear();
       inputRef.current.focus();
       inputRef.current.value = "";

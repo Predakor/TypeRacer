@@ -20,7 +20,6 @@ const Input = forwardRef((props, ref) => {
       className={classes.input}
       onChange={changeHandler}
       onKeyDown={clickHandler}
-      onFocus={() => isPaused && resumeGame()}
       onBlur={() => isRunning && pauseGame()}
       tabIndex={0}
       autoFocus
