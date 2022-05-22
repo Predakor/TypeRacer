@@ -9,23 +9,18 @@ let clockData = {
 
 function startTimer(startTime) {
   if (clockData.intervalID) stopTimer();
-
+  updateTimer(startTime);
   if (gameMode === "time") {
-    clockData.startTime = startTime;
     clockData.intervalID = setInterval(() => {
       if (startTime > 0) return updateTimer(startTime--);
       updateTimer(startTime);
       stopTimer();
       timeEnd();
     }, 1000);
-    return;
-  }
-  if (gameMode === "words") {
-    clockData.startTime = 0;
+  } else {
     clockData.intervalID = setInterval(() => {
       updateTimer(startTime++);
     }, 1000);
-    return;
   }
 }
 
@@ -48,7 +43,7 @@ function Clock(props) {
   const [curentTime, setCurrentTime] = useState(time);
   useEffect(() => {
     [timeUpdate, timeEnd, gameMode] = [setCurrentTime, props.onTimerEnd, mode];
-    startTimer(time);
+    clockData.startTime = time;
   }, [time || mode]);
 
   return (

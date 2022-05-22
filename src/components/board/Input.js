@@ -2,15 +2,17 @@ import { forwardRef } from "react";
 import classes from "./Board.module.css";
 
 const Input = forwardRef((props, ref) => {
-  const changeHandler = (e) => props.onInput(e.target.value);
+  const { textHandler, spaceBarHandler, backSpaceHandler } = props.handlers;
+  const { pauseGame, resumeGame, startGame } = props.controls;
+  const { isPaused, isRunning, ended } = props.gameState;
+
+  const changeHandler = (e) => textHandler(e.target.value);
 
   const clickHandler = (e) => {
-    if (e.key === " ") return props.onSpaceBar();
-    if (e.key === "Backspace") return props.onBackSpace();
-  };
-
-  const focusLostHandler = () => {
-    props.onLostFocus();
+    if (ended) return;
+    if (!isRunning) startGame();
+    if (e.key === " ") return spaceBarHandler();
+    if (e.key === "Backspace") return backSpaceHandler();
   };
 
   return (
@@ -18,7 +20,8 @@ const Input = forwardRef((props, ref) => {
       className={classes.input}
       onChange={changeHandler}
       onKeyDown={clickHandler}
-      onBlur={focusLostHandler}
+      onFocus={() => isPaused && resumeGame()}
+      onBlur={() => isRunning && pauseGame()}
       tabIndex={0}
       autoFocus
       ref={ref}
