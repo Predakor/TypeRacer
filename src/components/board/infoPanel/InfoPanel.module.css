@@ -1,0 +1,19 @@
+.container {
+  padding: 1%;
+  display: flex;
+  justify-content: space-between;
+}
+.group {
+  width: 10%;
+  display: flex;
+  gap: 1ch;
+}
+@media screen and (max-width: 800px) {
+  .group {
+    gap: 1vw;
+    width: auto;
+  }
+  .start_hint {
+    display: none;
+  }
+}

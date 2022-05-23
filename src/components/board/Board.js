@@ -1,6 +1,5 @@
 import { useReducer, useRef, useState } from "react";
 import Input from "./Input";
-import Clock from "../Clock";
 import WordList from "./WordList";
 import GameStats from "../GameStats";
 import PauseScreen from "../PauseScreen";
@@ -8,6 +7,7 @@ import ControlButtons from "../controlButtons/ControlButtons";
 import { generateWords } from "../Utils/wordGenerator";
 import { stopTimer, resumeTimer, getCurrentTime, restartTimer, updateTimer } from "../Clock";
 import classes from "./Board.module.css";
+import InfoPanel from "./infoPanel/InfoPanel";
 
 let statsData = {
   keyCount: 0,
@@ -68,6 +68,7 @@ function Board() {
     resumeGame() {
       resumeTimer();
       dispatchGame("active");
+      inputRef.current.focus();
     },
     pauseGame() {
       stopTimer();
@@ -127,18 +128,21 @@ function Board() {
 
   return (
     <div className={classes.board}>
+      <InfoPanel settings={gameSettings} controls={gameControls.endGame} gameState={game} />
+
       {game.ended && (
-        <GameStats gameStats={statsData} gameSettings={gameSettings} controls={gameControls} />
+        <GameStats
+          gameStats={statsData}
+          gameSettings={gameSettings}
+          controls={gameControls}
+          gameState={game}
+        />
       )}
-      <Clock settings={gameSettings} onTimerEnd={gameControls.endGame} />
-      <button onClick={gameControls.endGame}>debug button</button>
-
       <Input handlers={inputHandlers} controls={gameControls} gameState={game} ref={inputRef} />
-
       <WordList words={activeWords} currentIndex={index} userInput={userInput}>
         {game.isPaused && <PauseScreen onResume={gameControls.resumeGame} />}
       </WordList>
-      {(game.isPaused || !game.isRunning) && <ControlButtons controls={gameControls} />}
+      <ControlButtons controls={gameControls} gameState={game} />
     </div>
   );
 }

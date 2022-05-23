@@ -29,7 +29,7 @@ function GameStats(props) {
           <Stat>mode: {mode}</Stat>
           <Stat>time: {startTime}s </Stat>
         </StatList>
-        <ControlButtons controls={props.controls} />
+        <ControlButtons controls={props.controls} gameState={props.gameState} />
       </Card>
     </Modal>
   );
