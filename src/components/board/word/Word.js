@@ -1,8 +1,8 @@
-import { memo } from "react";
+import { useState, memo } from "react";
 import classes from "./Word.module.css";
 
 function Word(props) {
-  const letters = Array.from(props.word);
+  const [letters, setLetters] = useState(Array.from(props.word));
   const userLetters = Array.from(props.userWord);
   const longerArray = letters.length >= userLetters.length ? letters : userLetters;
 
