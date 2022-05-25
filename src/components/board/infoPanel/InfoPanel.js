@@ -4,7 +4,7 @@ import classes from "./InfoPanel.module.css";
 
 function InfoPanel(props) {
   const { settings, controls, gameState } = props;
-  let hide = gameState.isRunning ? "hide" : "";
+  let hide = gameState.started ? "hide" : "";
   return (
     <div className={classes.container}>
       <Clock settings={settings} onTimerEnd={controls.endGame} />

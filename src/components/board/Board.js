@@ -1,13 +1,11 @@
 import { useReducer, useRef, useState } from "react";
-import Input from "./Input";
-import WordList from "./WordList";
 import GameStats from "../GameStats";
-import PauseScreen from "../PauseScreen";
 import ControlButtons from "../controlButtons/ControlButtons";
+import InfoPanel from "./infoPanel/InfoPanel";
+import WordsWrapper from "./wordsWrapper/WordsWrapper";
 import { generateWords } from "../Utils/wordGenerator";
 import { stopTimer, resumeTimer, getCurrentTime, restartTimer, updateTimer } from "../Clock";
 import classes from "./Board.module.css";
-import InfoPanel from "./infoPanel/InfoPanel";
 
 let statsData = {
   keyCount: 0,
@@ -26,49 +24,40 @@ let gameSettings = {
 };
 
 function gameReducer(prevState, action) {
-  switch (action) {
-    case "active":
-      return { isPaused: false, isRunning: true, ended: false };
-    case "paused":
-      return { isPaused: true, isRunning: true, ended: false };
-    case "ended":
-      return { isPaused: false, isRunning: false, ended: true };
-    default:
-      return { isPaused: false, isRunning: false, ended: false };
-  }
+  const operation = {
+    active: () => ({ isPaused: false, started: true, ended: false }),
+    paused: () => ({ isPaused: true, started: true, ended: false }),
+    ended: () => ({ isPaused: false, started: false, ended: true }),
+    default: () => ({ isPaused: false, started: false, ended: false }),
+  };
+  return operation[action]();
 }
 
 function Board() {
   const inputRef = useRef();
-  const [index, setIndex] = useState(0);
-  const [userInput, setUserInput] = useState("");
-  const [activeWords, setActiveWords] = useState([]);
+  const [activeWords, setActiveWords] = useState(generateWords(gameSettings.wordCount));
 
   const [game, dispatchGame] = useReducer(gameReducer, {
+    started: false,
     isPaused: false,
-    isRunning: false,
     ended: false,
   });
 
-  activeWords.length === 0 && setActiveWords(generateWords(gameSettings.wordCount));
-
   const gameControls = {
-    repeatGame() {
-      setActiveWords((prevWords) =>
-        prevWords.map((word) => {
-          return { ...word, entered: "" };
-        })
-      );
-      gameControls.clearBoard();
-    },
     restartGame() {
       setActiveWords(generateWords(gameSettings.wordCount));
+      gameControls.clearBoard();
+    },
+    repeatGame() {
+      setActiveWords((prevWords) => {
+        return prevWords.map((word) => ({ ...word, entered: "" }));
+      });
       gameControls.clearBoard();
     },
     resumeGame() {
       resumeTimer();
       dispatchGame("active");
-      inputRef.current.focus();
+      // inputRef.current.focus();
     },
     pauseGame() {
       stopTimer();
@@ -84,52 +73,18 @@ function Board() {
       statsData.timePassed = getCurrentTime();
     },
     clearBoard() {
-      setIndex(0);
-      dispatchGame();
-      setUserInput("");
-
+      // setIndex(0);
+      dispatchGame("default");
       updateTimer();
       statsData.clear();
-      inputRef.current.focus();
-      inputRef.current.value = "";
-    },
-  };
-
-  const inputHandlers = {
-    textHandler(text) {
-      text = text.trim();
-      let lastChar = text.slice(-1);
-      let lastWordChar = activeWords[index].generated.charAt(text.length - 1);
-
-      setUserInput(text);
-      lastChar !== lastWordChar && statsData.errorCount++;
-      statsData.keyCount++;
-    },
-    spaceBarHandler() {
-      if (index + 1 >= activeWords.length) return gameControls.endGame();
-      setIndex((prevIndex) => {
-        inputRef.current.value = "";
-        return prevIndex + 1;
-      });
-    },
-    backSpaceHandler() {
-      setIndex((prevIndex) => {
-        if (userInput === "" && index > 0) {
-          let prevWord = activeWords[prevIndex - 1].entered;
-
-          inputRef.current.value = prevWord;
-          setUserInput(prevWord);
-          return prevIndex - 1;
-        }
-        return prevIndex;
-      });
+      // inputRef.current.focus();
+      // inputRef.current.value = "";
     },
   };
 
   return (
     <div className={classes.board}>
       <InfoPanel settings={gameSettings} controls={gameControls.endGame} gameState={game} />
-
       {game.ended && (
         <GameStats
           gameStats={statsData}
@@ -138,10 +93,13 @@ function Board() {
           gameState={game}
         />
       )}
-      <Input handlers={inputHandlers} controls={gameControls} gameState={game} ref={inputRef} />
-      <WordList words={activeWords} currentIndex={index} userInput={userInput}>
-        {game.isPaused && <PauseScreen onResume={gameControls.resumeGame} />}
-      </WordList>
+
+      <WordsWrapper
+        controls={gameControls}
+        gameState={game}
+        words={[activeWords, setActiveWords]}
+      />
+
       <ControlButtons controls={gameControls} gameState={game} />
     </div>
   );
