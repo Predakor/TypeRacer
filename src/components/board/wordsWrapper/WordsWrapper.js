@@ -6,7 +6,6 @@ import WordList from "./WordList";
 function WordsWrapper(props) {
   const inputRef = useRef();
   const [index, setIndex] = useState(0);
-  //   const [wordStates, setWordStates] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [words, setActiveWords] = props.words;
   const { controls, gameState } = props;
@@ -15,17 +14,15 @@ function WordsWrapper(props) {
     setUserInput((prevText) => {
       text = text.trim();
       let lastChar = text.slice(-1);
+      let lastWordChar = words[index].entered.slice(-1);
 
-      setActiveWords((prevWords) =>
-        prevWords.map((word, i) => {
-          return i === index ? { ...word, entered: text } : word;
-        })
-      );
-      setUserInput(text);
-      if (prevText.length < text) {
+      if (prevText.length > text);
+      {
         // lastChar !== lastWordChar && statsData.errorCount++;
         // statsData.keyCount++;
       }
+
+      return text;
     });
   }
   function spaceBarHandler() {
@@ -65,7 +62,7 @@ function WordsWrapper(props) {
         ref={inputRef}
       />
 
-      <WordList words={words} currentIndex={index}>
+      <WordList words={words} currentIndex={index} currentWord={userInput}>
         {gameState.isPaused && <PauseScreen onResume={controls.resumeGame} />}
       </WordList>
     </>
