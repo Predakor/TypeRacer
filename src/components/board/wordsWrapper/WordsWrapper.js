@@ -10,47 +10,52 @@ function WordsWrapper(props) {
   const [words, setActiveWords] = props.words;
   const { controls, gameState } = props;
 
-  function textHandler(text) {
+  function textHandler(userText) {
+    const currentWord = words[index].generated;
+    userText = userText.trim();
+
+    if (index === words.length - 1) {
+      if (userText === currentWord) controls.endGame();
+    }
     setUserInput((prevText) => {
-      text = text.trim();
-      let lastChar = text.slice(-1);
-      let lastWordChar = words[index].entered.slice(-1);
+      let letterIndex = userText.length - 1;
+      let wordChar = userText.charAt(letterIndex);
+      let userChar = currentWord.charAt(letterIndex);
 
-      if (prevText.length > text);
-      {
-        // lastChar !== lastWordChar && statsData.errorCount++;
-        // statsData.keyCount++;
+      if (userText.length > prevText.length) {
+        if (userChar === wordChar) {
+          // lastChar !== lastWordChar && statsData.errorCount++;
+          // statsData.keyCount++;
+        }
       }
-
-      return text;
+      return userText;
     });
   }
   function spaceBarHandler() {
-    if (index + 1 >= words.length) return controls.endGame();
+    if (index >= words.length - 1) return controls.endGame();
+
     setActiveWords((prevWords) =>
       prevWords.map((word, i) => {
         return i === index ? { ...word, entered: userInput } : word;
       })
     );
-
-    setIndex((prevIndex) => {
-      inputRef.current.value = "";
-      return prevIndex + 1;
-    });
+    inputRef.current.value = "";
+    setIndex((prevIndex) => prevIndex + 1);
   }
   function backSpaceHandler() {
-    setIndex((prevIndex) => {
-      if (userInput === "" && index > 0) {
-        let prevWord = words[prevIndex - 1].entered;
+    if (userInput === "" && index > 0) {
+      const prevWord = words[index - 1].entered;
+      inputRef.current.value = prevWord;
 
-        inputRef.current.value = prevWord;
-        setUserInput(prevWord);
-        return prevIndex - 1;
-      }
-      return prevIndex;
-    });
+      setIndex((prevIndex) => prevIndex - 1);
+      setUserInput(prevWord);
+      setActiveWords((prevWords) =>
+        prevWords.map((word, i) => {
+          return i === index ? { ...word, entered: userInput } : word;
+        })
+      );
+    }
   }
-
   return (
     <>
       <Input
