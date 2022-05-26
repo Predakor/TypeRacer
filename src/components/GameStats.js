@@ -1,11 +1,17 @@
+import { useContext } from "react";
 import Card from "./Utils/Card";
 import Modal from "./Utils/Modal";
 import ControlButtons from "./controlButtons/ControlButtons";
+import gameSettingsContext from "../store/settings-context";
+import statsDataContext from "../store/stats-context";
 import classes from "./GameStats.module.css";
 
 function GameStats(props) {
-  let { keyCount, errorCount, timePassed } = props.gameStats;
-  let { time: startTime, mode } = props.gameSettings;
+  const gameStats = useContext(statsDataContext);
+  const gameSettings = useContext(gameSettingsContext);
+
+  let { keyCount, errorCount, timePassed } = gameStats;
+  let { time: startTime, mode } = gameSettings;
 
   let duration = mode === "time" ? startTime - timePassed : timePassed;
 

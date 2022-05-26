@@ -1,27 +1,12 @@
-import { useReducer, useRef, useState } from "react";
-import GameStats from "../GameStats";
+import { useReducer, useRef, useState, useContext } from "react";
+import GameStatsPanel from "../GameStats";
 import ControlButtons from "../controlButtons/ControlButtons";
 import InfoPanel from "./infoPanel/InfoPanel";
 import WordsWrapper from "./wordsWrapper/WordsWrapper";
 import { generateWords } from "../Utils/wordGenerator";
 import { stopTimer, resumeTimer, getCurrentTime, restartTimer, updateTimer } from "../Clock";
+import settingsContext from "../../store/settings-context";
 import classes from "./Board.module.css";
-
-let statsData = {
-  keyCount: 0,
-  errorCount: 0,
-  timePassed: 0,
-  clear() {
-    statsData.keyCount = 0;
-    statsData.errorCount = 0;
-    statsData.timePassed = 0;
-  },
-};
-let gameSettings = {
-  mode: "time",
-  time: 60,
-  wordCount: 50,
-};
 
 function gameReducer(prevState, action) {
   const operation = {
@@ -35,6 +20,7 @@ function gameReducer(prevState, action) {
 
 function Board() {
   const inputRef = useRef();
+  const gameSettings = useContext(settingsContext);
   const [activeWords, setActiveWords] = useState(generateWords(gameSettings.wordCount));
 
   const [game, dispatchGame] = useReducer(gameReducer, {
@@ -70,13 +56,13 @@ function Board() {
     endGame() {
       stopTimer();
       dispatchGame("ended");
-      statsData.timePassed = getCurrentTime();
+      // statsData.timePassed = getCurrentTime(); add to statsPanel
     },
     clearBoard() {
       // setIndex(0);
       dispatchGame("default");
       updateTimer();
-      statsData.clear();
+      // statsData.clear();
       // inputRef.current.focus();
       // inputRef.current.value = "";
     },
@@ -85,14 +71,7 @@ function Board() {
   return (
     <div className={classes.board}>
       <InfoPanel settings={gameSettings} controls={gameControls.endGame} gameState={game} />
-      {game.ended && (
-        <GameStats
-          gameStats={statsData}
-          gameSettings={gameSettings}
-          controls={gameControls}
-          gameState={game}
-        />
-      )}
+      {game.ended && <GameStatsPanel controls={gameControls} gameState={game} />}
 
       <WordsWrapper
         controls={gameControls}

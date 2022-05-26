@@ -1,12 +1,14 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import PauseScreen from "../PauseScreen";
 import Input from "./Input";
 import WordList from "./WordList";
-
+import gameStatsContext from "../../../store/stats-context";
 function WordsWrapper(props) {
   const inputRef = useRef();
-  const [index, setIndex] = useState(0);
+  const gameStats = useContext(gameStatsContext);
   const [userInput, setUserInput] = useState("");
+  const [index, setIndex] = useState(0);
+
   const [words, setActiveWords] = props.words;
   const { controls, gameState } = props;
 
@@ -23,10 +25,8 @@ function WordsWrapper(props) {
       let userChar = currentWord.charAt(letterIndex);
 
       if (userText.length > prevText.length) {
-        if (userChar === wordChar) {
-          // lastChar !== lastWordChar && statsData.errorCount++;
-          // statsData.keyCount++;
-        }
+        if (userChar === wordChar) gameStats.keyCount++;
+        else gameStats.errorCount++;
       }
       return userText;
     });
