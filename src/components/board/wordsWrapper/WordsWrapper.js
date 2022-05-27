@@ -1,16 +1,26 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import PauseScreen from "../PauseScreen";
 import Input from "./Input";
 import WordList from "./WordList";
 import gameStatsContext from "../../../store/stats-context";
+
 function WordsWrapper(props) {
+  const { controls, gameState } = props;
+
   const inputRef = useRef();
   const gameStats = useContext(gameStatsContext);
-  const [userInput, setUserInput] = useState("");
   const [index, setIndex] = useState(0);
+  const [userInput, setUserInput] = useState("");
+  const [words, setWords] = useState(props.words[0]);
 
-  const [words, setActiveWords] = props.words;
-  const { controls, gameState } = props;
+  useEffect(() => {
+    setIndex(0);
+    setUserInput("");
+    setWords(props.words[0]);
+    gameStats.clear();
+    inputRef.current.focus();
+    inputRef.current.value = "";
+  }, [props.words[0]]);
 
   function textHandler(userText) {
     const currentWord = words[index].generated;
@@ -33,12 +43,7 @@ function WordsWrapper(props) {
   }
   function spaceBarHandler() {
     if (index >= words.length - 1) return controls.endGame();
-
-    setActiveWords((prevWords) =>
-      prevWords.map((word, i) => {
-        return i === index ? { ...word, entered: userInput } : word;
-      })
-    );
+    words[index].entered = userInput;
     inputRef.current.value = "";
     setIndex((prevIndex) => prevIndex + 1);
   }
@@ -46,16 +51,12 @@ function WordsWrapper(props) {
     if (userInput === "" && index > 0) {
       const prevWord = words[index - 1].entered;
       inputRef.current.value = prevWord;
-
+      words[index].entered = userInput;
       setIndex((prevIndex) => prevIndex - 1);
       setUserInput(prevWord);
-      setActiveWords((prevWords) =>
-        prevWords.map((word, i) => {
-          return i === index ? { ...word, entered: userInput } : word;
-        })
-      );
     }
   }
+
   return (
     <>
       <Input

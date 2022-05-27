@@ -58,12 +58,8 @@ function Board() {
       dispatchGame("ended");
     },
     clearBoard() {
-      // setIndex(0);
       dispatchGame("default");
       updateTimer();
-
-      // inputRef.current.focus();
-      // inputRef.current.value = "";
     },
   };
 
