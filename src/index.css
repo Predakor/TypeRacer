@@ -4,6 +4,10 @@
   --secondary-color: #570a57;
   --tertiary-color: #fa7d09;
   --background-color: #222222;
+
+  --menu-font-size: clamp(24px, 2em, 3vw);
+  --gameMenu-font-size: clamp(14px, 1em, 1.5vw);
+  --text-font-size: clamp(20px, 2em, 2vw);
 }
 
 * {
@@ -11,28 +15,26 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-#root {
-  width: 100vw;
-  height: 100vh;
-}
-
 body {
-  font-family: "Poppins", sans-serif;
+  height: 100vh;
   background-color: var(--background-color);
   color: var(--tertiary-color);
-  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
   font-size: clamp(18px, 2em, 1vw);
 }
 
-main {
+#root {
   width: 100%;
-  height: 85vh;
-  padding: 2%;
+  height: 100%;
+  padding: 1%;
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 6%;
 }
+
 .modal {
   position: absolute;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(0.1rem);
@@ -43,7 +45,6 @@ main {
   z-index: 1;
   transition: all 0.3s;
 }
-
 .card {
   max-width: 90vw;
   padding: 1%;
@@ -55,9 +56,19 @@ main {
   transition: 0.5s;
   opacity: 0;
 }
+.flex {
+  display: flex;
+  align-items: center;
+}
 
 @media screen and (min-width: 3000px) {
   body {
     font-size: clamp(40px, 6em, 2vw);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    height: auto;
   }
 }

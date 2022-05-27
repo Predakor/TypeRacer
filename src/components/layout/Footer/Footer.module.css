@@ -1,11 +1,12 @@
 footer {
+  margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .link {
   margin: 1%;
-  font-size: clamp(16px, 2em, 2vh);
+  font-size: var(--gameMenu-font-size);
   transition: 0.3s;
 }
 .link:hover {

@@ -1,0 +1,6 @@
+.horizontal {
+  flex-flow: row nowrap;
+}
+.vertical {
+  flex-flow: column nowrap;
+}

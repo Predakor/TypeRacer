@@ -2,6 +2,7 @@
   padding: 1%;
   display: flex;
   justify-content: space-between;
+  font-size: var(--gameMenu-font-size);
 }
 .group {
   width: 10%;

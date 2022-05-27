@@ -1,15 +1,13 @@
 .container {
-  margin-top: 2%;
+  width: 100%;
+  /* margin-top: 2%; */
+  padding: 1%;
   display: flex;
   justify-content: space-evenly;
-  padding: 1%;
-  width: 100%;
 }
 .button {
-  width: 2.5em;
-  height: 2.5em;
+  font-size: calc(2 * var(--gameMenu-font-size));
   transition: 0.3s ease-in;
-  text-shadow: 1px 1px white;
 }
 .button:hover {
   opacity: 0.5;

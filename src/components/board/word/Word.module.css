@@ -1,7 +1,7 @@
 .word {
   color: gray;
   height: fit-content;
-  font-size: clamp(2.5em, 2vh, 20px);
+  font-size: var(--text-font-size);
   user-select: none;
 }
 .active {

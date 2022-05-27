@@ -1,24 +1,32 @@
 nav {
-  width: 100vw;
-  background-color: darkmagenta;
+  width: 100%;
   padding-inline: 5%;
+}
+.logo {
+  margin-left: -1em;
+  font-size: calc(1.2 * var(--menu-font-size));
 }
 .links {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+}
+.link {
   list-style: none;
-  padding: 1%;
+  font-size: var(--menu-font-size);
+}
+.text {
+  /* margin-left: 0.5ch; */
+  font-size: calc(0.4 * var(--gameMenu-font-size));
+  text-align: right;
 }
 
 a {
   text-decoration: none;
   color: orange;
-  transition: 0.9ms;
+  transition: 0.3s;
 }
 
 li a:hover {
-  font-size: 1.1em;
   color: rgb(170, 110, 0);
   transition: 0.3s;
 }
