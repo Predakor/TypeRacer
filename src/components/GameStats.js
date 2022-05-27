@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { getCurrentTime } from "./Clock";
 import Card from "./Utils/Card";
 import Modal from "./Utils/Modal";
 import ControlButtons from "./controlButtons/ControlButtons";
@@ -10,13 +11,14 @@ function GameStats(props) {
   const gameStats = useContext(statsDataContext);
   const gameSettings = useContext(gameSettingsContext);
 
-  let { keyCount, errorCount, timePassed } = gameStats;
+  let { keyCount, errorCount } = gameStats;
   let { time: startTime, mode } = gameSettings;
+  let timePassed = getCurrentTime();
 
   let duration = mode === "time" ? startTime - timePassed : timePassed;
 
   let wpm = (keyCount - errorCount) / 5;
-  if (duration != 60) wpm *= 60 / duration;
+  if (duration !== 60) wpm *= 60 / duration;
   wpm = Math.round(wpm);
 
   let accuracy = Math.round(((keyCount - errorCount) / keyCount) * 100);
@@ -43,6 +45,5 @@ function GameStats(props) {
 
 const Stat = (props) => <p className={classes.stat}>{props.children}</p>;
 const StatList = (props) => <div className={classes.statContainer}>{props.children}</div>;
-const Buttons = (props) => <div className={classes.buttonContainer}>{props.children}</div>;
 
 export default GameStats;

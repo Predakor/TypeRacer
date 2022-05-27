@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import statsDataContext from "../store/stats-context";
 
 let timeUpdate, timeEnd, gameMode;
 let clockData = {
@@ -41,8 +42,10 @@ const resumeTimer = () => startTimer(clockData.currentTime);
 const getCurrentTime = () => clockData.currentTime;
 
 function Clock(props) {
+  const stats = useContext(statsDataContext);
   const { time, mode } = props.settings;
   const [curentTime, setCurrentTime] = useState(time);
+  stats.currentTime = curentTime;
   useEffect(() => {
     [timeUpdate, timeEnd, gameMode] = [setCurrentTime, props.onTimerEnd, mode];
     clockData.startTime = time;

@@ -4,7 +4,7 @@ import ControlButtons from "../controlButtons/ControlButtons";
 import InfoPanel from "./infoPanel/InfoPanel";
 import WordsWrapper from "./wordsWrapper/WordsWrapper";
 import { generateWords } from "../Utils/wordGenerator";
-import { stopTimer, resumeTimer, getCurrentTime, restartTimer, updateTimer } from "../Clock";
+import { stopTimer, resumeTimer, restartTimer, updateTimer } from "../Clock";
 import settingsContext from "../../store/settings-context";
 import classes from "./Board.module.css";
 
@@ -40,10 +40,10 @@ function Board() {
       });
       gameControls.clearBoard();
     },
-    resumeGame() {
+    resumeGame(iputRef) {
       resumeTimer();
       dispatchGame("active");
-      // inputRef.current.focus();
+      inputRef.current.focus();
     },
     pauseGame() {
       stopTimer();
@@ -56,13 +56,12 @@ function Board() {
     endGame() {
       stopTimer();
       dispatchGame("ended");
-      // statsData.timePassed = getCurrentTime(); add to statsPanel
     },
     clearBoard() {
       // setIndex(0);
       dispatchGame("default");
       updateTimer();
-      // statsData.clear();
+
       // inputRef.current.focus();
       // inputRef.current.value = "";
     },
