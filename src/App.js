@@ -7,8 +7,8 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Play />} />
-        <Route path="settings" element={<Settings />} />
+        <Route path="TypeRacer" element={<Play />} />
+        <Route path="TypeRacer/settings" element={<Settings />} />
       </Routes>
     </Layout>
   );

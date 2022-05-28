@@ -10,10 +10,10 @@ function Navigation() {
       <ul className={classes.links}>
         <Logo></Logo>
         <Group orientation="horizontal">
-          <NavLink to="settings">
+          <NavLink to="TypeRacer/settings">
             <FiSettings />
           </NavLink>
-          <NavLink to="profile">
+          <NavLink to="TypeRacer/profile">
             <IoPersonOutline />
           </NavLink>
         </Group>
@@ -32,7 +32,7 @@ function NavLink(props) {
 function Logo(props) {
   return (
     <Group orientation="vertical">
-      <Link to={"/"} className={classes.logo}>
+      <Link to={"TypeRacer"} className={classes.logo}>
         Typer
         <p className={classes.text}>The Typing App</p>
       </Link>
