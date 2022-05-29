@@ -1,20 +1,19 @@
 import { Link } from "react-router-dom";
 import Group from "../../Utils/group/Group";
-import { IoPersonOutline } from "react-icons/io5";
-import { FiSettings } from "react-icons/fi";
+import { CgInfo, CgProfile } from "react-icons/cg";
 import classes from "./Navigation.module.css";
 
 function Navigation() {
   return (
     <nav className={classes.nav}>
       <ul className={classes.links}>
-        <Logo></Logo>
+        <Logo />
         <Group orientation="horizontal">
-          <NavLink to="TypeRacer/settings">
-            <FiSettings />
+          <NavLink to="Typer/about">
+            <CgInfo />
           </NavLink>
-          <NavLink to="TypeRacer/profile">
-            <IoPersonOutline />
+          <NavLink to="Typer/profile">
+            <CgProfile />
           </NavLink>
         </Group>
       </ul>
@@ -32,7 +31,7 @@ function NavLink(props) {
 function Logo(props) {
   return (
     <Group orientation="vertical">
-      <Link to={"TypeRacer"} className={classes.logo}>
+      <Link to={"Typer"} className={classes.logo}>
         Typer
         <p className={classes.text}>The Typing App</p>
       </Link>

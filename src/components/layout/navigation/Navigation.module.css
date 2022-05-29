@@ -15,7 +15,6 @@ nav {
   font-size: var(--menu-font-size);
 }
 .text {
-  /* margin-left: 0.5ch; */
   font-size: calc(0.4 * var(--gameMenu-font-size));
   text-align: right;
 }
@@ -24,6 +23,9 @@ a {
   text-decoration: none;
   color: orange;
   transition: 0.3s;
+}
+a > svg {
+  font-size: calc(0.6 * var(--menu-font-size));
 }
 
 li a:hover {
