@@ -4,12 +4,12 @@
   justify-content: space-between;
   font-size: var(--gameMenu-font-size);
 }
-.group {
-  width: 10%;
-  display: flex;
-  gap: 1ch;
+
+.hint {
+  text-align: center;
 }
-@media screen and (max-width: 800px) {
+
+@media screen and (max-width: 500px) {
   .group {
     gap: 1vw;
     width: auto;

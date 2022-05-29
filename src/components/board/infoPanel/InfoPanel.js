@@ -9,19 +9,21 @@ function InfoPanel(props) {
     <div className={classes.container}>
       <Clock settings={settings} onTimerEnd={controls.endGame} />
 
-      <div className="hint_container">
-        <p className={`${classes.start_hint} ${hide} `}>Press any key to start typing</p>
-      </div>
+      <Hint>
+        <p className={`${hide} `}>Press any key to start typing</p>
+      </Hint>
 
-      <Group hide={hide}>
-        <p>{settings.mode}</p>
-        <p>{settings.mode === "time" ? settings.time : settings.wordCount}</p>
-      </Group>
+      <p hide={hide}>
+        {`
+          ${settings.mode}
+          ${settings.mode === "time" ? settings.time : settings.wordCount}
+        `}
+      </p>
     </div>
   );
 }
 
-function Group(props) {
-  return <div className={`${classes.group} ${props.hide}`}>{props.children}</div>;
+function Hint(props) {
+  return <div className={classes.hint_container}>{props.children}</div>;
 }
 export default InfoPanel;

@@ -5,9 +5,9 @@
   --tertiary-color: #fa7d09;
   --background-color: #222222;
 
-  --menu-font-size: clamp(24px, 2em, 3vw);
-  --gameMenu-font-size: clamp(14px, 1em, 1.5vw);
-  --text-font-size: clamp(20px, 2em, 2vw);
+  --menu-font-size: clamp(2rem, 2.5em, 5vw);
+  --gameMenu-font-size: clamp(0.8rem, 1.5em, 2vw);
+  --text-font-size: clamp(1.5rem, 2em, 2.6vw);
 }
 
 * {
@@ -22,14 +22,21 @@ body {
   font-family: "Poppins", sans-serif;
   font-size: clamp(18px, 2em, 1vw);
 }
-
+button {
+  background-color: inherit;
+  color: inherit;
+  border: none;
+}
+svg {
+  transform-origin: center center;
+}
 #root {
   width: 100%;
   height: 100%;
   padding: 1%;
   display: flex;
   flex-flow: column nowrap;
-  row-gap: 6%;
+  justify-content: space-between;
 }
 
 .modal {

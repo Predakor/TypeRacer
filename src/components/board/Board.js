@@ -1,4 +1,4 @@
-import { useReducer, useRef, useState, useContext } from "react";
+import { useReducer, useState, useContext } from "react";
 import GameStatsPanel from "../GameStats";
 import ControlButtons from "../controlButtons/ControlButtons";
 import InfoPanel from "./infoPanel/InfoPanel";
@@ -15,11 +15,10 @@ function gameReducer(prevState, action) {
     ended: () => ({ isPaused: false, started: false, ended: true }),
     default: () => ({ isPaused: false, started: false, ended: false }),
   };
-  return operation[action]();
+  return action ? operation[action]() : operation["default"]();
 }
 
 function Board() {
-  const inputRef = useRef();
   const gameSettings = useContext(settingsContext);
   const [activeWords, setActiveWords] = useState(generateWords(gameSettings.wordCount));
 
@@ -40,29 +39,28 @@ function Board() {
       });
       gameControls.clearBoard();
     },
-    resumeGame(iputRef) {
+    resumeGame(inputRef) {
       resumeTimer();
       dispatchGame("active");
       inputRef.current.focus();
     },
-    pauseGame() {
-      stopTimer();
-      dispatchGame("paused");
-    },
     startGame() {
       restartTimer();
       dispatchGame("active");
+    },
+    pauseGame() {
+      stopTimer();
+      dispatchGame("paused");
     },
     endGame() {
       stopTimer();
       dispatchGame("ended");
     },
     clearBoard() {
-      dispatchGame("default");
+      dispatchGame();
       updateTimer();
     },
   };
-
   return (
     <div className={classes.board}>
       <InfoPanel settings={gameSettings} controls={gameControls.endGame} gameState={game} />
@@ -73,7 +71,6 @@ function Board() {
         gameState={game}
         words={[activeWords, setActiveWords]}
       />
-
       <ControlButtons controls={gameControls} gameState={game} />
     </div>
   );

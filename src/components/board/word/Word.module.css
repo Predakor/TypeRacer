@@ -7,13 +7,11 @@
 .active {
   color: lightgray;
 }
-
 .letter {
   color: gray;
   display: inline-block;
-  transition: all 0.3s;
+  transition: all 0.15s;
   color: rgb(152, 152, 152);
-  font-size: clamp(24px, 2em, 4vh);
   text-shadow: 1px 1px black;
 }
 .correct {

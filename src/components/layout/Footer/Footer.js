@@ -2,9 +2,11 @@ import classes from "./Footer.module.css";
 function Footer() {
   return (
     <footer>
-      <Link target="mailto:patrykbusko@gmail.com">@ email</Link>
-      <Link target="https://github.com/Predakor/TypeRacer">{"</>"} github</Link>
-      <Link target="https://github.io/Predakor/">My page</Link>
+      <div className={classes.group}>
+        <Link target="mailto:patrykbusko@gmail.com">@ email</Link>
+        <Link target="https://github.com/Predakor/TypeRacer">{"</>"} github</Link>
+        <Link target="https://github.io/Predakor/">My page</Link>
+      </div>
     </footer>
   );
 }
