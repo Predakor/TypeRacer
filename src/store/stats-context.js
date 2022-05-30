@@ -1,13 +1,13 @@
 import { createContext } from "react";
 
 let gameStats = createContext({
-  keyCount: 0,
-  errorCount: 0,
-  timePassed: 0,
+  totalClicks: 0,
+  totalErrors: 0,
+  time: 0,
   clear() {
-    gameStats.keyCount = 0;
-    gameStats.errorCount = 0;
-    gameStats.timePassed = 0;
+    this.totalClicks = 0;
+    this.totalErrors = 0;
+    this.time = 0;
   },
 });
 

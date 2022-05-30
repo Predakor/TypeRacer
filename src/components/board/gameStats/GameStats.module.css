@@ -1,0 +1,39 @@
+.container {
+  text-align: center;
+  font-size: var(--gameMenu-font-size);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  gap: 2rem;
+}
+.container > h2 {
+  grid-column: span 2;
+  animation: appear 1s ease-in;
+}
+
+.statContainer {
+  min-width: 20vw;
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  flex-flow: column nowrap;
+  margin: 1%;
+}
+.stat {
+  margin: 2%;
+  white-space: nowrap;
+  font-size: clamp(12px, 2em, 3vh);
+  text-shadow: 1px 1px black;
+  opacity: 0;
+  animation: appear 1s 0.6s ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

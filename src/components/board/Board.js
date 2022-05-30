@@ -1,8 +1,8 @@
 import { useReducer, useState, useContext } from "react";
-import GameStatsPanel from "../GameStats";
-import ControlButtons from "../controlButtons/ControlButtons";
+import GameStatsPanel from "./gameStats/GameStats";
 import InfoPanel from "./infoPanel/InfoPanel";
-import WordsWrapper from "./wordsWrapper/WordsWrapper";
+import WordsPanel from "./wordsWrapper/WordsWrapper";
+import ControlButtons from "../controlButtons/ControlButtons";
 import { generateWords } from "../Utils/wordGenerator";
 import { stopTimer, resumeTimer, restartTimer, updateTimer } from "../Clock";
 import settingsContext from "../../store/settings-context";
@@ -63,14 +63,18 @@ function Board() {
   };
   return (
     <div className={classes.board}>
-      <InfoPanel settings={gameSettings} controls={gameControls.endGame} gameState={game} />
-      {game.ended && <GameStatsPanel controls={gameControls} gameState={game} />}
-
-      <WordsWrapper
-        controls={gameControls}
-        gameState={game}
-        words={[activeWords, setActiveWords]}
-      />
+      {!game.ended && (
+        <InfoPanel settings={gameSettings} controls={gameControls.endGame} gameState={game} />
+      )}
+      {game.ended ? (
+        <GameStatsPanel controls={gameControls} gameState={game} />
+      ) : (
+        <WordsPanel
+          controls={gameControls}
+          gameState={game}
+          words={[activeWords, setActiveWords]}
+        />
+      )}
       <ControlButtons controls={gameControls} gameState={game} />
     </div>
   );

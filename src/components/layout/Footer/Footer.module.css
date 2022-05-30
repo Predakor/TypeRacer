@@ -10,7 +10,7 @@ footer {
   justify-content: center;
 }
 .link {
-  margin-right: 5%;
+  margin-inline: 4%;
   font-size: calc(0.7 * var(--gameMenu-font-size));
   transition: 0.3s;
   white-space: nowrap;

@@ -11,16 +11,19 @@ function ControlButtons(props) {
           <IoSyncOutline className={classes.button} onClick={repeatGame} />
         </button>
       )}
-
-      <button className={classes.hide} onClick={restartGame} tabIndex={0}>
-        <IoArrowForward className={classes.button} />
-      </button>
-      <button className={classes.hide} onClick={restartGame} tabIndex={0}>
-        <IoSyncOutline className={classes.button} onClick={repeatGame} />
-      </button>
-      <button className={classes.hide} onClick={restartGame} tabIndex={0}>
-        <IoPersonOutline className={classes.button} onClick={repeatGame} />
-      </button>
+      {ended && (
+        <>
+          <button className={classes.hide} onClick={restartGame} tabIndex={0}>
+            <IoArrowForward className={classes.button} />
+          </button>
+          <button className={classes.hide} onClick={restartGame} tabIndex={0}>
+            <IoSyncOutline className={classes.button} onClick={repeatGame} />
+          </button>
+          <button className={classes.hide} onClick={restartGame} tabIndex={0}>
+            <IoPersonOutline className={classes.button} onClick={repeatGame} />
+          </button>
+        </>
+      )}
     </div>
   );
 }
