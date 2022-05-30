@@ -6,8 +6,15 @@ function WordList(props) {
     <div className={classes.words}>
       {props.children}
       {props.words.map((word, i) => {
-        const currentWord = i === props.currentIndex ? props.currentWord : word.entered;
-        return <Word word={word.generated} userWord={currentWord} key={i}></Word>;
+        return i === props.currentIndex ? (
+          <Word
+            word={word.generated}
+            userWord={props.currentWord}
+            updateCaret={props.updateCaret}
+            key={i}></Word>
+        ) : (
+          <Word word={word.generated} userWord={word.entered} key={i}></Word>
+        );
       })}
     </div>
   );

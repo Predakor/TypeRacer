@@ -3,11 +3,13 @@ import PauseScreen from "../PauseScreen";
 import Input from "./Input";
 import WordList from "./WordList";
 import gameStatsContext from "../../../store/stats-context";
+import Caret from "./caret/Caret";
 
 function WordsWrapper(props) {
   const { controls, gameState } = props;
 
   const inputRef = useRef();
+  const caretRef = useRef();
   const gameStats = useContext(gameStatsContext);
   const [index, setIndex] = useState(0);
   const [userInput, setUserInput] = useState("");
@@ -22,6 +24,11 @@ function WordsWrapper(props) {
     inputRef.current.value = "";
   }, [props.words[0]]);
 
+  function updateCaretPosition(newLeft, newTop) {
+    caretRef.current.style.left = `${newLeft}px`;
+    caretRef.current.style.top = `${5 + newTop}px`;
+  }
+
   function textHandler(userText) {
     const currentWord = words[index].generated;
     userText = userText.trim();
@@ -35,8 +42,8 @@ function WordsWrapper(props) {
       let userChar = currentWord.charAt(letterIndex);
 
       if (userText.length > prevText.length) {
-        if (userChar === wordChar) gameStats.keyCount++;
-        else gameStats.errorCount++;
+        if (userChar === wordChar) gameStats.totalClicks++;
+        else gameStats.totalErrors++;
       }
       return userText;
     });
@@ -67,8 +74,12 @@ function WordsWrapper(props) {
         gameState={gameState}
         ref={inputRef}
       />
-
-      <WordList words={words} currentIndex={index} currentWord={userInput}>
+      <WordList
+        words={words}
+        currentIndex={index}
+        currentWord={userInput}
+        updateCaret={updateCaretPosition}>
+        <Caret ref={caretRef} gameState={gameState} />
         {gameState.isPaused && <PauseScreen onResume={controls.resumeGame} />}
       </WordList>
     </>
