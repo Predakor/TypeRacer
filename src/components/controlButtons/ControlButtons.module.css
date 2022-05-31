@@ -11,11 +11,6 @@
 }
 .button {
   font-size: calc(2 * var(--gameMenu-font-size));
-  color: var(--main-color);
-  transition: 0.3s ease-in;
-}
-.button:hover {
-  opacity: 0.5;
   color: var(--secondary-color);
   transition: 0.3s ease-in;
 }

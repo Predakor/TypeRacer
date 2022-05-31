@@ -1,5 +1,7 @@
 import React from "react";
 import Clock from "../../Clock";
+import { IoSettingsOutline } from "react-icons/io5";
+import Button from "../../Utils/Button/Button";
 import classes from "./InfoPanel.module.css";
 
 function InfoPanel(props) {
@@ -13,12 +15,13 @@ function InfoPanel(props) {
         <p className={`${hide} `}>Press any key to start typing</p>
       </Hint>
 
-      <p hide={hide}>
-        {`
-          ${settings.mode}
-          ${settings.mode === "time" ? settings.time : settings.wordCount}
-        `}
-      </p>
+      <Button forwardClass={classes["settings-button"]} click={1}>
+        <IoSettingsOutline />
+      </Button>
+
+      {/* <div hide={hide}>
+        {settings.mode} {settings.mode === "time" ? settings.time : settings.wordCount}
+      </div> */}
     </div>
   );
 }

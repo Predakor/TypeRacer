@@ -9,8 +9,8 @@
   --text-correct-color: rgb(243, 243, 243);
   --text-wrong-color: rgb(255, 0, 0);
 
-  --menu-font-size: clamp(2rem, 2.5em, 4vw);
-  --gameMenu-font-size: clamp(0.8rem, 1.5em, 2vw);
+  --menu-font-size: clamp(2rem, 2.2em, 4vw);
+  --gameMenu-font-size: clamp(1rem, 1.3em, 2vw);
   --text-font-size: clamp(1.5rem, 2em, 2.2vw);
 
   --font-family: "Poppins", sans-serif;
@@ -31,7 +31,7 @@ button {
   background-color: inherit;
   color: inherit;
   border: none;
-  opacity: 0;
+  cursor: pointer;
   animation: appear 1s ease-in 1.5s forwards;
 }
 

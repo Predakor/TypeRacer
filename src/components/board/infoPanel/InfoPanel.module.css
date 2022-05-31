@@ -1,14 +1,14 @@
 .container {
   padding: 1%;
+  font-size: var(--gameMenu-font-size);
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+}
+
+.settings-button {
   font-size: var(--gameMenu-font-size);
 }
-
-.hint {
-  text-align: center;
-}
-
 @media screen and (max-width: 500px) {
   .group {
     gap: 1vw;

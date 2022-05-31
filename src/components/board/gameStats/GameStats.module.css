@@ -8,16 +8,20 @@
 }
 .header {
   font-size: calc(2 * var(--gameMenu-font-size));
-  color: var(--main-color);
+  color: var(--secondary-color);
   grid-column: span 3;
   animation: appear 1s ease-in;
 }
 
 .stat,
 .main-stat {
-  color: rgb(152, 152, 152);
+  color: var(--text-color);
   text-shadow: 1px 1px black;
   opacity: 0;
+}
+.value,
+.main-value {
+  color: var(--secondary-color);
 }
 
 .main-stat {
@@ -26,22 +30,29 @@
   text-align: center;
   animation: appear 1s 0.6s ease-in forwards;
 }
+.main-value {
+  font-size: calc(1.5 * var(--gameMenu-font-size));
+  font-weight: bold;
+}
+
 .stat {
   font-size: calc(0.9 * var(--gameMenu-font-size));
   animation: appear 0.8s 1s ease-in forwards;
 }
-.main-stat > p {
-  font-size: calc(1.5 * var(--gameMenu-font-size));
-}
 .value {
-  color: var(--main-color);
+  font-size: calc(1 * var(--gameMenu-font-size));
+
   font-weight: bold;
 }
 
+.mode-stats {
+  text-align: center;
+}
 .final-stats {
   grid-column: span 2;
   display: flex;
   gap: 1em;
+  text-align: center;
 }
 
 @keyframes appear {
