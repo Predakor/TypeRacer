@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Typer/static/css/main.e3dd090d.css",
-    "main.js": "/Typer/static/js/main.f62d92fa.js",
+    "main.css": "/Typer/static/css/main.91b2b12a.css",
+    "main.js": "/Typer/static/js/main.1545c948.js",
     "index.html": "/Typer/index.html",
-    "main.e3dd090d.css.map": "/Typer/static/css/main.e3dd090d.css.map",
-    "main.f62d92fa.js.map": "/Typer/static/js/main.f62d92fa.js.map"
+    "main.91b2b12a.css.map": "/Typer/static/css/main.91b2b12a.css.map",
+    "main.1545c948.js.map": "/Typer/static/js/main.1545c948.js.map"
   },
   "entrypoints": [
-    "static/css/main.e3dd090d.css",
-    "static/js/main.f62d92fa.js"
+    "static/css/main.91b2b12a.css",
+    "static/js/main.1545c948.js"
   ]
 }
