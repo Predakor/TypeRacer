@@ -20,7 +20,7 @@ function gameReducer(prevState, action) {
 
 function Board() {
   const gameSettings = useContext(settingsContext);
-  const [activeWords, setActiveWords] = useState(generateWords(gameSettings.wordCount));
+  const [words, setWords] = useState(generateWords(gameSettings.wordCount));
 
   const [game, dispatchGame] = useReducer(gameReducer, {
     started: false,
@@ -30,11 +30,11 @@ function Board() {
 
   const gameControls = {
     restartGame() {
-      setActiveWords(generateWords(gameSettings.wordCount));
+      setWords(generateWords(gameSettings.wordCount));
       gameControls.clearBoard();
     },
     repeatGame() {
-      setActiveWords((prevWords) => {
+      setWords((prevWords) => {
         return prevWords.map((word) => ({ ...word, entered: "" }));
       });
       gameControls.clearBoard();
@@ -67,13 +67,9 @@ function Board() {
         <InfoPanel settings={gameSettings} controls={gameControls.endGame} gameState={game} />
       )}
       {game.ended ? (
-        <GameStatsPanel controls={gameControls} gameState={game} />
+        <GameStatsPanel controls={gameControls} gameState={game} words={words} />
       ) : (
-        <WordsPanel
-          controls={gameControls}
-          gameState={game}
-          words={[activeWords, setActiveWords]}
-        />
+        <WordsPanel controls={gameControls} gameState={game} words={[words, setWords]} />
       )}
       <ControlButtons controls={gameControls} gameState={game} />
     </div>

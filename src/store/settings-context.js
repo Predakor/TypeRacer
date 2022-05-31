@@ -1,8 +1,8 @@
 import { createContext } from "react";
 
 let gameSettings = createContext({
-  mode: "time",
-  time: 60,
+  mode: "words",
+  time: 0,
   wordCount: 50,
 });
 

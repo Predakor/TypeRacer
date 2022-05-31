@@ -28,13 +28,16 @@ function WordsWrapper(props) {
     caretRef.current.style.left = `${newLeft}px`;
     caretRef.current.style.top = `${5 + newTop}px`;
   }
-
+  function endGame() {
+    words[index].entered = inputRef.current.value.trim();
+    controls.endGame();
+  }
   function textHandler(userText) {
     const currentWord = words[index].generated;
     userText = userText.trim();
 
     if (index === words.length - 1) {
-      if (userText === currentWord) controls.endGame();
+      if (userText === currentWord) endGame();
     }
     setUserInput((prevText) => {
       let letterIndex = userText.length - 1;
@@ -49,7 +52,7 @@ function WordsWrapper(props) {
     });
   }
   function spaceBarHandler() {
-    if (index >= words.length - 1) return controls.endGame();
+    if (index >= words.length - 1) return endGame();
     words[index].entered = userInput;
     inputRef.current.value = "";
     setIndex((prevIndex) => prevIndex + 1);
