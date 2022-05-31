@@ -1,41 +1,35 @@
 .word {
-  color: gray;
   height: fit-content;
   font-size: var(--text-font-size);
+  color: var(--text-color);
   user-select: none;
 }
-.active {
-  color: lightgray;
-}
 .letter {
-  color: gray;
   display: inline-block;
-  transition: all 0.15s;
-  color: rgb(152, 152, 152);
+  transition: all 0.1s;
   text-shadow: 1px 1px black;
 }
 .correct {
-  color: rgb(243, 243, 243);
+  color: var(--text-correct-color);
+  transition: all 0.1s;
 }
 .wrong {
-  color: red;
+  color: var(--text-wrong-color);
   transition: all 0.3s;
 }
 .wrong::after {
   content: "";
   width: 1.2ch;
   height: 0.25%;
-  position: fixed;
+  background-color: var(--text-wrong-color);
   display: block;
-  background-color: red;
+  position: fixed;
   z-index: -1;
   animation: start 0.3s;
 }
-.extra_letter {
-  color: red;
-}
+
 @keyframes start {
-  0% {
+  from {
     width: 0ch;
   }
 }

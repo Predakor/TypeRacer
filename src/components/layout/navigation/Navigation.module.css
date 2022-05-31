@@ -1,11 +1,14 @@
 nav {
-  width: 100%;
-  padding-inline: 5%;
+  padding-right: 5%;
 }
 .logo {
-  margin-left: -1em;
   font-size: calc(1.2 * var(--menu-font-size));
 }
+.text {
+  font-size: calc(0.4 * var(--gameMenu-font-size));
+  text-align: right;
+}
+
 .links {
   display: flex;
   justify-content: space-between;
@@ -14,21 +17,14 @@ nav {
   list-style: none;
   font-size: var(--menu-font-size);
 }
-.text {
-  font-size: calc(0.4 * var(--gameMenu-font-size));
-  text-align: right;
-}
 
 a {
+  color: var(--secondary-color);
   text-decoration: none;
-  color: orange;
   transition: 0.3s;
-}
-a > svg {
-  font-size: calc(0.6 * var(--menu-font-size));
 }
 
 li a:hover {
-  color: rgb(170, 110, 0);
+  opacity: 0.7;
   transition: 0.3s;
 }

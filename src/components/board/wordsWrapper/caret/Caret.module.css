@@ -1,12 +1,12 @@
 .pointer {
-  position: absolute;
-  background-color: orange;
   width: 0.1em;
-  height: calc(1.2 * var(--text-font-size));
-  transition: left 0.1s ease-in;
+  height: calc(1.3 * var(--text-font-size));
+  background-color: orange;
+  position: absolute;
+  transition: left 0.1s;
 }
 .fade {
-  animation: fade alternate 1s ease infinite;
+  animation: fade 1s ease-out alternate-reverse infinite;
 }
 @keyframes fade {
   0% {

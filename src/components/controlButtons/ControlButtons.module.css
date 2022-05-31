@@ -1,6 +1,7 @@
 .container {
   min-height: 10vh;
   width: 100%;
+  margin-top: 2%;
   padding: 1%;
   display: flex;
   justify-content: space-evenly;
@@ -10,7 +11,7 @@
 }
 .button {
   font-size: calc(2 * var(--gameMenu-font-size));
-  color: var(--teritiary-color);
+  color: var(--main-color);
   transition: 0.3s ease-in;
 }
 .button:hover {
