@@ -7,47 +7,42 @@
   gap: 3em 1em;
 }
 .header {
-  font-size: calc(2 * var(--gameMenu-font-size));
-  color: var(--secondary-color);
   grid-column: span 3;
-  animation: appear 1s ease-in;
+  font-size: calc(2 * var(--gameMenu-font-size));
+  opacity: 0;
+  animation: appear 1s ease-in forwards;
 }
 
 .stat,
 .main-stat {
   color: var(--text-color);
   text-shadow: 1px 1px black;
+  text-align: center;
+  font-weight: 500;
   opacity: 0;
 }
 .value,
-.main-value {
-  color: var(--secondary-color);
+.main-value,
+.header {
+  color: var(--main-color);
+  font-weight: bold;
 }
 
 .main-stat {
   font-size: calc(1.2 * var(--gameMenu-font-size));
-  font-weight: 500;
-  text-align: center;
   animation: appear 1s 0.6s ease-in forwards;
 }
 .main-value {
   font-size: calc(1.5 * var(--gameMenu-font-size));
-  font-weight: bold;
 }
-
 .stat {
   font-size: calc(0.9 * var(--gameMenu-font-size));
   animation: appear 0.8s 1s ease-in forwards;
 }
 .value {
   font-size: calc(1 * var(--gameMenu-font-size));
-
-  font-weight: bold;
 }
 
-.mode-stats {
-  text-align: center;
-}
 .final-stats {
   grid-column: span 2;
   display: flex;
@@ -56,9 +51,6 @@
 }
 
 @keyframes appear {
-  from {
-    opacity: 0;
-  }
   to {
     opacity: 1;
   }

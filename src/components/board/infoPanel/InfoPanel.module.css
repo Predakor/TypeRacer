@@ -1,5 +1,6 @@
 .container {
   padding: 1%;
+  color: var(--main-color);
   font-size: var(--gameMenu-font-size);
   display: flex;
   justify-content: space-between;

@@ -25,9 +25,9 @@ function calculateTest(words) {
 }
 
 function GameStats(props) {
-  const finalStats = calculateTest(props.words); //stats from final text
   const gameStats = useContext(statsDataContext);
   const gameSettings = useContext(gameSettingsContext);
+  const finalStats = calculateTest(props.words); //stats from final text
 
   let { totalClicks, totalErrors } = gameStats;
   let { time: startTime, mode } = gameSettings;

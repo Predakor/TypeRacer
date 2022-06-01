@@ -6,27 +6,16 @@ import classes from "./InfoPanel.module.css";
 
 function InfoPanel(props) {
   const { settings, controls, gameState } = props;
-  let hide = gameState.started ? "hide" : "";
+  const hide = gameState.started ? "hide" : "";
   return (
     <div className={classes.container}>
       <Clock settings={settings} onTimerEnd={controls.endGame} />
-
-      <Hint>
-        <p className={`${hide} `}>Press any key to start typing</p>
-      </Hint>
-
-      <Button forwardClass={classes["settings-button"]} click={1}>
+      <p className={hide}>Press any key to start typing</p>
+      <Button forwardClass={`${classes["settings-button"]} ${hide}`} click={() => {}}>
         <IoSettingsOutline />
       </Button>
-
-      {/* <div hide={hide}>
-        {settings.mode} {settings.mode === "time" ? settings.time : settings.wordCount}
-      </div> */}
     </div>
   );
 }
 
-function Hint(props) {
-  return <div className={classes.hint_container}>{props.children}</div>;
-}
 export default InfoPanel;

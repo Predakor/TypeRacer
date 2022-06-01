@@ -1,14 +1,15 @@
 import { IoArrowForward, IoSyncOutline, IoPersonOutline, IoSettingsOutline } from "react-icons/io5";
-import Button, { NavButton } from "../Utils/Button/Button";
-
+import Button from "../Utils/Button/Button";
 import classes from "./ControlButtons.module.css";
+
 function ControlButtons(props) {
   const { restartGame, repeatGame } = props.controls;
   const { isPaused, started, ended } = props.gameState;
   const hide = isPaused || !started ? "" : "hide";
+  const animate = ended ? classes.animate : "";
 
   return (
-    <div className={`${classes.container} ${hide}`}>
+    <div className={`${classes.container} ${hide} ${animate}`}>
       {!ended && (
         <Button forwardClass={hide} click={restartGame} tabIndex={0}>
           <IoSyncOutline />
@@ -16,18 +17,18 @@ function ControlButtons(props) {
       )}
       {ended && (
         <>
-          <NavButton forwardClass={classes.hide} click={restartGame}>
+          <Button click={restartGame} tabIndex={0}>
             <IoArrowForward />
-          </NavButton>
-          <NavButton forwardClass={classes.hide} click={repeatGame}>
+          </Button>
+          <Button click={repeatGame} tabIndex={0}>
             <IoSyncOutline />
-          </NavButton>
-          <NavButton forwardClass={classes.hide} click={restartGame}>
+          </Button>
+          <Button click={restartGame} tabIndex={0}>
             <IoPersonOutline />
-          </NavButton>
-          <NavButton forwardClass={classes["settings-button"]} click={1}>
+          </Button>
+          <Button click={() => {}} tabIndex={0}>
             <IoSettingsOutline />
-          </NavButton>
+          </Button>
         </>
       )}
     </div>
