@@ -1,5 +1,6 @@
 import classes from "../Layout.module.css";
+
 function Panel(props) {
-  return <div className={classes.panel}>{props.children}</div>;
+  return <section className={classes.section}>{props.children}</section>;
 }
 export default Panel;

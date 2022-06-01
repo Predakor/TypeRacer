@@ -1,0 +1,11 @@
+.nav {
+  padding: 1em;
+  display: flex;
+  color: var(--text-color);
+}
+.button {
+  font-size: calc(1.2 * var(--menu-font-size));
+}
+.activeTab {
+  color: var(--main-color);
+}

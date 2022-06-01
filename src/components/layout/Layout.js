@@ -1,5 +1,5 @@
 import Navigation from "./navigation/Navigation";
-import Panel from "./panel/Panel";
+import Section from "./section/Section";
 import Footer from "./footer/Footer";
 
 function Layout(props) {
@@ -7,7 +7,7 @@ function Layout(props) {
     <>
       <Navigation />
       <main>
-        <Panel>{props.children}</Panel>
+        <Section>{props.children}</Section>
       </main>
       <Footer />
     </>
