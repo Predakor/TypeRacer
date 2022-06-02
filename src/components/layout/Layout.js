@@ -1,14 +1,12 @@
 import Navigation from "./navigation/Navigation";
-import Section from "./section/Section";
+import Main from "./main/Main";
 import Footer from "./footer/Footer";
 
 function Layout(props) {
   return (
     <>
       <Navigation />
-      <main>
-        <Section>{props.children}</Section>
-      </main>
+      <Main>{props.children}</Main>
       <Footer />
     </>
   );

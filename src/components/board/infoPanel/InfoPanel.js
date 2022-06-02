@@ -1,7 +1,7 @@
 import React from "react";
 import Clock from "../../Clock";
 import { IoSettingsOutline } from "react-icons/io5";
-import Button from "../../Utils/Button/Button";
+import Button from "../../button/Button";
 import classes from "./InfoPanel.module.css";
 import { Link } from "react-router-dom";
 

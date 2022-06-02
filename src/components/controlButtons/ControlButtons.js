@@ -1,5 +1,5 @@
 import { IoArrowForward, IoSyncOutline, IoPersonOutline, IoSettingsOutline } from "react-icons/io5";
-import Button from "../Utils/Button/Button";
+import Button from "../button/Button";
 import classes from "./ControlButtons.module.css";
 
 function ControlButtons(props) {
