@@ -1,6 +1,6 @@
 import Navigation from "./navigation/Navigation";
 import Main from "./main/Main";
-import Footer from "./footer/Footer";
+import Footer from "./Footer/Footer";
 
 function Layout(props) {
   return (
