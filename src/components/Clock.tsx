@@ -1,61 +1,41 @@
-import { useContext, useEffect, useState } from "react";
-import statsDataContext from "../store/stats-context";
+import { useGameStateContext } from "@store/gameState-context";
+import useClock from "hooks/useClock";
+import useGameStats from "hooks/useGameStats";
+import { useEffect } from "react";
 
-let timeUpdate, timeEnd, gameMode;
-let clockData = {
-  startTime: null,
-  currentTime: null,
-  intervalID: null,
-};
-
-function startTimer(startTime) {
-  if (clockData.intervalID) stopTimer();
-  updateTimer(startTime);
-  if (gameMode === "time") {
-    clockData.intervalID = setInterval(() => {
-      if (startTime > 0) return updateTimer(--startTime);
-      updateTimer(startTime);
-      stopTimer();
-      timeEnd();
-    }, 1000);
-  } else {
-    clockData.intervalID = setInterval(() => {
-      updateTimer(++startTime);
-    }, 1000);
-  }
+interface Props {
+  mode: "words" | "time";
+  time: number;
+  onEnd: (time: number) => void;
 }
 
-function updateTimer(newTime) {
-  if (newTime) {
-    clockData.currentTime = newTime;
-    timeUpdate(newTime);
-  } else timeUpdate(clockData.startTime);
-}
+function Clock({ mode, time, onEnd }: Props) {
+  const [game] = useGameStateContext();
+  const gameStats = useGameStats();
 
-function stopTimer() {
-  clearInterval(clockData.intervalID);
-  clockData.intervalID = null;
-}
+  const wordsMode = mode === "words";
+  const startTime = wordsMode ? 0 : time;
+  const gameMode = wordsMode ? "timer" : "countdown";
 
-const restartTimer = () => startTimer(clockData.startTime);
-const resumeTimer = () => startTimer(clockData.currentTime);
-const getCurrentTime = () => clockData.currentTime;
+  const [clock, controls] = useClock({ mode: gameMode, startTime });
 
-function Clock(props) {
-  const stats = useContext(statsDataContext);
-  const { time, mode } = props.settings;
-  const [curentTime, setCurrentTime] = useState(time);
-  stats.currentTime = curentTime;
   useEffect(() => {
-    [timeUpdate, timeEnd, gameMode] = [setCurrentTime, props.onTimerEnd, mode];
-    clockData.startTime = time;
-  }, [time || mode]);
+    if (game.paused) return controls.pause();
+    if (game.started) {
+      if (!game.paused) controls.resume();
+      else controls.start();
+    }
+    if (game.ended) onEnd(clock);
+  }, [game]);
+
+  useEffect(() => {
+    gameStats.time = clock / 1000;
+  }, [clock]);
 
   return (
-    <div className="clock">
-      <p>{curentTime}</p>
+    <div className="clock" aria-label="clock">
+      {clock / 1000}
     </div>
   );
 }
 export default Clock;
-export { startTimer, stopTimer, getCurrentTime, restartTimer, resumeTimer, updateTimer };

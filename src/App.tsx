@@ -1,9 +1,9 @@
+import Layout from "@layout/Layout";
 import { Route, Routes } from "react-router-dom";
-import Layout from "./components/layout/Layout";
-import Play from "./pages/play";
-import Settings from "./pages/settings";
-import Profile from "./pages/profile.jsx";
 import About from "./pages/about";
+import Play from "./pages/play";
+import Profile from "./pages/profile.js";
+import Settings from "./pages/settings";
 
 function App() {
   return (

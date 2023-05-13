@@ -1,6 +1,11 @@
 import { createContext } from "react";
 
-let gameSettings = createContext({
+interface GameSettings {
+  mode: "words" | "time";
+  time: number;
+  wordCount: number;
+}
+const gameSettings = createContext<GameSettings>({
   mode: "words",
   time: 0,
   wordCount: 50,

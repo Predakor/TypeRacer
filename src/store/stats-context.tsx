@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-let gameStats = createContext({
+const gameStats = createContext({
   totalClicks: 0,
   totalErrors: 0,
   time: 0,

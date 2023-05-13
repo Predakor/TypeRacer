@@ -1,7 +1,12 @@
-import Board from "../components/board/Board";
+import Board from "@components/Board/Board";
+import { GameStateProvider } from "@store/gameState-context";
 
 function Play() {
-  return <Board></Board>;
+  return (
+    <GameStateProvider>
+      <Board />
+    </GameStateProvider>
+  );
 }
 
 export default Play;

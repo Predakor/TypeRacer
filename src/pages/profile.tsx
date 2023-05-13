@@ -1,11 +1,13 @@
+import Panel from "@layout/Section/Section";
+
 function Profile() {
   return (
-    <div>
+    <Panel>
       <p>Profile page</p>
       <p>Will conntain user informations and statistics</p>
       <p>Like total typed words avg wpm etc</p>
       <p>Under construction</p>
-    </div>
+    </Panel>
   );
 }
 export default Profile;

@@ -1,39 +1,41 @@
+import SettingButon from "@components/SettingsMenu/SettingsButton/SettingsButon";
+import Panel from "@layout/Section/Section";
+import { Section } from "@layout/index";
+import settingsContext from "@store/settings-context";
 import { useContext } from "react";
-import settingsContext from "../store/settings-context";
-import SettingButton from "../components/settingsMenu/settingsButon/SettingsButon";
-import classes from "../components/settingsMenu/SettingsMenu.module.css";
-
 function Settings() {
   const settings = useContext(settingsContext);
 
   return (
-    <div className={classes.panel}>
+    <Panel>
       <h2>Settings</h2>
 
-      <div className={classes.section}>
-        <div className={classes.setting}>
+      <Section>
+        <div>
           <p>Mode</p>
-          <SettingButton onClick={() => console.log(1)}>Words</SettingButton>
-          <SettingButton onClick={() => console.log(1)}>Quotes</SettingButton>
-          <SettingButton onClick={() => console.log(1)}>Time</SettingButton>
+          <SettingButon onClick={() => console.log(1)}>Words</SettingButon>
+          <SettingButon onClick={() => console.log(1)}>Quotes</SettingButon>
+          <SettingButon onClick={() => console.log(1)}>Time</SettingButon>
         </div>
-        <div className={classes.setting}>
+        <div>
           <p>Duration</p>
-          <SettingButton onClick={() => console.log(1)}>short</SettingButton>
-          <SettingButton onClick={() => console.log(1)}>medium</SettingButton>
-          <SettingButton onClick={() => console.log(1)}>long</SettingButton>
+          <SettingButon onClick={() => console.log(1)}>short</SettingButon>
+          <SettingButon onClick={() => console.log(1)}>medium</SettingButon>
+          <SettingButon onClick={() => console.log(1)}>long</SettingButon>
         </div>
 
-        <div className={classes.setting}>
+        <div>
           <p>Extras</p>
-          <SettingButton onClick={() => console.log(1)}>punctuaction</SettingButton>
-          <SettingButton onClick={() => console.log(1)}>numbers</SettingButton>
-          <SettingButton onClick={() => console.log(1)}>upperCase</SettingButton>
+          <SettingButon onClick={() => console.log(1)}>
+            punctuaction
+          </SettingButon>
+          <SettingButon onClick={() => console.log(1)}>numbers</SettingButon>
+          <SettingButon onClick={() => console.log(1)}>upperCase</SettingButon>
         </div>
-      </div>
+      </Section>
 
-      <div className={classes.section}>
-        <div className={classes.setting}>
+      <Section>
+        <div>
           <p>Predefine thems</p>
           <select name="themes" id="">
             <option value="theme1">theme1</option>
@@ -43,24 +45,23 @@ function Settings() {
             <option value="theme5">theme5</option>
           </select>
         </div>
-
-        <div className={classes["custom-theme"]}>
+        <div>
           <h3>Custom theme</h3>
-          <div className={classes.themeSetting}>
+          <div>
             <p>Main Color</p>
           </div>
-          <div className={classes.themeSetting}>
+          <div>
             <p>Secondary Color</p>
           </div>
-          <div className={classes.themeSetting}>
+          <div>
             <p>Accent Color</p>
           </div>
-          <div className={classes.themeSetting}>
+          <div>
             <p>Text Color </p>
           </div>
         </div>
-      </div>
-    </div>
+      </Section>
+    </Panel>
   );
 }
 export default Settings;
