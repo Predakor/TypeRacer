@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext } from "preact";
 
 interface GameSettings {
   mode: "words" | "time";

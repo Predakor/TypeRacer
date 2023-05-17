@@ -1,5 +1,5 @@
 import { AvaibleThemes } from "@utils/themes";
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 
 function useCurrentTheme() {
   const [activeTheme, setActiveTheme] = useState<AvaibleThemes>();

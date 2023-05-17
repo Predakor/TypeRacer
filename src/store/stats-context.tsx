@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext } from "preact";
 
 const gameStats = createContext({
   totalClicks: 0,

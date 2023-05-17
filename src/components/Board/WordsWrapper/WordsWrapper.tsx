@@ -1,9 +1,8 @@
 import useGameStats from "hooks/useGameStats";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { Word } from "types/types";
 import UserInput from "../UserInput/UserInput";
 import WordList from "./WordList";
-import PauseModal from "@components/Modal/PauseModal";
 
 interface Props {
   controls: any;
@@ -63,14 +62,14 @@ function WordsWrapper({ controls, generatedWords }: Props) {
   const spaceBarHandler = () => {
     if (index >= words.length - 1) return endGame();
     words[index].entered = userInput;
-    inputRef.current.value = "";
+    if (inputRef.current) inputRef.current.value = "";
     setIndex((prevIndex) => prevIndex + 1);
   };
 
   const backSpaceHandler = () => {
     if (userInput === "" && index > 0) {
       const prevWord = words[index - 1].entered;
-      inputRef.current.value = prevWord;
+      if (inputRef.current) inputRef.current.value = prevWord;
       words[index].entered = userInput;
       setIndex((prevIndex) => prevIndex - 1);
       setUserInput(prevWord);

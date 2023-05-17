@@ -1,6 +1,7 @@
 import { UpdateCaret } from "@components/Caret/Caret";
-import { memo, useEffect, useRef } from "react";
 import { Letter } from "./Letter";
+import { memo } from "preact/compat";
+import { useRef, useEffect } from "preact/hooks";
 
 interface Props {
   word: string;
@@ -35,7 +36,7 @@ function Word({ word, userWord, updateCaret }: Props) {
 
   return (
     <div className="whitespace-nowrap" ref={wordRef}>
-      {longerArray.map((l, i) => (
+      {longerArray.map((_, i) => (
         <Letter
           generated={word[i]}
           entered={userWord[i]}

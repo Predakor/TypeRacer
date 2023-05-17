@@ -1,4 +1,6 @@
-import { ReactNode, createContext, useContext, useRef, useState } from "react";
+import { createContext } from "preact";
+import { PropsWithChildren } from "preact/compat";
+import { useState, useRef, useContext } from "preact/hooks";
 
 interface GameState {
   started: boolean;
@@ -18,7 +20,7 @@ type exportType = [GameState, GameActions];
 
 export const gameStateContext = createContext([{}, {}] as exportType);
 
-export const GameStateProvider = ({ children }: { children: ReactNode }) => {
+export const GameStateProvider = ({ children }: PropsWithChildren) => {
   const [gameState, setGameState] = useState<GameState>({
     started: false,
     paused: false,

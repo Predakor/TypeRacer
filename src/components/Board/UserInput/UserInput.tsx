@@ -1,21 +1,28 @@
 import { useGameStateContext } from "@store/gameState-context";
-import { ChangeEvent, KeyboardEvent, forwardRef } from "react";
-
+import { forwardRef } from "preact/compat";
 interface Props {
   onChange: (text: string) => void;
   nextWord: VoidFunction;
   prevWord: VoidFunction;
 }
 
-type ChangeEv = ChangeEvent<HTMLInputElement>;
-type KeyEv = KeyboardEvent<HTMLInputElement>;
+type InputTarget = {
+  currentTarget: HTMLInputElement;
+};
 
 const UserInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
   const [game, actions] = useGameStateContext();
   const { onChange, nextWord, prevWord } = props;
 
-  const changeHandler = (e: ChangeEv) => {
-    if (game.started) onChange(e.target.value);
+  const changeHandler = ({ currentTarget }: InputTarget) => {
+    if (game.started) onChange(currentTarget.value);
+  };
+
+  const clickHandler = (e: KeyboardEvent) => {
+    if (game.ended) return;
+    if (!game.started) actions.start();
+    if (e.key === " ") return nextWord();
+    if (e.key === "Backspace") return prevWord();
   };
 
   const blurHandler = () => {
@@ -26,26 +33,17 @@ const UserInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
     if (game.started) actions.resume();
   };
 
-  const clickHandler = (e: KeyEv) => {
-    if (game.ended) return;
-    if (!game.started) actions.start();
-    if (e.key === " ") return nextWord();
-    if (e.key === "Backspace") return prevWord();
-  };
-
   return (
     <input
       className={"sr-only"}
       onChange={changeHandler}
       onKeyDown={clickHandler}
-      onBlur={blurHandler}
       onFocus={focusHandler}
-      tabIndex={0}
-      autoFocus
+      onBlur={blurHandler}
       autoCapitalize="off"
       autoCorrect="off"
       autoComplete="off"
-      autoSave="off"
+      autoFocus
       ref={ref}
     />
   );

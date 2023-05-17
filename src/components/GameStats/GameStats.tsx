@@ -9,7 +9,7 @@ const avgWordLength = 5;
 export default function GameStats({ words }: { words: Word[] }) {
   const { totalClicks, totalErrors, time } = useGameStats();
   const { time: startTime, mode, wordCount } = useGameSettings();
-  const { correct, wrong, skiped, extra, total } = calculateStats(words);
+  const { correct, wrong, skiped, extra } = calculateStats(words);
 
   const timeMode = mode === "time";
   const duration = timeMode ? startTime - time : time;

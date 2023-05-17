@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "preact/compat";
 import { Footer, Header } from ".";
 
-function Layout({ children }: { children: ReactNode }) {
+function Layout({ children }: PropsWithChildren) {
   return (
     <>
       <Header />

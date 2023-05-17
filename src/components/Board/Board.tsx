@@ -2,11 +2,11 @@ import ControlButtons from "@components/ControlButtons/ControlButtons";
 import { useGameStateContext } from "@store/gameState-context";
 import settingsContext from "@store/settings-context";
 import { generateWords } from "@utils/wordGenerator";
-import { useContext, useState } from "react";
 import GameStats from "../GameStats/GameStats";
 import InfoPanel from "./InfoPanel/InfoPanel";
 import WordsPanel from "./WordsWrapper/WordsWrapper";
 import PauseModal from "@components/Modal/PauseModal";
+import { useContext, useState } from "preact/hooks";
 
 function Board() {
   const gameSettings = useContext(settingsContext);

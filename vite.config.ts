@@ -1,16 +1,19 @@
-import react from "@vitejs/plugin-react";
+import preact from "@preact/preset-vite";
 import { defineConfig } from "vite";
-import viteTsconfigPaths from "vite-tsconfig-paths";
 import svgrPlugin from "vite-plugin-svgr";
+import viteTsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(() => {
   return {
-    build: {
-      outDir: "build",
-    },
     server: {
       port: 3000,
     },
-    plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
+    plugins: [preact(), viteTsconfigPaths(), svgrPlugin()],
+    resolve: {
+      alias: {
+        react: "preact/compat",
+        "react-dom": "preact/compat",
+      },
+    },
   };
 });
