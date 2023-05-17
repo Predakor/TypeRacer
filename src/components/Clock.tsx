@@ -1,7 +1,7 @@
 import { useGameStateContext } from "@store/gameState-context";
 import useClock from "hooks/useClock";
 import useGameStats from "hooks/useGameStats";
-import { useEffect } from "react";
+import { useEffect } from "preact/hooks";
 
 interface Props {
   mode: "words" | "time";

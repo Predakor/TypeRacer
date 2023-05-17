@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useState, useRef, useCallback } from "preact/hooks";
 
 interface Options {
   startTime?: number;
@@ -16,7 +16,7 @@ function useClock(options: Options = defaultOptions) {
   const { startTime = 0, mode = "timer", interval = 1000 } = options;
 
   const [time, setTime] = useState(startTime || 0);
-  const intervalID = useRef<number>();
+  const intervalID = useRef<NodeJS.Timer>();
 
   const createInterval = useCallback(() => {
     if (intervalID) clearInterval(intervalID.current);

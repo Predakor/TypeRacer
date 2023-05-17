@@ -1,9 +1,8 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "preact/compat";
 
-interface Props {
+interface Props extends PropsWithChildren {
   className?: string;
   onClick?: VoidFunction;
-  children?: ReactNode;
   ariaLabel: string;
 }
 

@@ -1,10 +1,6 @@
 import Button from "@components/Button/Button";
 import SettingsButton from "@components/Button/SettingsButton";
-import {
-  IoArrowForward,
-  IoSettingsOutline,
-  IoSyncOutline,
-} from "react-icons/io5";
+import { IoSyncOutline } from "react-icons/io5";
 import { VscChevronRight, VscDebugRestart } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 

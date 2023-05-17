@@ -1,17 +1,11 @@
 import { useGameStateContext } from "@store/gameState-context";
-import { forwardRef, useEffect } from "react";
+import { forwardRef } from "preact/compat";
 
 export type UpdateCaret = (left: number | string, top: number | string) => void;
 
-const Caret = forwardRef<HTMLSpanElement>((props, ref) => {
+const Caret = forwardRef<HTMLSpanElement>((_, ref) => {
   const [gameState] = useGameStateContext();
   const pulse = !gameState.started ? "animate-pulse-more" : "";
-
-  useEffect(() => {
-    if (gameState.paused) return;
-    const caret = ref?.current as HTMLSpanElement;
-    if (caret) caret.style.inset = "0";
-  }, [gameState]);
 
   return (
     <span

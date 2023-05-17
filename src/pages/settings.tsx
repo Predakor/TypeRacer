@@ -1,16 +1,14 @@
-import Panel from "@layout/Section/Section";
-import { Section } from "@layout/index";
 import settingsContext from "@store/settings-context";
-import { useContext } from "react";
+import { useContext } from "preact/hooks";
 
 function Settings() {
   const settings = useContext(settingsContext);
+  console.log(settings);
 
   return (
-    <Panel>
+    <>
       <h2>Settings</h2>
-
-      <Section>
+      <section>
         <input type="radio" id="" />
         <div>
           <p>Mode</p>
@@ -52,9 +50,9 @@ function Settings() {
             upperCase
           </button>
         </div>
-      </Section>
+      </section>
 
-      <Section>
+      <section>
         <div>
           <p>Predefine thems</p>
           <select name="themes" id="">
@@ -81,8 +79,8 @@ function Settings() {
             <p>Text Color </p>
           </div>
         </div>
-      </Section>
-    </Panel>
+      </section>
+    </>
   );
 }
 export default Settings;

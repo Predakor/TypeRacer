@@ -1,6 +1,6 @@
 import Caret, { UpdateCaret } from "@components/Caret/Caret";
 import Word from "@components/Word/Word";
-import { useCallback, useRef } from "react";
+import { useRef, useCallback } from "preact/hooks";
 import type { Word as WordT } from "types/types";
 
 interface Props {

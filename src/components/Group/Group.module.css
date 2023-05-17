@@ -1,8 +1,0 @@
-.group {
-  display: flex;
-  gap: 0.25em;
-}
-
-.vertical {
-  flex-flow: column nowrap;
-}
