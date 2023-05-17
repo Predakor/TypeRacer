@@ -1,6 +1,8 @@
-.horizontal {
-  flex-flow: row nowrap;
+.group {
+  display: flex;
+  gap: 0.25em;
 }
+
 .vertical {
   flex-flow: column nowrap;
 }

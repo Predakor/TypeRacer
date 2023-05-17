@@ -1,41 +1,49 @@
 import Button from "@components/Button/Button";
+import SettingsButton from "@components/Button/SettingsButton";
 import {
   IoArrowForward,
-  IoPersonOutline,
   IoSettingsOutline,
   IoSyncOutline,
 } from "react-icons/io5";
-import classes from "./ControlButtons.module.css";
+import { VscChevronRight, VscDebugRestart } from "react-icons/vsc";
+import { Link } from "react-router-dom";
 
-function ControlButtons(props) {
-  const { restartGame, repeatGame } = props.controls;
-  const { isPaused, started, ended } = props.gameState;
-  const hide = isPaused || !started ? "" : "hide";
-  const animate = ended ? classes.animate : "";
+interface Props {
+  controls: Record<string, VoidFunction>;
+  ended: boolean;
+}
 
-  if (!ended) {
-    return (
-      <Button className={hide} onClick={restartGame}>
-        <IoSyncOutline />
-      </Button>
-    );
-  }
+function ControlButtons({ controls, ended }: Props) {
+  const { restartGame, repeatGame } = controls;
 
   return (
-    <div className={`${classes.container} ${hide} ${animate}`}>
-      <Button onClick={restartGame}>
-        <IoArrowForward />
+    <section
+      className={`grid auto-cols-fr grid-flow-col justify-items-center p-4`}
+    >
+      {ended && (
+        <Button
+          className="tooltip-bottom"
+          onClick={restartGame}
+          ariaLabel={"Next game"}
+        >
+          <VscChevronRight />
+        </Button>
+      )}
+
+      <Button
+        className="tooltip-bottom"
+        onClick={ended ? repeatGame : restartGame}
+        ariaLabel={ended ? "Repeat game" : "Restart game"}
+      >
+        {ended ? <IoSyncOutline /> : <VscDebugRestart />}
       </Button>
-      <Button onClick={repeatGame}>
-        <IoSyncOutline />
-      </Button>
-      <Button onClick={restartGame}>
-        <IoPersonOutline />
-      </Button>
-      <Button onClick={() => {}}>
-        <IoSettingsOutline />
-      </Button>
-    </div>
+
+      {ended && (
+        <Link to={"settings"}>
+          <SettingsButton className="tooltip-bottom" />
+        </Link>
+      )}
+    </section>
   );
 }
 

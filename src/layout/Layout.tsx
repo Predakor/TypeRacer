@@ -1,13 +1,11 @@
-import Navigation from "./Nav/Nav";
-import Main from "./Main/Main";
-import Footer from "./Footer/Footer";
 import { ReactNode } from "react";
+import { Footer, Header } from ".";
 
 function Layout({ children }: { children: ReactNode }) {
   return (
     <>
-      <Navigation />
-      <Main>{children}</Main>
+      <Header />
+      <main>{children}</main>
       <Footer />
     </>
   );

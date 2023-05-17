@@ -1,18 +1,15 @@
-import { Word } from "types/types";
-import classes from "./Word.module.css";
-
-type Props = Pick<Word, "entered" | "generated">;
-
-export function Letter({ generated, entered }: Props) {
-  const isCorrect = generated === entered;
-  const correct = isCorrect ? classes.correct : classes.wrong;
-  return (
-    <span className={`${classes.letter} ${entered ? correct : ""}`}>
-      {generated}
-    </span>
-  );
+interface Props {
+  entered: string | undefined;
+  generated: string;
+  extra: boolean;
 }
 
-export function ExtraLetter({ letter }: { letter: string }) {
-  return <div className={`${classes.letter} ${classes.wrong}`}>{letter}</div>;
+export function Letter({ generated, entered, extra }: Props) {
+  const isCorrect = entered === generated;
+  const letterClass = isCorrect ? "text-primary-content" : "text-error";
+  return (
+    <span className={entered ? letterClass : "text-base-content"}>
+      {extra ? entered : generated}
+    </span>
+  );
 }

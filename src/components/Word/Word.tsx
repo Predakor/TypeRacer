@@ -1,7 +1,6 @@
-import { memo, useEffect, useRef } from "react";
-import classes from "./Word.module.css";
-import { ExtraLetter, Letter } from "./Letter";
 import { UpdateCaret } from "@components/Caret/Caret";
+import { memo, useEffect, useRef } from "react";
+import { Letter } from "./Letter";
 
 interface Props {
   word: string;
@@ -35,16 +34,15 @@ function Word({ word, userWord, updateCaret }: Props) {
   }, [userWord]);
 
   return (
-    <div className={classes.word} ref={wordRef}>
-      {longerArray.map((currentLetter, i) => {
-        const letter = word[i];
-        const userLetter = userWord[i];
-        return i < word.length ? (
-          <Letter generated={letter} entered={userLetter} key={i} />
-        ) : (
-          <ExtraLetter letter={currentLetter} key={i} />
-        );
-      })}
+    <div className="whitespace-nowrap" ref={wordRef}>
+      {longerArray.map((l, i) => (
+        <Letter
+          generated={word[i]}
+          entered={userWord[i]}
+          extra={i >= word.length}
+          key={i}
+        />
+      ))}
     </div>
   );
 }

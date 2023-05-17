@@ -1,8 +1,7 @@
-import Word from "@components/Word/Word";
-import { ReactNode, useRef } from "react";
-import type { Word as WordT } from "types/types";
-import classes from "../Board.module.css";
 import Caret, { UpdateCaret } from "@components/Caret/Caret";
+import Word from "@components/Word/Word";
+import { useCallback, useRef } from "react";
+import type { Word as WordT } from "types/types";
 
 interface Props {
   words: WordT[];
@@ -13,17 +12,15 @@ interface Props {
 function WordList({ words, currentWord, currentIndex }: Props) {
   const caretRef = useRef<HTMLSpanElement>(null);
 
-  const updateCaretPosition: UpdateCaret = (left, top) => {
+  const updateCaretPosition = useCallback<UpdateCaret>((left, top) => {
     const caret = caretRef.current;
     if (!caret) return;
-    caret.style.left = `${left}px`;
-    caret.style.top = `${top}px`;
-  };
+    caret.style.translate = `${left}px ${top}px`;
+  }, []);
 
   return (
-    <div className={classes.words}>
+    <section className="relative flex flex-row flex-wrap gap-x-2 text-xl">
       <Caret ref={caretRef} />
-
       {words.map(({ entered, generated }, i) => {
         const isCurrentWord = i === currentIndex;
         const userWord = isCurrentWord ? currentWord : entered;
@@ -36,7 +33,7 @@ function WordList({ words, currentWord, currentIndex }: Props) {
           />
         );
       })}
-    </div>
+    </section>
   );
 }
 

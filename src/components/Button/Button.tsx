@@ -1,18 +1,19 @@
 import { ReactNode } from "react";
-import classes from "./Button.module.css";
 
 interface Props {
   className?: string;
   onClick?: VoidFunction;
   children?: ReactNode;
+  ariaLabel: string;
 }
 
-function Button({ className, onClick, children }: Props) {
+function Button({ className, onClick, children, ariaLabel }: Props) {
   return (
     <button
-      className={`${classes.button} ${classes.animate} ${className ?? ""}`}
+      className={`btn-ghost tooltip btn ${className}`}
       onClick={onClick}
       type="button"
+      data-tip={ariaLabel}
     >
       {children}
     </button>

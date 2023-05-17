@@ -1,6 +1,5 @@
-import { ChangeEvent, KeyboardEvent, forwardRef, useEffect } from "react";
-import classes from "./input.module.css";
 import { useGameStateContext } from "@store/gameState-context";
+import { ChangeEvent, KeyboardEvent, forwardRef } from "react";
 
 interface Props {
   onChange: (text: string) => void;
@@ -24,7 +23,7 @@ const UserInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
   };
 
   const focusHandler = () => {
-    actions.resume();
+    if (game.started) actions.resume();
   };
 
   const clickHandler = (e: KeyEv) => {
@@ -36,7 +35,7 @@ const UserInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
 
   return (
     <input
-      className={classes.input}
+      className={"sr-only"}
       onChange={changeHandler}
       onKeyDown={clickHandler}
       onBlur={blurHandler}

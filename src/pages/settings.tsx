@@ -1,8 +1,8 @@
-import SettingButon from "@components/SettingsMenu/SettingsButton/SettingsButon";
 import Panel from "@layout/Section/Section";
 import { Section } from "@layout/index";
 import settingsContext from "@store/settings-context";
 import { useContext } from "react";
+
 function Settings() {
   const settings = useContext(settingsContext);
 
@@ -11,26 +11,46 @@ function Settings() {
       <h2>Settings</h2>
 
       <Section>
+        <input type="radio" id="" />
         <div>
           <p>Mode</p>
-          <SettingButon onClick={() => console.log(1)}>Words</SettingButon>
-          <SettingButon onClick={() => console.log(1)}>Quotes</SettingButon>
-          <SettingButon onClick={() => console.log(1)}>Time</SettingButon>
+          <button className="btn-ghost btn" onClick={() => console.log(1)}>
+            Words
+          </button>
+          <button className="btn-ghost btn" onClick={() => console.log(1)}>
+            Quotes
+          </button>
+          <button className="btn-ghost btn" onClick={() => console.log(1)}>
+            Time
+          </button>
         </div>
         <div>
           <p>Duration</p>
-          <SettingButon onClick={() => console.log(1)}>short</SettingButon>
-          <SettingButon onClick={() => console.log(1)}>medium</SettingButon>
-          <SettingButon onClick={() => console.log(1)}>long</SettingButon>
+          <button className="btn-ghost btn" onClick={() => console.log(1)}>
+            short
+          </button>
+          <button className="btn-ghost btn" onClick={() => console.log(1)}>
+            medium
+          </button>
+          <button className="btn-ghost btn" onClick={() => console.log(1)}>
+            long
+          </button>
         </div>
 
         <div>
           <p>Extras</p>
-          <SettingButon onClick={() => console.log(1)}>
+          <button className="btn-ghost btn flex" onClick={() => console.log(1)}>
             punctuaction
-          </SettingButon>
-          <SettingButon onClick={() => console.log(1)}>numbers</SettingButon>
-          <SettingButon onClick={() => console.log(1)}>upperCase</SettingButon>
+          </button>
+          <button className="btn-ghost btn" onClick={() => console.log(1)}>
+            numbers
+          </button>
+          <button
+            className="btn-ghost btn flex text-xl"
+            onClick={() => console.log(1)}
+          >
+            upperCase
+          </button>
         </div>
       </Section>
 
@@ -45,6 +65,7 @@ function Settings() {
             <option value="theme5">theme5</option>
           </select>
         </div>
+
         <div>
           <h3>Custom theme</h3>
           <div>

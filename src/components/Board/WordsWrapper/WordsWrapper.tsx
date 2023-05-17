@@ -85,12 +85,7 @@ function WordsWrapper({ controls, generatedWords }: Props) {
         prevWord={backSpaceHandler}
         ref={inputRef}
       />
-      <WordList
-        words={words}
-        currentIndex={index}
-        currentWord={userInput}
-      ></WordList>
-      <PauseModal />
+      <WordList words={words} currentIndex={index} currentWord={userInput} />
     </>
   );
 }

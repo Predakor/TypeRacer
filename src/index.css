@@ -1,87 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
-:root {
-  --main-color: rgb(251, 133, 0);
-  --secondary-color: rgb(142, 202, 230);
-  --accent-color: rgb(87, 10, 87);
-  --background-color: rgb(34, 34, 34);
+@tailwind utilities;
+@tailwind base;
+@tailwind components;
 
-  --text-color: rgb(152, 152, 152);
-  --text-correct-color: rgb(243, 243, 243);
-  --text-wrong-color: rgb(255, 0, 0);
-
-  --menu-font-size: clamp(2rem, 2.2em, 4vw);
-  --gameMenu-font-size: clamp(1rem, 1.3em, 2vw);
-  --text-font-size: clamp(1.5rem, 2em, 2.2vw);
-
-  --font-family: "Poppins", sans-serif;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  background-color: var(--background-color);
-  color: var(--secondary-color);
-  font-family: var(--font-family);
-  font-size: var(--gameMenu-font-size);
-}
-button {
-  background-color: inherit;
-  color: inherit;
-  border: none;
-  cursor: pointer;
-  transition: 0.5s ease-out;
-}
-a {
-  color: var(--text-color);
-  text-decoration: none;
-  transition: 0.5s ease-out;
-}
-
-#root {
-  height: 100vh;
-  padding: 1%;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-}
-
-.modal {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(0.1rem);
-  z-index: 1;
-  transition: all 0.3s;
-}
-.active {
-  color: var(--main-color);
-}
-.hide {
-  transition: 0.5s;
-  opacity: 0;
-  cursor: pointer;
-}
-.flex {
-  display: flex;
-  align-items: center;
-}
-
-@media screen and (min-width: 3000px) {
+@layer base {
+  html,
   body {
-    font-size: clamp(40px, 6em, 2vw);
+    @apply w-screen overflow-clip bg-base-300;
   }
-}
-
-@media screen and (max-width: 600px) {
-  body {
-    height: auto;
+  #root {
+    @apply grid min-h-screen grid-rows-[auto,1fr,auto] items-center px-4 md:px-16 lg:px-24;
+  }
+  svg {
+    @apply text-lg;
   }
 }

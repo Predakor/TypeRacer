@@ -4,9 +4,9 @@ import settingsContext from "@store/settings-context";
 import { generateWords } from "@utils/wordGenerator";
 import { useContext, useState } from "react";
 import GameStats from "../GameStats/GameStats";
-import classes from "./Board.module.css";
 import InfoPanel from "./InfoPanel/InfoPanel";
 import WordsPanel from "./WordsWrapper/WordsWrapper";
+import PauseModal from "@components/Modal/PauseModal";
 
 function Board() {
   const gameSettings = useContext(settingsContext);
@@ -32,21 +32,20 @@ function Board() {
 
   if (game.ended) {
     return (
-      <div className={classes.board}>
+      <>
         <GameStats words={words} />
-        <ControlButtons controls={gameControls} gameState={game} />
-      </div>
+        <ControlButtons controls={gameControls} ended={game.ended} />
+      </>
     );
   }
 
   return (
-    <div className={classes.board}>
+    <>
       <InfoPanel />
-
       <WordsPanel controls={gameControls} generatedWords={words} />
-
-      <ControlButtons controls={gameControls} gameState={game} />
-    </div>
+      <ControlButtons controls={gameControls} ended={game.ended} />
+      <PauseModal />
+    </>
   );
 }
 export default Board;

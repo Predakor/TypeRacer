@@ -3,23 +3,28 @@ import Clock from "@components/Clock";
 import { useGameStateContext } from "@store/gameState-context";
 import useGameSettings from "hooks/useGameSettings";
 import { Link } from "react-router-dom";
-import classes from "./InfoPanel.module.css";
 
 function InfoPanel() {
-  const [gameState, actions] = useGameStateContext();
+  const [game, actions] = useGameStateContext();
   const { mode, time } = useGameSettings();
 
-  const hide = gameState.started ? "hide" : "";
+  const infoMessage = game.started ? "" : "Press any key to start typing";
 
   return (
-    <div className={classes.container}>
-      <Clock mode={mode} time={time} onEnd={actions.end} />
-      <p className={hide}>Press any key to start typing</p>
+    <nav className={`navbar`}>
+      <Clock
+        mode={mode}
+        time={time}
+        onEnd={actions.end}
+        className="navbar-start"
+      />
 
-      <Link to="settings">
+      <h2 className={"navbar-center whitespace-nowrap"}>{infoMessage}</h2>
+
+      <Link to="settings" className="navbar-end">
         <SettingsButton />
       </Link>
-    </div>
+    </nav>
   );
 }
 

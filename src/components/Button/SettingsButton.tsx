@@ -1,15 +1,14 @@
-import { IoSettingsOutline } from "react-icons/io5";
+import { VscSettings } from "react-icons/vsc";
 import Button from "./Button";
 
 interface Props {
   className?: string;
-  onClick?: VoidFunction;
 }
 
-function SettingsButton({ className = "", onClick }: Props) {
+function SettingsButton({ className = "" }: Props) {
   return (
-    <Button className={className} onClick={onClick}>
-      <IoSettingsOutline />
+    <Button className={className} ariaLabel={"Game settings"}>
+      <VscSettings />
     </Button>
   );
 }

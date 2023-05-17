@@ -1,20 +1,33 @@
-import classes from "./Footer.module.css";
+import ThemeSelect from "@components/ThemeSelect/ThemeSelect";
+import { MdOutlineBrush } from "react-icons/md";
+
 function Footer() {
   return (
-    <footer>
-      <div className={classes.group}>
-        <Link target="mailto:patrykbusko@gmail.com">@ email</Link>
-        <Link target="https://github.com/Predakor/TypeRacer">{"</>"} github</Link>
-        <Link target="https://github.io/Predakor/">My page</Link>
+    <footer className="footer p-4">
+      <section className="grid-flow-col" aria-label="Links">
+        <Link link="mailto:patrykbusko@gmail.com">@ Contact</Link>
+        <Link link="https://github.com/Predakor/TypeRacer">{"</> github"}</Link>
+        <Link link="https://github.io/Predakor/">My page</Link>
+      </section>
+      <div className="grid-flow-col justify-self-end">
+        <label className="flex items-center">
+          <MdOutlineBrush />
+          <ThemeSelect />
+        </label>
       </div>
     </footer>
   );
 }
 
-function Link(props) {
+function Link({ link, children }: { link: string; children: string }) {
   return (
-    <a href={props.target} className={classes.link} target="_blank" rel="noreferrer">
-      {props.children}
+    <a
+      href={link}
+      className={"duration-300 hover:text-accent-content"}
+      target="_blank"
+      rel="noreferrer"
+    >
+      {children}
     </a>
   );
 }

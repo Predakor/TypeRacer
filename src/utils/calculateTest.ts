@@ -1,5 +1,13 @@
 import { Word } from "types/types";
 
+export type CharStats = {
+  total: number;
+  correct: number;
+  wrong: number;
+  skiped: number;
+  extra: number;
+};
+
 export function calculateStats(words: Word[]) {
   const stats = { total: 0, correct: 0, wrong: 0, skiped: 0, extra: 0 };
   words.forEach((word) => {
@@ -17,5 +25,5 @@ export function calculateStats(words: Word[]) {
   });
   stats.total += words.length - 1;
   stats.correct += words.length - 1;
-  return stats;
+  return stats as CharStats;
 }

@@ -1,14 +1,20 @@
-import Group from "@components/Group/Group";
 import { Link } from "react-router-dom";
-
-function Logo({ classes }: { classes: Record<string, string> }) {
+import { BsKeyboard } from "react-icons/bs";
+function Logo() {
   return (
-    <Group orientation="vertical">
-      <Link to="typer" className={classes.logo}>
-        Typer
-        <p className={classes.text}>The Typing App</p>
-      </Link>
-    </Group>
+    <Link
+      to="/"
+      className="navbar-start text-accent duration-150 hover:opacity-90"
+      aria-label="Go to home page"
+    >
+      <BsKeyboard className="text-5xl" />
+      <span className="indicator">
+        <h1 className="p-2 text-4xl font-bold">Typer</h1>
+        <p className="indicator-bottom indicator-item text-primary ">
+          the typing app
+        </p>
+      </span>
+    </Link>
   );
 }
 

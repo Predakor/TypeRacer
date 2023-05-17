@@ -2,14 +2,16 @@ import { ReactNode } from "react";
 import classes from "./Group.module.css";
 
 interface Props {
-  children: ReactNode;
-  orientation: "horizontal" | "vertical";
+  children: ReactNode | ReactNode[];
+  vertical?: boolean;
 }
 
-function Group({ children, orientation }: Props) {
-  const _orientation = classes[orientation];
+function Group({ children, vertical }: Props) {
+  const orientaion = vertical ? classes.vertical : "";
 
-  return <div className={`flex ${_orientation}`}>{children}</div>;
+  return (
+    <div className={`flex ${classes.group} ${orientaion}`}>{children}</div>
+  );
 }
 
 export default Group;

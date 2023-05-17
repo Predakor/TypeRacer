@@ -1,24 +1,15 @@
-import Group from "@components/Group/Group";
-import Logo from "@components/Logo/Logo";
-import { CgInfo, CgProfile } from "react-icons/cg";
-import { NavLink } from "react-router-dom";
-import classes from "./Nav.module.css";
+import { ReactNode } from "react";
 
-function Navigation() {
+interface Props {
+  children: ReactNode;
+  ariaLabel: string;
+  className?: string;
+}
+function Nav({ children, ariaLabel, className = "" }: Props) {
   return (
-    <nav className={classes.nav}>
-      <Logo classes={classes} />
-
-      <Group>
-        <NavLink className={classes.link} to="typer/about">
-          <CgInfo />
-        </NavLink>
-        <NavLink className={classes.link} to="typer/profile">
-          <CgProfile />
-        </NavLink>
-      </Group>
+    <nav className={`navbar ${className}`} aria-label={ariaLabel}>
+      {children}
     </nav>
   );
 }
-
-export default Navigation;
+export default Nav;

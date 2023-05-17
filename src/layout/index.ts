@@ -1,8 +1,6 @@
 import Footer from "./Footer/Footer";
-import Layout from "./Layout";
-import Main from "./Main/Main";
+import Header from "./Header/Header";
 import Nav from "./Nav/Nav";
 import Section from "./Section/Section";
 
-export { Footer, Main, Nav, Section };
-export default Layout;
+export { Footer, Nav, Header, Section };

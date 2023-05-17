@@ -7,9 +7,10 @@ interface Props {
   mode: "words" | "time";
   time: number;
   onEnd: (time: number) => void;
+  className?: string;
 }
 
-function Clock({ mode, time, onEnd }: Props) {
+function Clock({ mode, time, onEnd, className = "" }: Props) {
   const [game] = useGameStateContext();
   const gameStats = useGameStats();
 
@@ -23,7 +24,7 @@ function Clock({ mode, time, onEnd }: Props) {
     if (game.paused) return controls.pause();
     if (game.started) {
       if (!game.paused) controls.resume();
-      else controls.start();
+      else controls.restart();
     }
     if (game.ended) onEnd(clock);
   }, [game]);
@@ -33,9 +34,9 @@ function Clock({ mode, time, onEnd }: Props) {
   }, [clock]);
 
   return (
-    <div className="clock" aria-label="clock">
+    <span className={`${className} text-accent`} aria-label="clock">
       {clock / 1000}
-    </div>
+    </span>
   );
 }
 export default Clock;
