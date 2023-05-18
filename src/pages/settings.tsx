@@ -1,86 +1,68 @@
-import settingsContext from "@store/settings-context";
-import { useContext } from "preact/hooks";
-
+import SettingsGroup from "@components/SettingsGroup/SettingsGroup";
+import ThemeSelect from "@components/ThemeSelect/ThemeSelect";
+import useGameSettings from "hooks/useGameSettings";
+import { useState } from "preact/hooks";
 function Settings() {
-  const settings = useContext(settingsContext);
-  console.log(settings);
+  const settings = useGameSettings();
+
+  const [mode, setMode] = useState(settings.mode);
 
   return (
-    <>
-      <h2>Settings</h2>
-      <section>
-        <input type="radio" id="" />
-        <div>
-          <p>Mode</p>
-          <button className="btn-ghost btn" onClick={() => console.log(1)}>
-            Words
-          </button>
-          <button className="btn-ghost btn" onClick={() => console.log(1)}>
-            Quotes
-          </button>
-          <button className="btn-ghost btn" onClick={() => console.log(1)}>
-            Time
-          </button>
-        </div>
-        <div>
-          <p>Duration</p>
-          <button className="btn-ghost btn" onClick={() => console.log(1)}>
-            short
-          </button>
-          <button className="btn-ghost btn" onClick={() => console.log(1)}>
-            medium
-          </button>
-          <button className="btn-ghost btn" onClick={() => console.log(1)}>
-            long
-          </button>
-        </div>
+    <div
+      className={
+        "grid items-center justify-around gap-4 md:grid-cols-2 md:justify-items-center"
+      }
+    >
+      <h2 className={"col-span-full text-primary"}>Settings</h2>
 
-        <div>
-          <p>Extras</p>
-          <button className="btn-ghost btn flex" onClick={() => console.log(1)}>
-            punctuaction
-          </button>
-          <button className="btn-ghost btn" onClick={() => console.log(1)}>
-            numbers
-          </button>
-          <button
-            className="btn-ghost btn flex text-xl"
-            onClick={() => console.log(1)}
-          >
-            upperCase
-          </button>
-        </div>
-      </section>
+      <SettingsGroup
+        title="Mode"
+        settings={["mode", "words", "quotes"]}
+        active={mode}
+        onClick={setMode}
+      />
 
-      <section>
-        <div>
-          <p>Predefine thems</p>
-          <select name="themes" id="">
-            <option value="theme1">theme1</option>
-            <option value="theme2">theme2</option>
-            <option value="theme3">theme3</option>
-            <option value="theme4">theme4</option>
-            <option value="theme5">theme5</option>
-          </select>
-        </div>
+      <SettingsGroup
+        title="Duration"
+        settings={["30", "60", "90"]}
+        active={mode}
+        onClick={setMode}
+      />
 
+      <div>
+        <p>Extras</p>
+        <button className="btn-ghost btn flex" onClick={() => console.log(1)}>
+          punctuaction
+        </button>
+        <button className="btn-ghost btn" onClick={() => console.log(1)}>
+          numbers
+        </button>
+        <button
+          className="btn-ghost btn flex text-xl"
+          onClick={() => console.log(1)}
+        >
+          upperCase
+        </button>
+      </div>
+
+      <div className={"md:col-start-2 md:row-start-2 md:row-end-4"}>
+        <ThemeSelect />
+
+        <h3>Custom theme</h3>
         <div>
-          <h3>Custom theme</h3>
-          <div>
-            <p>Main Color</p>
-          </div>
-          <div>
-            <p>Secondary Color</p>
-          </div>
-          <div>
-            <p>Accent Color</p>
-          </div>
-          <div>
-            <p>Text Color </p>
-          </div>
+          <p>Main Color</p>
         </div>
-      </section>
-    </>
+        <div>
+          <p>Secondary Color</p>
+        </div>
+        <div>
+          <p>Accent Color</p>
+        </div>
+        <div>
+          <p>Text Color </p>
+        </div>
+      </div>
+    </div>
   );
 }
 export default Settings;

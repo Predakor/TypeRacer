@@ -1,7 +1,7 @@
 import { createContext } from "preact";
 
 interface GameSettings {
-  mode: "words" | "time";
+  mode: "words" | "time" | "quotes";
   time: number;
   wordCount: number;
 }
