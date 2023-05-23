@@ -7,7 +7,7 @@ function PauseModal() {
   if (!gameState.paused || !gameState.started) return null;
   return (
     <Modal onClose={actions.resume}>
-      <h2 className={""}>Click me to resume</h2>
+      <h2 className={"text-2xl"}>Click me to resume</h2>
     </Modal>
   );
 }

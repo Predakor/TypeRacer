@@ -1,6 +1,6 @@
 import Caret, { UpdateCaret } from "@components/Caret/Caret";
 import Word from "@components/Word/Word";
-import { useRef, useCallback } from "preact/hooks";
+import { useRef, useCallback, useEffect } from "preact/hooks";
 import type { Word as WordT } from "types/types";
 
 interface Props {
@@ -17,6 +17,10 @@ function WordList({ words, currentWord, currentIndex }: Props) {
     if (!caret) return;
     caret.style.translate = `${left}px ${top}px`;
   }, []);
+
+  useEffect(() => {
+    updateCaretPosition(0, 0);
+  }, [words]);
 
   return (
     <section className="relative flex flex-row flex-wrap gap-x-2 text-xl">
