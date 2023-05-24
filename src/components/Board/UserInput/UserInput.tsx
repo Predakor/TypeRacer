@@ -1,4 +1,4 @@
-import { useGameStateContext } from "@store/gameState-context";
+import { useGameStateContext } from "contexts/gameState-context";
 import { forwardRef } from "preact/compat";
 interface Props {
   onChange: (text: string) => void;

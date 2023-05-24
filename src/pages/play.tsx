@@ -1,5 +1,5 @@
 import Board from "@components/Board/Board";
-import { GameStateProvider } from "@store/gameState-context";
+import { GameStateProvider } from "contexts/gameState-context";
 
 function Play() {
   return (

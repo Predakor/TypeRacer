@@ -9,16 +9,18 @@ function SettingsGroup({ title, settings, active, onClick }: Props) {
     <article className={""}>
       <h3 className={"text-2xl font-semibold"}>{title}</h3>
       <div className={"flex"}>
-        {settings.map((setting) => (
-          <button
-            className={`btn-ghost btn ${
-              setting === active ? "btn-active" : ""
-            }`}
-            onClick={onClick}
-          >
-            {setting}
-          </button>
-        ))}
+        {settings.map((setting) => {
+          const activeClass = setting === active ? "btn-active" : "";
+          const clickHandler = () => onClick(setting);
+          return (
+            <button
+              className={`btn-ghost btn ${activeClass}`}
+              onClick={clickHandler}
+            >
+              {setting}
+            </button>
+          );
+        })}
       </div>
     </article>
   );

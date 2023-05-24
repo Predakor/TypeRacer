@@ -18,7 +18,7 @@ interface GameActions {
 
 type exportType = [GameState, GameActions];
 
-export const gameStateContext = createContext([{}, {}] as exportType);
+const gameStateContext = createContext([{}, {}] as exportType);
 
 export const GameStateProvider = ({ children }: PropsWithChildren) => {
   const [gameState, setGameState] = useState<GameState>({

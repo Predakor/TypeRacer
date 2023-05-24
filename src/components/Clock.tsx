@@ -1,4 +1,4 @@
-import { useGameStateContext } from "@store/gameState-context";
+import { useGameStateContext } from "contexts/gameState-context";
 import useClock from "hooks/useClock";
 import useGameStats from "hooks/useGameStats";
 import { useEffect } from "preact/hooks";

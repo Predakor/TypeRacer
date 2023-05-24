@@ -1,4 +1,4 @@
-import gameStatsContext from "@store/stats-context";
+import gameStatsContext from "contexts/stats-context";
 import { useContext } from "preact/hooks";
 
 function useGameStats() {

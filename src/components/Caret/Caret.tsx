@@ -1,4 +1,4 @@
-import { useGameStateContext } from "@store/gameState-context";
+import { useGameStateContext } from "contexts/gameState-context";
 import { forwardRef } from "preact/compat";
 
 export type UpdateCaret = (left: number | string, top: number | string) => void;

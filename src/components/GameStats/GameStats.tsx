@@ -1,5 +1,5 @@
 import { calculateStats } from "@utils/calculateTest";
-import useGameSettings from "hooks/useGameSettings";
+import { useGameSettings } from "contexts/settings-context";
 import useGameStats from "hooks/useGameStats";
 import { Word } from "types/types";
 import Stat from "./Stat";
@@ -8,7 +8,7 @@ const avgWordLength = 5;
 
 export default function GameStats({ words }: { words: Word[] }) {
   const { totalClicks, totalErrors, time } = useGameStats();
-  const { time: startTime, mode, wordCount } = useGameSettings();
+  const [{ time: startTime, mode, wordCount }] = useGameSettings();
   const { correct, wrong, skiped, extra } = calculateStats(words);
 
   const timeMode = mode === "time";

@@ -1,12 +1,12 @@
 import SettingsButton from "@components/Button/SettingsButton";
 import Clock from "@components/Clock";
-import { useGameStateContext } from "@store/gameState-context";
-import useGameSettings from "hooks/useGameSettings";
+import { useGameStateContext } from "contexts/gameState-context";
+import { useGameSettings } from "contexts/settings-context";
 import { Link } from "react-router-dom";
 
 function InfoPanel() {
   const [game, actions] = useGameStateContext();
-  const { mode, time } = useGameSettings();
+  const [{ mode, time }] = useGameSettings();
 
   const infoMessage = game.started ? "" : "Press any key to start typing";
 

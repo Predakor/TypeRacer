@@ -1,12 +1,10 @@
+import Button from "@components/Button/Button";
 import SettingsGroup from "@components/SettingsGroup/SettingsGroup";
 import ThemeSelect from "@components/ThemeSelect/ThemeSelect";
-import useGameSettings from "hooks/useGameSettings";
-import { useState } from "preact/hooks";
+import { useGameSettings } from "contexts/settings-context";
 function Settings() {
-  const settings = useGameSettings();
-
-  const [mode, setMode] = useState(settings.mode);
-
+  const [settings, setSettings] = useGameSettings();
+  const { mode, wordCount, time } = settings;
   return (
     <div
       className={
@@ -17,33 +15,33 @@ function Settings() {
 
       <SettingsGroup
         title="Mode"
-        settings={["mode", "words", "quotes"]}
+        settings={["time", "words", "quotes"]}
         active={mode}
-        onClick={setMode}
+        onClick={(setting) => setSettings({ mode: setting })}
       />
 
-      <SettingsGroup
-        title="Duration"
-        settings={["30", "60", "90"]}
-        active={mode}
-        onClick={setMode}
-      />
+      {mode === "words" ? (
+        <SettingsGroup
+          title="Words"
+          settings={["30", "50", "90"]}
+          active={`${wordCount}`}
+          onClick={(setting) => setSettings({ wordCount: setting })}
+        />
+      ) : (
+        <SettingsGroup
+          title="Duration"
+          settings={["30", "60", "90"]}
+          active={`${time}`}
+          onClick={(setting) => setSettings({ time: setting })}
+        />
+      )}
 
-      <div>
-        <p>Extras</p>
-        <button className="btn-ghost btn flex" onClick={() => console.log(1)}>
-          punctuaction
-        </button>
-        <button className="btn-ghost btn" onClick={() => console.log(1)}>
-          numbers
-        </button>
-        <button
-          className="btn-ghost btn flex text-xl"
-          onClick={() => console.log(1)}
-        >
-          upperCase
-        </button>
-      </div>
+      <section>
+        <h3>Extras</h3>
+        <Button ariaLabel="Add punctuation to test">punctuaction</Button>
+        <Button ariaLabel="Add Numbers to test">punctuaction</Button>
+        <Button ariaLabel="Add Uppercase letters to test">punctuaction</Button>
+      </section>
 
       <div className={"md:col-start-2 md:row-start-2 md:row-end-4"}>
         <ThemeSelect />

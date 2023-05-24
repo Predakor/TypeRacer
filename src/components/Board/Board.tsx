@@ -1,6 +1,6 @@
 import ControlButtons from "@components/ControlButtons/ControlButtons";
 import PauseModal from "@components/Modal/PauseModal";
-import { useGameStateContext } from "@store/gameState-context";
+import { useGameStateContext } from "contexts/gameState-context";
 import GameStats from "../GameStats/GameStats";
 import InfoPanel from "./InfoPanel/InfoPanel";
 import WordsPanel from "./WordsWrapper/WordsWrapper";

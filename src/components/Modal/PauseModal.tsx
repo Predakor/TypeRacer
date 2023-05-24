@@ -1,4 +1,4 @@
-import { useGameStateContext } from "@store/gameState-context";
+import { useGameStateContext } from "contexts/gameState-context";
 import Modal from "./Modal";
 
 function PauseModal() {

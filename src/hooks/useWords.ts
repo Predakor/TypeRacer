@@ -1,9 +1,9 @@
-import settingsContext from "@store/settings-context";
 import { generateWords } from "@utils/wordGenerator";
-import { useContext, useState } from "preact/hooks";
+import { useGameSettings } from "contexts/settings-context";
+import { useState } from "preact/hooks";
 
 function useWords() {
-  const { wordCount } = useContext(settingsContext);
+  const [{ wordCount }] = useGameSettings();
   const [words, setWords] = useState(generateWords(wordCount));
 
   const repeatWords = () =>
