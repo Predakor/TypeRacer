@@ -5,12 +5,15 @@
 @layer base {
   html,
   body {
-    @apply w-screen overflow-clip bg-base-300;
+    @apply w-screen overflow-clip bg-base-300 text-lg;
   }
   #root {
-    @apply grid min-h-screen grid-rows-[auto,1fr,auto] items-center px-4 md:px-16 lg:px-24;
+    @apply mx-auto grid min-h-screen max-w-5xl grid-rows-[auto,1fr,auto] items-center px-2 md:px-4;
+  }
+  #modal {
+    @apply absolute;
   }
   svg {
-    @apply text-lg;
+    @apply text-xl;
   }
 }

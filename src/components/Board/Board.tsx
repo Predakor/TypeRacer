@@ -1,47 +1,41 @@
 import ControlButtons from "@components/ControlButtons/ControlButtons";
+import PauseModal from "@components/Modal/PauseModal";
 import { useGameStateContext } from "@store/gameState-context";
-import settingsContext from "@store/settings-context";
-import { generateWords } from "@utils/wordGenerator";
 import GameStats from "../GameStats/GameStats";
 import InfoPanel from "./InfoPanel/InfoPanel";
 import WordsPanel from "./WordsWrapper/WordsWrapper";
-import PauseModal from "@components/Modal/PauseModal";
-import { useContext, useState } from "preact/hooks";
+import useWords from "hooks/useWords";
 
 function Board() {
-  const gameSettings = useContext(settingsContext);
   const [game, actions] = useGameStateContext();
-  const [words, setWords] = useState(generateWords(gameSettings.wordCount));
+  const [words, { newWords, repeatWords }] = useWords();
 
   const gameControls = {
     restartGame() {
-      setWords(generateWords(gameSettings.wordCount));
+      newWords();
       actions.restart();
     },
     repeatGame() {
-      setWords((prevWords) =>
-        prevWords.map(({ generated }) => ({
-          generated,
-          entered: "",
-        }))
-      );
+      repeatWords();
       actions.restart();
     },
     endGame: () => actions.end(),
   };
 
+  if (game.ended)
+    return (
+      <>
+        <GameStats words={words} />
+        <ControlButtons controls={gameControls} ended={game.ended} />
+      </>
+    );
+
   return (
     <>
-      {game.ended ? (
-        <GameStats words={words} />
-      ) : (
-        <>
-          <InfoPanel />
-          <WordsPanel controls={gameControls} generatedWords={words} />
-          <PauseModal />
-        </>
-      )}
+      <InfoPanel />
+      <WordsPanel controls={gameControls} generatedWords={words} />
       <ControlButtons controls={gameControls} ended={game.ended} />
+      <PauseModal />
     </>
   );
 }

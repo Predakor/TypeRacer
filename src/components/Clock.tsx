@@ -4,7 +4,7 @@ import useGameStats from "hooks/useGameStats";
 import { useEffect } from "preact/hooks";
 
 interface Props {
-  mode: "words" | "time";
+  mode: "words" | "time" | "quotes";
   time: number;
   onEnd: (time: number) => void;
   className?: string;

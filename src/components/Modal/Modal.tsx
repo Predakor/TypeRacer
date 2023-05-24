@@ -10,7 +10,7 @@ function Modal({ children, className = "", onClose }: Props) {
 
   return createPortal(
     <div
-      className={`absolute inset-0 flex items-center justify-center backdrop-blur ${className}`}
+      className={`absolute inset-0 z-50 flex h-screen w-screen items-center justify-center ${className}`}
       onClick={onClose}
     >
       {children}

@@ -8,7 +8,7 @@ function Logo() {
       aria-label="Go to home page"
     >
       <BsKeyboard className="text-5xl" />
-      <span className="indicator">
+      <span className="hidden md:indicator">
         <h1 className="p-2 text-4xl font-bold">Typer</h1>
         <p className="indicator-bottom indicator-item text-primary ">
           the typing app
