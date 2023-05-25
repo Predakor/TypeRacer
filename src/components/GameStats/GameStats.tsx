@@ -1,24 +1,18 @@
-import { calculateStats } from "@utils/calculateTest";
-import { useGameSettings } from "contexts/settings-context";
-import useGameStats from "hooks/useGameStats";
 import { Word } from "types/types";
 import Stat from "./Stat";
-
-const avgWordLength = 5;
+import useTestStats from "hooks/useTestStats";
 
 export default function GameStats({ words }: { words: Word[] }) {
-  const { totalClicks, totalErrors, time } = useGameStats();
-  const [{ time: startTime, mode, wordCount }] = useGameSettings();
-  const { correct, wrong, skiped, extra } = calculateStats(words);
-
-  const timeMode = mode === "time";
-  const duration = timeMode ? startTime - time : time;
-
-  const correctWords = correct / avgWordLength;
-  const wordsPerMinute = Math.round((correctWords * 60) / duration);
-
-  const totalCorrectClicks = totalClicks - totalErrors;
-  const accuracy = Math.round((totalCorrectClicks / totalClicks) * 100);
+  const {
+    wordsPerMinute,
+    accuracy,
+    duration,
+    chars,
+    mode,
+    startTime,
+    wordCount,
+  } = useTestStats(words);
+  const { correct, extra, skiped, wrong } = chars;
 
   return (
     <section
@@ -52,7 +46,7 @@ export default function GameStats({ words }: { words: Word[] }) {
       <Stat
         className="justify-items-center text-accent"
         title={`Gamemode`}
-        value={timeMode ? "time " + duration : "words " + wordCount}
+        value={mode === "time" ? "time " + startTime : "words " + wordCount}
         descr={"Current gamemode"}
       />
 

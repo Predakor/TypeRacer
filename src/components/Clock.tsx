@@ -15,7 +15,7 @@ function Clock({ mode, time, onEnd, className = "" }: Props) {
   const gameStats = useGameStats();
 
   const wordsMode = mode === "words";
-  const startTime = wordsMode ? 0 : time;
+  const startTime = wordsMode ? 0 : time * 1000;
   const gameMode = wordsMode ? "timer" : "countdown";
 
   const [clock, controls] = useClock({ mode: gameMode, startTime });
