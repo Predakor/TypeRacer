@@ -4,6 +4,7 @@ interface Props {
   active: string;
   onClick: (a: any) => void;
 }
+
 function SettingsGroup({ title, settings, active, onClick }: Props) {
   return (
     <article className={""}>
@@ -25,4 +26,5 @@ function SettingsGroup({ title, settings, active, onClick }: Props) {
     </article>
   );
 }
+
 export default SettingsGroup;
