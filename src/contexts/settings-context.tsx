@@ -34,10 +34,22 @@ const GameSettingsContext = createContext<SettingsContext>([
 ] as unknown as SettingsContext);
 
 function GameSettingsProvider({ children }: PropsWithChildren) {
-  const [settings, setSettings] = useState<GameSettings>(deafultSettings);
-  const updateSettings = useCallback((newSettings: Partial<GameSettings>) => {
-    setSettings((prev) => ({ ...prev, ...newSettings }));
-  }, []);
+  const [settings, setSettings] = useState<GameSettings>(() => {
+    const localSettings = localStorage.getItem("game-settings");
+    return localSettings ? JSON.parse(localSettings) : deafultSettings;
+  });
+
+  const updateSettings = useCallback(
+    (changedSettings: Partial<GameSettings>) => {
+      setSettings((prev) => {
+        const newSettings = { ...prev, ...changedSettings };
+        localStorage.setItem("game-settings", JSON.stringify(newSettings));
+        return newSettings;
+      });
+    },
+    []
+  );
+
   return (
     <GameSettingsContext.Provider value={[settings, updateSettings]}>
       {children}

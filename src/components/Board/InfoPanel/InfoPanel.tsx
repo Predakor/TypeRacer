@@ -1,8 +1,6 @@
-import SettingsButton from "@components/Button/SettingsButton";
 import Clock from "@components/Clock";
 import { useGameStateContext } from "contexts/gameState-context";
 import { useGameSettings } from "contexts/settings-context";
-import { Link } from "react-router-dom";
 
 function InfoPanel() {
   const [game, actions] = useGameStateContext();
@@ -11,7 +9,7 @@ function InfoPanel() {
   const infoMessage = game.started ? "" : "Press any key to start typing";
 
   return (
-    <nav className={`navbar`}>
+    <header className={`navbar`}>
       <Clock
         mode={mode}
         time={time}
@@ -21,10 +19,8 @@ function InfoPanel() {
 
       <h2 className={"navbar-center whitespace-nowrap"}>{infoMessage}</h2>
 
-      <Link to="settings" className="navbar-end">
-        <SettingsButton />
-      </Link>
-    </nav>
+      <div className={"navbar-end"}>{mode}</div>
+    </header>
   );
 }
 

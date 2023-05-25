@@ -4,11 +4,12 @@ interface Props {
   active: string;
   onClick: (a: any) => void;
 }
+
 function SettingsGroup({ title, settings, active, onClick }: Props) {
   return (
-    <article className={""}>
-      <h3 className={"text-2xl font-semibold"}>{title}</h3>
-      <div className={"flex"}>
+    <div className={""}>
+      <h3 className={"text-center text-2xl font-semibold"}>{title}</h3>
+      <div className={"btn-group"}>
         {settings.map((setting) => {
           const activeClass = setting === active ? "btn-active" : "";
           const clickHandler = () => onClick(setting);
@@ -22,7 +23,8 @@ function SettingsGroup({ title, settings, active, onClick }: Props) {
           );
         })}
       </div>
-    </article>
+    </div>
   );
 }
+
 export default SettingsGroup;

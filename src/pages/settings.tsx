@@ -1,17 +1,20 @@
 import Button from "@components/Button/Button";
-import SettingsGroup from "@components/SettingsGroup/SettingsGroup";
-import ThemeSelect from "@components/ThemeSelect/ThemeSelect";
+import SettingsGroup from "@components/Settings/SettingsGroup";
+import ThemeSettings from "@components/Settings/ThemeSettings";
 import { useGameSettings } from "contexts/settings-context";
+
 function Settings() {
   const [settings, setSettings] = useGameSettings();
-  const { mode, wordCount, time } = settings;
+  const { mode, wordCount, time, numbers, punctuaction, uppercase } = settings;
   return (
     <div
       className={
-        "grid items-center justify-around gap-4 md:grid-cols-2 md:justify-items-center"
+        "grid items-center gap-4 md:grid-cols-2 md:justify-items-center"
       }
     >
-      <h2 className={"col-span-full text-primary"}>Settings</h2>
+      <h2 className={"col-span-full text-3xl font-semibold text-primary"}>
+        Settings
+      </h2>
 
       <SettingsGroup
         title="Mode"
@@ -23,43 +26,47 @@ function Settings() {
       {mode === "words" ? (
         <SettingsGroup
           title="Words"
-          settings={["30", "50", "90"]}
+          settings={["10", "25", "50", "100"]}
           active={`${wordCount}`}
           onClick={(setting) => setSettings({ wordCount: setting })}
         />
       ) : (
         <SettingsGroup
           title="Duration"
-          settings={["30", "60", "90"]}
+          settings={["30", "60", "90", "120"]}
           active={`${time}`}
           onClick={(setting) => setSettings({ time: setting })}
         />
       )}
 
       <section>
-        <h3>Extras</h3>
-        <Button ariaLabel="Add punctuation to test">punctuaction</Button>
-        <Button ariaLabel="Add Numbers to test">punctuaction</Button>
-        <Button ariaLabel="Add Uppercase letters to test">punctuaction</Button>
+        <h3 className={"text-2xl font-semibold"}>Extras</h3>
+        <div className={"btn-group"}>
+          <Button
+            className={`${punctuaction ? "btn-active" : ""}`}
+            onClick={() => setSettings({ punctuaction: !punctuaction })}
+            ariaLabel="Add punctuation to test"
+          >
+            punctuaction
+          </Button>
+          <Button
+            className={`${numbers ? "btn-active" : ""}`}
+            onClick={() => setSettings({ numbers: !numbers })}
+            ariaLabel="Add Numbers to test"
+          >
+            numbers
+          </Button>
+          <Button
+            className={`${uppercase ? "btn-active" : ""}`}
+            onClick={() => setSettings({ uppercase: !uppercase })}
+            ariaLabel="Add Uppercase letters to test"
+          >
+            uppercase
+          </Button>
+        </div>
       </section>
 
-      <div className={"md:col-start-2 md:row-start-2 md:row-end-4"}>
-        <ThemeSelect />
-
-        <h3>Custom theme</h3>
-        <div>
-          <p>Main Color</p>
-        </div>
-        <div>
-          <p>Secondary Color</p>
-        </div>
-        <div>
-          <p>Accent Color</p>
-        </div>
-        <div>
-          <p>Text Color </p>
-        </div>
-      </div>
+      <ThemeSettings />
     </div>
   );
 }

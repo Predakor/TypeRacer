@@ -27,6 +27,7 @@ const themes = [
   "night",
   "coffee",
   "winter",
+  "mytheme",
 ] as const;
 export type AvaibleThemes = (typeof themes)[number];
 export default themes;
