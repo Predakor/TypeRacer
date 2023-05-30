@@ -12,7 +12,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={"/typer"}>
       <GameSettingsProvider>
         <Layout>
           <Routes>
