@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import svgrPlugin from "vite-plugin-svgr";
 import viteTsconfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig(() => {
+export default defineConfig(({ command }) => {
   return {
     server: {
       port: 3000,
