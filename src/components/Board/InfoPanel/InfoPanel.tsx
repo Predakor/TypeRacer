@@ -4,9 +4,10 @@ import { useGameSettings } from "contexts/settings-context";
 import GameHint from "./GameHint/GameHint";
 
 function InfoPanel() {
-  const [game, actions] = useGameStateContext();
+  const [{ started, paused }, actions] = useGameStateContext();
   const [{ mode, time }] = useGameSettings();
 
+  const visible = started && !paused ? "opacity-0" : "";
   return (
     <header className={`navbar`}>
       <Clock
@@ -16,10 +17,14 @@ function InfoPanel() {
         className="navbar-start"
       />
       <div className={"navbar-center whitespace-nowrap"}>
-        <GameHint gameStarted={game.started} />
+        <GameHint gameStarted={started} />
       </div>
 
-      <div className={"navbar-end"}>{mode}</div>
+      <div
+        className={`navbar-end ${visible} transition-opacity duration-1000 `}
+      >
+        {mode}
+      </div>
     </header>
   );
 }
