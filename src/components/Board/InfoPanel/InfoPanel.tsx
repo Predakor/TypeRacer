@@ -1,12 +1,11 @@
 import Clock from "@components/Clock";
 import { useGameStateContext } from "contexts/gameState-context";
 import { useGameSettings } from "contexts/settings-context";
+import GameHint from "./GameHint/GameHint";
 
 function InfoPanel() {
   const [game, actions] = useGameStateContext();
   const [{ mode, time }] = useGameSettings();
-
-  const infoMessage = game.started ? "" : "Press any key to start typing";
 
   return (
     <header className={`navbar`}>
@@ -16,8 +15,9 @@ function InfoPanel() {
         onEnd={actions.end}
         className="navbar-start"
       />
-
-      <h2 className={"navbar-center whitespace-nowrap"}>{infoMessage}</h2>
+      <div className={"navbar-center whitespace-nowrap"}>
+        <GameHint gameStarted={game.started} />
+      </div>
 
       <div className={"navbar-end"}>{mode}</div>
     </header>
