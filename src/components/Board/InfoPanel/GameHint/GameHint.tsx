@@ -11,7 +11,7 @@ function GameHint({ gameStarted }: { gameStarted: boolean }) {
   return (
     <h2
       className={`font-bold text-error opacity-0 ${
-        !capsLock ? "scale-110 opacity-100" : ""
+        capsLock ? "scale-110 opacity-100" : ""
       } duration-200`}
     >
       {hints.capsLockOn}
