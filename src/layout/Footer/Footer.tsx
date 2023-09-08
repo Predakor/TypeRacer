@@ -7,19 +7,20 @@ function Footer() {
   const visible = started && !paused ? "opacity-0" : "";
   return (
     <footer
-      className={`footer p-4 ${visible} transition-opacity duration-1000`}
+      className={`grid p-4 md:grid-cols-2 ${visible} transition-opacity duration-1000`}
     >
-      <section className="grid-flow-col" aria-label="Links">
+      <section
+        className="flex items-center justify-center gap-4 md:justify-self-start"
+        aria-label="Links"
+      >
         <Link link="mailto:patrykbusko@gmail.com">@ Contact</Link>
         <Link link="https://github.com/Predakor/TypeRacer">{"</> github"}</Link>
         <Link link="https://github.io/Predakor/">My page</Link>
       </section>
-      <div className="grid-flow-col justify-self-end">
-        <label className="flex items-center">
-          <MdOutlineBrush />
-          <ThemeSelect />
-        </label>
-      </div>
+      <label className="hidden items-center gap-4 justify-self-end md:flex">
+        <MdOutlineBrush />
+        <ThemeSelect />
+      </label>
     </footer>
   );
 }
@@ -28,7 +29,7 @@ function Link({ link, children }: { link: string; children: string }) {
   return (
     <a
       href={link}
-      className={"duration-300 hover:text-accent-content"}
+      className={"text-sm duration-300 hover:text-accent-content"}
       target="_blank"
       rel="noreferrer"
     >

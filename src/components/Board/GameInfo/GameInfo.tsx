@@ -6,14 +6,12 @@ import GameModes from "./GameModes/GameModes";
 import GameDuration from "./GameDuration/GameDuration";
 
 function InfoPanel() {
-  const [{ started, paused }, actions] = useGameStateContext();
+  const [{ started }, actions] = useGameStateContext();
   const [{ mode, time, wordCount }, setSettings] = useGameSettings();
 
-  const visible = started && !paused ? "opacity-0" : "";
-
   return (
-    <header className={`navbar`}>
-      <div className={"navbar-start"}>
+    <header className={`flex justify-center p-4 md:navbar`}>
+      <div className={"navbar-start hidden md:flex"}>
         {started ? (
           <Clock mode={mode} time={time} onEnd={actions.end} />
         ) : (
@@ -29,11 +27,13 @@ function InfoPanel() {
         )}
       </div>
 
-      <div className={"navbar-center whitespace-nowrap"}>
+      <div className={"whitespace-nowrap md:navbar-center md:flex"}>
         <GameHint gameStarted={started} />
       </div>
 
-      <div className={`navbar-end transition-opacity duration-1000 `}>
+      <div
+        className={`navbar-end hidden transition-opacity duration-1000 md:flex `}
+      >
         {started ? (
           mode
         ) : (

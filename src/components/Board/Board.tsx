@@ -29,20 +29,20 @@ function Board() {
     newWords(settings.wordCount);
   }, [settings]);
 
-  if (game.ended)
-    return (
-      <>
-        <GameStats words={words} />
-        <ControlButtons controls={gameControls} ended={game.ended} />
-      </>
-    );
-
   return (
     <>
-      <InfoPanel />
-      <WordsPanel controls={gameControls} generatedWords={words} />
+      {game.ended ? (
+        <>
+          <GameStats words={words} />
+        </>
+      ) : (
+        <>
+          <InfoPanel />
+          <WordsPanel controls={gameControls} generatedWords={words} />
+          <PauseModal />
+        </>
+      )}
       <ControlButtons controls={gameControls} ended={game.ended} />
-      <PauseModal />
     </>
   );
 }

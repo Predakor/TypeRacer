@@ -19,24 +19,31 @@ function WordList({ words, currentWord, currentIndex }: Props) {
   }, []);
 
   useEffect(() => {
-    updateCaretPosition(0, 0);
+    const caret = caretRef.current;
+    const firstWord = caret?.nextSibling?.firstChild;
+    if (caret && firstWord) {
+      const { offsetLeft } = firstWord as HTMLElement;
+      updateCaretPosition(offsetLeft - 2, 0);
+    }
   }, [words]);
 
   return (
-    <section className="relative flex flex-row flex-wrap gap-x-2 text-xl">
+    <section className="relative ">
       <Caret ref={caretRef} />
-      {words.map(({ entered, generated }, i) => {
-        const isCurrentWord = i === currentIndex;
-        const userWord = isCurrentWord ? currentWord : entered;
-        return (
-          <Word
-            word={generated}
-            userWord={userWord}
-            updateCaret={updateCaretPosition}
-            key={i}
-          />
-        );
-      })}
+      <div className="flex flex-row flex-wrap justify-center gap-x-2 text-xl">
+        {words.map(({ entered, generated }, i) => {
+          const isCurrentWord = i === currentIndex;
+          const userWord = isCurrentWord ? currentWord : entered;
+          return (
+            <Word
+              word={generated}
+              userWord={userWord}
+              updateCaret={updateCaretPosition}
+              key={i}
+            />
+          );
+        })}
+      </div>
     </section>
   );
 }

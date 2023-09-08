@@ -8,7 +8,7 @@
     @apply w-screen overflow-clip bg-base-300 text-lg;
   }
   #root {
-    @apply mx-auto grid min-h-screen max-w-5xl grid-rows-[auto,1fr,auto] items-center px-2 md:px-4;
+    @apply mx-auto grid min-h-screen max-w-5xl grid-rows-[auto,1fr,auto] items-center px-2 md:gap-2 md:px-4;
   }
   #modal {
     @apply absolute;
