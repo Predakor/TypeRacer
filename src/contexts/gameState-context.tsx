@@ -45,5 +45,4 @@ export const GameStateProvider = ({ children }: PropsWithChildren) => {
     </gameStateContext.Provider>
   );
 };
-export const useGameState = () => useContext(gameStateContext);
 export const useGameStateContext = () => useContext(gameStateContext);

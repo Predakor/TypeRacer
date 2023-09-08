@@ -1,9 +1,9 @@
 import ThemeSelect from "@components/ThemeSelect/ThemeSelect";
-import { useGameState } from "contexts/gameState-context";
+import { useGameStateContext } from "contexts/gameState-context";
 import { MdOutlineBrush } from "react-icons/md";
 
 function Footer() {
-  const [{ started, paused }] = useGameState();
+  const [{ started, paused }] = useGameStateContext();
   const visible = started && !paused ? "opacity-0" : "";
   return (
     <footer
