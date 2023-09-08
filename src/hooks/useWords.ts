@@ -1,10 +1,11 @@
 import { generateWords } from "@utils/wordGenerator";
 import { useGameSettings } from "contexts/settings-context";
 import { useRef, useState } from "preact/hooks";
+import { Word } from "types/types";
 
 function useWords() {
   const [{ wordCount }] = useGameSettings();
-  const [words, setWords] = useState(generateWords(wordCount));
+  const [words, setWords] = useState<Word[]>([]);
 
   const controls = useRef({
     repeatWords: () => {
@@ -15,7 +16,7 @@ function useWords() {
         }))
       );
     },
-    newWords: () => setWords(generateWords(wordCount)),
+    newWords: (amount?: number) => setWords(generateWords(amount ?? wordCount)),
     moreWords: (amount?: number) => {
       return setWords([...words, ...generateWords(amount ?? 30)]);
     },

@@ -6,8 +6,9 @@ import {
   useState,
 } from "preact/compat";
 
+export type AvaibleGameModes = "words" | "time" | "quotes";
 interface GameSettings {
-  mode: "words" | "time" | "quotes";
+  mode: AvaibleGameModes;
   time: number;
   wordCount: number;
   punctuaction: boolean;
