@@ -7,11 +7,11 @@ function ThemeSettings() {
   };
 
   return (
-    <section className={"md:col-start-2 md:row-start-2 md:row-end-4"}>
-      <h3 className={"text-xl font-semibold"}>Predefined Themes</h3>
+    <>
+      <h3 className={"text-center text-2xl font-bold"}>Themes</h3>
       <ThemeSelect />
       <div className={"divider"}>OR</div>
-      <h3 className={"text-xl font-semibold"}>Custom theme</h3>
+      <h3 className={"text-center text-2xl font-bold"}>Custom</h3>
       <div className={"flex flex-col gap-2"}>
         <label className={"flex justify-between"}>
           Primary
@@ -49,7 +49,7 @@ function ThemeSettings() {
           />
         </label>
       </div>
-    </section>
+    </>
   );
 }
 export default ThemeSettings;

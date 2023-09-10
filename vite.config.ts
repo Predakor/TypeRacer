@@ -8,7 +8,7 @@ export default defineConfig(({ command }) => {
     server: {
       port: 3000,
     },
-    base: "/typer/",
+    base: "/typer",
     plugins: [preact(), viteTsconfigPaths(), svgrPlugin()],
     resolve: {
       alias: {

@@ -11,7 +11,7 @@ interface GameSettings {
   mode: AvaibleGameModes;
   time: number;
   wordCount: number;
-  punctuaction: boolean;
+  punctuation: boolean;
   numbers: boolean;
   uppercase: boolean;
 }
@@ -25,7 +25,7 @@ const deafultSettings = {
   mode: "words",
   time: 0,
   wordCount: 50,
-  punctuaction: false,
+  punctuation: false,
   numbers: false,
   uppercase: false,
 } satisfies GameSettings;

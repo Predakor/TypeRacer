@@ -16,7 +16,7 @@ export default function GameStats({ words }: { words: Word[] }) {
 
   return (
     <>
-      <h2 className={"text-center text-4xl  font-bold text-accent"}>
+      <h2 className={"text-center text-4xl  font-bold text-base-content"}>
         Test Completed
       </h2>
 
@@ -25,33 +25,33 @@ export default function GameStats({ words }: { words: Word[] }) {
           "grid animate-appear justify-items-center gap-2 p-2 md:gap-4 md:p-4"
         }
       >
-        <div className={"grid grid-cols-3"}>
+        <div className={"grid grid-cols-3 text-primary"}>
           <Stat
-            className="justify-items-center text-accent"
+            className="justify-items-center"
             title={"Wpm"}
             value={wordsPerMinute}
             descr="Words per minute"
           />
           <Stat
-            className="justify-items-center text-accent"
+            className="justify-items-center"
             title={"Time"}
             value={`${duration}s`}
             descr="Test duration"
           />
           <Stat
-            className="justify-items-center text-accent"
+            className="justify-items-center"
             title={"Accuracy"}
             value={`${accuracy}%`}
             descr="Accuracy"
           />
           <Stat
-            className="col-span-full justify-items-center text-accent md:col-span-1"
+            className="col-span-full justify-items-center md:col-span-1"
             title={`Gamemode`}
             value={mode === "time" ? "time " + startTime : "words " + wordCount}
             descr={"Current gamemode"}
           />
           <Stat
-            className="col-span-full justify-items-center text-accent md:col-span-2"
+            className="col-span-full justify-items-center md:col-span-2"
             title="Characters"
             value={`${correct}/${wrong}/${skiped}/${extra}`}
             descr="Correct, Wrong, Skipped, Extra"

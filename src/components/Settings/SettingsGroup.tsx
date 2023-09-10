@@ -1,23 +1,21 @@
 interface Props {
   title: string;
   settings: string[];
-  active: string;
+  active: string[];
   onClick: (a: any) => void;
 }
 
 function SettingsGroup({ title, settings, active, onClick }: Props) {
   return (
-    <div className={""}>
-      <h3 className={"text-center text-2xl font-semibold"}>{title}</h3>
-      <div className={"btn-group"}>
+    <div className={"grid gap-2"}>
+      <h3 className={"text-center text-2xl font-bold"}>{title}</h3>
+      <div className={"join gap-2"}>
         {settings.map((setting) => {
-          const activeClass = setting === active ? "btn-active" : "";
+          const settingActive = active.includes(setting);
+          const activeClass = settingActive ? "btn-primary" : "btn-base";
           const clickHandler = () => onClick(setting);
           return (
-            <button
-              className={`btn-ghost btn ${activeClass}`}
-              onClick={clickHandler}
-            >
+            <button className={`btn ${activeClass}`} onClick={clickHandler}>
               {setting}
             </button>
           );
