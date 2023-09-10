@@ -1,5 +1,5 @@
 import { useGameStateContext } from "contexts/gameState-context";
-import { forwardRef } from "preact/compat";
+import { forwardRef, useEffect } from "preact/compat";
 interface Props {
   onChange: (text: string) => void;
   nextWord: VoidFunction;
@@ -14,6 +14,16 @@ const UserInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
   const [game, actions] = useGameStateContext();
   const { onChange, nextWord, prevWord } = props;
 
+  useEffect(() => {
+    if (!game.started || game.paused) {
+      return;
+    }
+    const { current: input } = ref as React.Ref<HTMLInputElement>;
+    if (input && document.activeElement !== input) {
+      input.focus();
+    }
+  }, [game]);
+
   const changeHandler = ({ currentTarget }: InputTarget) => {
     if (game.started) onChange(currentTarget.value);
   };
@@ -21,6 +31,9 @@ const UserInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
   const clickHandler = (e: KeyboardEvent) => {
     if (game.ended) return;
     if (!game.started) actions.start();
+    if (game.paused) {
+      actions.resume();
+    }
     if (e.key === " ") return nextWord();
     if (e.key === "Backspace") return prevWord();
   };
@@ -35,6 +48,7 @@ const UserInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
 
   return (
     <input
+      id={"words-input"}
       className={"sr-only"}
       onChange={changeHandler}
       onKeyDown={clickHandler}

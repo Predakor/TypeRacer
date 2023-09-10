@@ -1,8 +1,19 @@
+import { useGameStateContext } from "contexts/gameState-context";
 import { useEffect, useState } from "preact/hooks";
 
 function useKeyListener() {
   const [capsLock, setCapsLock] = useState(false);
   const [currentKey, setCurrentKey] = useState<string>("");
+  const [game, actions] = useGameStateContext();
+
+  useEffect(() => {
+    if (game.paused) {
+      const validKey = /^[a-zA-Z0-9!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]$/;
+      if (validKey.test(currentKey)) {
+        actions.resume();
+      }
+    }
+  }, [currentKey, game]);
 
   useEffect(() => {
     const clickHandler = (e: KeyboardEvent) => {
