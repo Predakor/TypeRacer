@@ -1,5 +1,4 @@
 import ControlButtons from "@components/ControlButtons/ControlButtons";
-import PauseModal from "@components/Modal/PauseModal";
 import { useGameStateContext } from "contexts/gameState-context";
 import { useGameSettings } from "contexts/settings-context";
 import useWords from "hooks/useWords";
@@ -32,14 +31,11 @@ function Board() {
   return (
     <>
       {game.ended ? (
-        <>
-          <GameStats words={words} />
-        </>
+        <GameStats words={words} />
       ) : (
         <>
           <InfoPanel />
           <WordsPanel controls={gameControls} generatedWords={words} />
-          <PauseModal />
         </>
       )}
       <ControlButtons controls={gameControls} ended={game.ended} />

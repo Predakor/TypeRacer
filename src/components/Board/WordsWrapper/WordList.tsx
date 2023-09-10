@@ -1,4 +1,5 @@
 import Caret, { UpdateCaret } from "@components/Caret/Caret";
+import PauseModal from "@components/Modal/PauseModal";
 import Word from "@components/Word/Word";
 import { useRef, useCallback, useEffect } from "preact/hooks";
 import type { Word as WordT } from "types/types";
@@ -29,6 +30,7 @@ function WordList({ words, currentWord, currentIndex }: Props) {
 
   return (
     <section className="relative ">
+      <PauseModal />
       <Caret ref={caretRef} />
       <div className="flex flex-row flex-wrap justify-center gap-x-2 text-xl">
         {words.map(({ entered, generated }, i) => {
