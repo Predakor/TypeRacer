@@ -7,6 +7,9 @@
   body {
     @apply w-screen overflow-x-clip;
   }
+  *:focus {
+    @apply visible opacity-100;
+  }
   svg {
     @apply text-xl;
   }
