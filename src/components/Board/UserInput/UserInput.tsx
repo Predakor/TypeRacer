@@ -57,7 +57,8 @@ const UserInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
       autoCapitalize="off"
       autoCorrect="off"
       autoComplete="off"
-      autoFocus
+      spellCheck={false}
+      autoFocus={true}
       ref={ref}
     />
   );
